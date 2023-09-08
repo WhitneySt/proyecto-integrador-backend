@@ -7,4 +7,6 @@ public interface CuentaRepository {
     public boolean saveOrUpdateCuenta(Cuenta cuenta);
     public Cuenta getCuentaByIdUsuario(Integer idUsuario);
 
+//     public boolean transferencia(Integer idCuentaOrigen, Integer idCuentaDestino, Double monto);
+
 }
