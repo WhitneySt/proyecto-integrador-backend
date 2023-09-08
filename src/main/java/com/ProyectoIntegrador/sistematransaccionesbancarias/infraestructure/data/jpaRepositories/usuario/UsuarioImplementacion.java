@@ -3,7 +3,7 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.dat
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.UsuarioRepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.UsuarioJPAEntity;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperClass;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,11 +12,11 @@ public class UsuarioImplementacion implements UsuarioRepository {
 
     // ?  Inyección de dependencias
     private  final UsuarioJPARepository usuarioJPARepository;
-    private MapperClass mapperClass;
+    private final MapperUsuario mapperUsuario;
 
-    public UsuarioImplementacion(UsuarioJPARepository usuarioJPARepository, MapperClass mapperClass) {
+    public UsuarioImplementacion(UsuarioJPARepository usuarioJPARepository, MapperUsuario mapperUsuario) {
         this.usuarioJPARepository = usuarioJPARepository;
-        this.mapperClass = mapperClass;
+        this.mapperUsuario = mapperUsuario;
 
     }
 
@@ -25,7 +25,7 @@ public class UsuarioImplementacion implements UsuarioRepository {
 
         List<Usuario> usuariosList = new ArrayList<>();
         // obtener todos los usuarios de la base de datos y los  guardar en la lista usuarios, se tiene que hacer el mapeo de la entidad de la base de datos a la entidad de dominio
-        usuarioJPARepository.findAll().forEach(Usuario -> usuariosList.add(mapperClass.UsuarioJPAToUsuarioDomain(Usuario)));
+        usuarioJPARepository.findAll().forEach(Usuario -> usuariosList.add(mapperUsuario.UsuarioJPAToUsuarioDomain(Usuario)));
 
         return usuariosList;
     }
@@ -35,14 +35,14 @@ public class UsuarioImplementacion implements UsuarioRepository {
 
         // obtengo el usuario de la base de datos
         UsuarioJPAEntity usuarioJPAEntity = usuarioJPARepository.findById(id).get();
-        return mapperClass.UsuarioJPAToUsuarioDomain(usuarioJPAEntity);  // se tiene que hacer el mapeo de la entidad de la base de datos a la entidad de dominio para que se retorne el tipo de valor correcto
+        return mapperUsuario.UsuarioJPAToUsuarioDomain(usuarioJPAEntity);  // se tiene que hacer el mapeo de la entidad de la base de datos a la entidad de dominio para que se retorne el tipo de valor correcto
 
     }
 
     @Override
     public boolean saveOrUpdateUsuario(Usuario usuario) {
 
-        usuarioJPARepository.save(mapperClass.UsuarioDomainToUsuarioJPA(usuario));
+        usuarioJPARepository.save(mapperUsuario.UsuarioDomainToUsuarioJPA(usuario));
 
         // si el usuario está presente en la base de datos significa que se guardó o actualizó correctamente
         return usuarioJPARepository.findById(usuario.getId()).isPresent();
