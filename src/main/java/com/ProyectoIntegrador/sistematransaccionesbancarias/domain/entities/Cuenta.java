@@ -8,18 +8,18 @@ public class Cuenta {
     private Date fechaCreacion;
     private Double saldo;
     private Double metaAhorro;
-    private Usuario usuario_id;
+    private Usuario usuarioId;
 
     public Cuenta(){
     }
 
-    public Cuenta(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, Usuario usuario_id) {
+    public Cuenta(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, Usuario usuarioId) {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
         this.fechaCreacion = fechaCreacion;
         this.saldo = saldo;
         this.metaAhorro = metaAhorro;
-        this.usuario_id = usuario_id;
+        this.usuarioId = usuarioId;
     }
 
     public Integer getId() {
@@ -62,11 +62,11 @@ public class Cuenta {
         this.metaAhorro = metaAhorro;
     }
 
-    public Usuario getUsuario_id() {
-        return usuario_id;
+    public Usuario getUsuarioId() {
+        return usuarioId;
     }
 
-    public void setUsuario_id(Usuario usuario_id) {
-        this.usuario_id = usuario_id;
+    public void setUsuarioId(Usuario usuarioId) {
+        this.usuarioId = usuarioId;
     }
 }

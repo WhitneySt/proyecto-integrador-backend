@@ -15,7 +15,7 @@ public class CuentaServices {
 
     public boolean saveOrUpdateCuenta(Cuenta cuenta) {
 
-        Usuario usuarioCuenta = cuenta.getUsuario_id(); // obtiene el usuario de la cuenta
+        Usuario usuarioCuenta = cuenta.getUsuarioId(); // obtiene el usuario de la cuenta
         Integer idUsuario = usuarioCuenta.getId(); // obtiene el id del usuario de la cuenta
 
         cuentaRepository.saveOrUpdateCuenta(cuenta);
