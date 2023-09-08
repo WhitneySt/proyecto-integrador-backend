@@ -1,15 +1,11 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo;
 
-import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
-import jakarta.annotation.Nullable;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
-import org.antlr.v4.runtime.misc.NotNull;
+import jakarta.persistence.*;
 
 import java.sql.Date;
 
+@Entity
+@Table(name = "Cuentas")
 public class CuentaJPAEntity {
 
     @Id
@@ -22,14 +18,14 @@ public class CuentaJPAEntity {
     private Double saldo;
     private Double metaAhorro;
 
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "usuarioId",referencedColumnName = "id", nullable = false)
-    private Usuario usuarioId;
+    private UsuarioJPAEntity usuarioId;
 
     public CuentaJPAEntity(){
     }
 
-    public CuentaJPAEntity(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, Usuario usuarioId) {
+    public CuentaJPAEntity(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, UsuarioJPAEntity usuarioId) {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
         this.fechaCreacion = fechaCreacion;
@@ -78,11 +74,11 @@ public class CuentaJPAEntity {
         this.metaAhorro = metaAhorro;
     }
 
-    public Usuario getusuarioId() {
+    public UsuarioJPAEntity getusuarioId() {
         return usuarioId;
     }
 
-    public void setusuarioId(Usuario usuarioId) {
+    public void setusuarioId(UsuarioJPAEntity usuarioId) {
         this.usuarioId = usuarioId;
     }
 
