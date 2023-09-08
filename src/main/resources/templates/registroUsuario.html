@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Registro</title>
+    </head>
+    <body>
+        <h2>¡Bienvenido a nuestra plataforma! </h2>
+
+        <p class="description">Para comenzar a disfrutar de todos nuestros servicios, por favor completa el siguiente
+            formulario
+        </p>
+
+        <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post">
+
+            <label for="nombre">Nombre</label>
+            <input type="text" th:field="*{nombre}" id="nombre" name="nombre" required><br>
+
+            <label for="documento">Número de Documento</label>
+            <input type="number" th:field="*{id}" id="documento" name="documento" required
+                   pattern="[0-9]{5,}"><br>
+
+            <label for="correo">Correo</label>
+            <input type="text" th:field="*{correo}" id="correo" name="correo" required
+                   pattern=".{5,}"><br>
+
+            <label for="contrasena">Contraseña</label>
+            <input type="password" th:field="*{contrasena}" id="contrasena" name="contrasena" required
+                   pattern=".{5,}"><br>
+
+            <button type="submit">Registrarse</button>
+
+        </form>
+        <script th:inline="javaScript">
+                    window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == true) {
+                        mensajeMostrar = "El usuario se ha registrado correctamente";
+                    }
+                    else if (mensajeRecibido == flase) {
+                        mensajeMostrar = "Error al registrar el usuario";
+                    }
+
+                    alert(mensajeMostrar);
+                }
+
+            };
+
+    </script>
+    </body>
+</html>
