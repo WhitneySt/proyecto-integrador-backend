@@ -5,13 +5,11 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usua
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.UsuarioDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.UsuarioJPAEntity;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
-import org.mapstruct.factory.Mappers;
 import org.springframework.stereotype.Component;
 
 @Component
 @Mapper(componentModel = "spring")
-public interface MapperClass {
+public interface MapperUsuario {
 
 
     Usuario UsuarioJPAToUsuarioDomain(UsuarioJPAEntity usuarioJPAEntity);
