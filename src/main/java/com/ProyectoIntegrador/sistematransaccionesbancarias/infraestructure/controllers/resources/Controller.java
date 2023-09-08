@@ -5,7 +5,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usua
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.UsuarioDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioJPARepository;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperClass;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -18,14 +18,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class Controller {
 
     @Autowired
-    private MapperClass mapperClass;
+    private MapperUsuario mapperUsuario;
     UsuarioService usuarioService;
     UsuarioImplementacion repository;
 
     @Autowired
-    public Controller(UsuarioJPARepository jpaRepository,MapperClass mapperClass) {;
-        this.repository = new UsuarioImplementacion(jpaRepository,mapperClass);
-        this.mapperClass = mapperClass;
+    public Controller(UsuarioJPARepository jpaRepository, MapperUsuario mapperUsuario) {;
+        this.repository = new UsuarioImplementacion(jpaRepository, mapperUsuario);
+        this.mapperUsuario = mapperUsuario;
         this.usuarioService = new UsuarioService(this.repository);
     }
 
@@ -44,7 +44,7 @@ public class Controller {
     @PostMapping("/registro/guardarUsuario")
     public String guardarUsuario(UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
 
-        Usuario usuario = mapperClass.UsuarioDtoToUsuarioDomain(usuarioDto);
+        Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
         if(usuarioService.saveOrUpdateUsuario(usuario)){
             System.out.println("Usuario guardado correctamente");
             redirectAttributes.addFlashAttribute("mensaje", true);
