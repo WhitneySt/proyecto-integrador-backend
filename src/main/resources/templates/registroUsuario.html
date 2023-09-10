@@ -1,58 +1,78 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Registro</title>
-    </head>
-    <body>
-        <h2>¡Bienvenido a nuestra plataforma! </h2>
 
-        <p class="description">Para comenzar a disfrutar de todos nuestros servicios, por favor completa el siguiente
-            formulario
-        </p>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- libreria de iconos -->
+    <link rel="stylesheet" type="text/css" th:href="@{css/registroAndLogin.css}">
+    <title>Registro</title>
+</head>
 
-        <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post">
+<body>
+<section class="sectionInformation">
+    <header>
+        <img th:src="@{images/iconBanco.png}" alt="Logo empresa">
+        <h1> Makaia Bank</h1>
+    </header>
+    <div id="sectionInformationText">
+        <h2>Bienvenido a Makaia Banck</h2>
+        <p>Estamos emocionados de tenerte como parte de nuestra comunidad financiera.</p>
+        <p> Para comenzar a aprovechar al máximo nuestra plataforma, te pedimos que ingreses los siguientes datos
+            para crear tu perfil personal</p>
+    </div>
+</section>
+<main>
+    <h2>Registrarce</h2>
+    <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post">
+        <div class="input-container">
+            <input  class=" input-field user-icon" type="text" th:field="*{nombre}" id="nombre" name="nombre"
+                   placeholder="Nombre de Completo" >
+        </div>
+        <div class="input-container">
+            <input class="input-field email-icon" type="email" th:field="*{correo}" id="correo" name="correo"
+                   placeholder="Correo electrónico">
+        </div>
+        <div class="input-container">
+            <input class="input-field id-icon" type="numbre" th:field="*{id}" id="documento" name="documento"
+                   placeholder="Número documento">
+        </div>
+        <div class="input-container">
+            <input class="input-field password-icon" type="password" th:field="*{contrasena}" id="contrasena"
+                   name="contrasena" placeholder="Contraseña">
+            <i class="fa fa-eye icon" onclick="togglePassword()"></i>
+        </div>
 
-            <label for="nombre">Nombre</label>
-            <input type="text" th:field="*{nombre}" id="nombre" name="nombre" required><br>
+        <p>¿Tienes una cuenta? <a href="">Ingresa</a></p>
 
-            <label for="documento">Número de Documento</label>
-            <input type="number" th:field="*{id}" id="documento" name="documento" required
-                   pattern="[0-9]{5,}"><br>
+        <div class="container">
+            <button type="submit" class="btnSubmit">Crear cuenta
+            </button>
+        </div>
+    </form>
+</main>
+<script>
 
-            <label for="correo">Correo</label>
-            <input type="text" th:field="*{correo}" id="correo" name="correo" required
-                   pattern=".{5,}"><br>
-
-            <label for="contrasena">Contraseña</label>
-            <input type="password" th:field="*{contrasena}" id="contrasena" name="contrasena" required
-                   pattern=".{5,}"><br>
-
-            <button type="submit">Registrarse</button>
-
-        </form>
-        <script th:inline="javaScript">
-                    window.onload = function () {
-
-                let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
-                console.log(mensajeRecibido);
-                let mensajeMostrar = "";
-
-                if (mensajeRecibido != "") {
-
-                    if (mensajeRecibido == true) {
-                        mensajeMostrar = "El usuario se ha registrado correctamente";
-                    }
-                    else if (mensajeRecibido == flase) {
-                        mensajeMostrar = "Error al registrar el usuario";
-                    }
-
-                    alert(mensajeMostrar);
-                }
-
-            };
-
+        function togglePassword() {
+            var passwordInput = document.querySelector('.password-icon');
+            var icon = document.querySelector('.icon');
+            if (passwordInput.type === "password") {
+                passwordInput.type = "text";
+                icon.classList.remove("fa-eye");
+                icon.classList.add("fa-eye-slash");
+            } else {
+                passwordInput.type = "password";
+                icon.classList.remove("fa-eye-slash");
+                icon.classList.add("fa-eye");
+            }
+        }
     </script>
-    </body>
+</body>
+
 </html>
