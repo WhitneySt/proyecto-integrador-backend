@@ -1,0 +1,192 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+.sectionInformation{
+    padding: 40px ;
+    background: #151D38;
+    width: 50%;
+    height: 100vh;
+}
+
+header{
+    display: flex;
+    align-items: center;
+    height: 12%;
+}
+
+header img{
+    height: 90%;
+    width: 12%;
+}
+
+h1{
+    color: #fff;
+    font-size: 26px;
+    font-weight: 600;
+}
+
+#sectionInformationText{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 80vh;
+
+}
+
+#sectionInformationText h2{
+    color: #fff;
+    font-size: 30px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: normal;
+}
+
+#sectionInformationText p{
+    color: #fff;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: center;
+    padding: 10px 50px;
+}
+
+/*FORMULARIO*/
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 50%;
+
+}
+main h2{
+    color: #535FE3;
+    font-size: 35px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    line-height: normal;
+}
+
+main .input-container {
+    margin: 20px 0 ;
+    width: 380px;
+
+}
+
+.input-field {
+    width: 100%;
+    padding: 15px 38px;
+    outline: none;
+    border: 1px solid #ccc;
+    border-radius: 10.341px;
+    transition: all 500ms ease-in-out;
+    background-repeat: no-repeat;
+    background-position: 12px center ; /* Ajusta el valor del primer parámetro para agregar padding a la izquierda */
+    background-size: 20px;
+    cursor: pointer;
+}
+
+.input-field:focus {
+    border-color: #535FE3;
+    box-shadow: 0 0 0 2px #535FE3;
+
+}
+
+.input-field:focus + .icon {
+    color: #535FE3;
+}
+
+.input-field::placeholder,.input-field {
+    color: rgba(0, 0, 0, 0.50);
+    font-family: Poppins;
+    font-size: 16px;
+    font-weight: 300;
+}
+
+.user-icon{
+    background-image: url('../images/user-icon.svg');
+
+
+}
+
+.email-icon{
+    background-image: url('../images/email-icon.svg');
+}
+
+.id-icon{
+    background-image: url('../images/id-icon.svg');
+}
+
+.password-icon{
+    background-image: url('../images/password-icon.svg');
+}
+
+/*iconos de los ojos para ver u ocultar la contaseña*/
+.icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #8A8A8A;
+  }
+  .input-container {
+    position: relative;
+}
+
+main p{
+    color: rgba(0, 0, 0, 0.46);
+    text-align: center;
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    line-height: normal;
+
+}
+
+main p a{
+    color: #535FE3;
+    font-weight: 600;
+    text-decoration: none;
+
+
+}
+
+main p a:hover{
+    text-decoration: underline;
+}
+
+.container {
+    text-align: center; /* Alinea el contenido del contenedor al centro */
+}
+
+button.btnSubmit{
+    width: 80%;
+    padding: 15px 38px;
+    outline: none;
+    border: none;
+    border-radius: 10.341px;
+    transition: all 500ms ease-in-out;
+    background-color: #535FE3;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+button.btnSubmit:hover{
+    background-color: #3A3FE8;
+}

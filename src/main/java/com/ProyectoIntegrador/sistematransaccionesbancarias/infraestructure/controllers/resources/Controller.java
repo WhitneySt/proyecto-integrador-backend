@@ -18,12 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class Controller {
 
     @Autowired
-    private MapperUsuario mapperUsuario;
+    private final MapperUsuario mapperUsuario;
     UsuarioService usuarioService;
     UsuarioImplementacion repository;
 
     @Autowired
-    public Controller(UsuarioJPARepository jpaRepository, MapperUsuario mapperUsuario) {;
+    public Controller(UsuarioJPARepository jpaRepository, MapperUsuario mapperUsuario) {
         this.repository = new UsuarioImplementacion(jpaRepository, mapperUsuario);
         this.mapperUsuario = mapperUsuario;
         this.usuarioService = new UsuarioService(this.repository);
@@ -46,7 +46,6 @@ public class Controller {
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
         if(usuarioService.saveOrUpdateUsuario(usuario)){
-            System.out.println("Usuario guardado correctamente");
             redirectAttributes.addFlashAttribute("mensaje", true);
             return "redirect:/registro"; // Se redireciona al servicio
         }
