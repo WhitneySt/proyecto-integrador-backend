@@ -30,7 +30,7 @@
 </section>
 <main>
     <h2>Registrarce</h2>
-    <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post">
+    <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
         <div class="input-container">
             <input  class=" input-field user-icon" type="text" th:field="*{nombre}" id="nombre" name="nombre" placeholder="Nombre de Completo" >
             <span class="error-message" id="nombre-completo-error">Ingrese su nombre completo</span>
