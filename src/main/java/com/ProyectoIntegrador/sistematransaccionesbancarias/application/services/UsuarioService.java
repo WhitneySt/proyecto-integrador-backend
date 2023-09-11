@@ -21,8 +21,17 @@ public class UsuarioService {
         return usuarioRepository.getUsuarioById(id);
     }
 
-    public boolean saveOrUpdateUsuario(Usuario usuario) {
-        usuarioRepository.saveOrUpdateUsuario(usuario);
+    public  boolean createUsuario(Usuario usuario){
+
+        if(usuarioRepository.getUsuarioById(usuario.getId())==null){ // si no hay un usuario creado con ese id se crea
+            usuarioRepository.createUsuario(usuario);
+            return  true;
+        }
+        return  false;
+    }
+
+    public boolean UpdateUsuario(Usuario usuario) {
+        usuarioRepository.UpdateUsuario(usuario);
         if (usuarioRepository.getUsuarioById(usuario.getId()) != null) // si al buscar el usuario con el id del usuario, entonces se creó o actualizó correctamente
             return true;
         return true;

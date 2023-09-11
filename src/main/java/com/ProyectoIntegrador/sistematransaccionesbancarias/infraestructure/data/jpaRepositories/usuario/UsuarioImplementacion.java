@@ -40,11 +40,21 @@ public class UsuarioImplementacion implements UsuarioRepository {
     }
 
     @Override
-    public boolean saveOrUpdateUsuario(Usuario usuario) {
+    public boolean createUsuario(Usuario usuario) {
+
+        if(usuarioJPARepository.findById(usuario.getId()).isEmpty()){ // si no hay un usuario creado con ese id se crea
+            usuarioJPARepository.save(mapperUsuario.UsuarioDomainToUsuarioJPA(usuario));
+            return  true;
+        }
+        return  false;
+    }
+
+    @Override
+    public boolean UpdateUsuario(Usuario usuario) {
 
         usuarioJPARepository.save(mapperUsuario.UsuarioDomainToUsuarioJPA(usuario));
 
-        // si el usuario está presente en la base de datos significa que se guardó o actualizó correctamente
+        // si el usuario está presente en la base de datos significa que se  actualizó correctamente
         return usuarioJPARepository.findById(usuario.getId()).isPresent();
 
     }

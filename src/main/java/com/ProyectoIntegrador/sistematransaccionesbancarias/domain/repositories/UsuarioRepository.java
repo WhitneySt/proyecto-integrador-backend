@@ -8,7 +8,9 @@ public interface UsuarioRepository {
 
     public List<Usuario>  getAllUsuarios();
     public Usuario getUsuarioById(Integer id);
-    public boolean  saveOrUpdateUsuario(Usuario usuario); // si existe lo actualiza, si no existe lo crea, esto se sabe por el id del usuario y retorna el usuario creado o actualizado
+    public boolean createUsuario(Usuario usuario);
+    public boolean  UpdateUsuario(Usuario usuario);
+
     public boolean deleteUsuarioById(Integer id);
 
 

@@ -45,7 +45,7 @@ public class Controller {
     public String guardarUsuario(UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
-        if(usuarioService.saveOrUpdateUsuario(usuario)){
+        if(usuarioService.createUsuario(usuario)){
             redirectAttributes.addFlashAttribute("mensaje", true);
             return "redirect:/registro"; // Se redireciona al servicio
         }
