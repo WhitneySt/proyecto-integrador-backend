@@ -32,20 +32,21 @@
     <h2>Registrarce</h2>
     <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post">
         <div class="input-container">
-            <input  class=" input-field user-icon" type="text" th:field="*{nombre}" id="nombre" name="nombre"
-                   placeholder="Nombre de Completo" >
+            <input  class=" input-field user-icon" type="text" th:field="*{nombre}" id="nombre" name="nombre" placeholder="Nombre de Completo" >
+            <span class="error-message" id="nombre-completo-error">Ingrese su nombre completo</span>
         </div>
         <div class="input-container">
-            <input class="input-field email-icon" type="email" th:field="*{correo}" id="correo" name="correo"
-                   placeholder="Correo electrónico">
+            <input class="input-field email-icon" type="email" th:field="*{correo}" id="correo" name="correo" placeholder="Correo electrónico">
+            <span class="error-message" id="correo-electronico-error">Ingrese un correo electrónico válido</span>
         </div>
         <div class="input-container">
-            <input class="input-field id-icon" type="numbre" th:field="*{id}" id="documento" name="documento"
-                   placeholder="Número documento">
+            <input class="input-field id-icon" type="numbre" th:field="*{id}" id="documento" name="documento" placeholder="Número documento">
+            <span class="error-message" id="numero-documento-error">Ingrese un número de documento válido</span>
         </div>
         <div class="input-container">
-            <input class="input-field password-icon" type="password" th:field="*{contrasena}" id="contrasena"
-                   name="contrasena" placeholder="Contraseña">
+            <input class="input-field password-icon" type="password" th:field="*{contrasena}" id="contrasena" name="contrasena" placeholder="Contraseña">
+            <span class="error-message" id="contrasena-error">Ingrese una contraseña válida <br> <br> * Debe tener mínimo una letra
+                    minúscula, una letra mayúscula y un número, y  una longitud mínima de 8 caracteres </span>
             <i class="fa fa-eye icon" onclick="togglePassword()"></i>
         </div>
 
