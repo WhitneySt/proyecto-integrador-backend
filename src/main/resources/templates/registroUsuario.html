@@ -142,9 +142,9 @@
             const errorMesaggeInputContrasena = document.getElementById("contrasena" +"-" + ERROR_MESSAGE_SELECTOR);
             const iconEye = document.getElementsByClassName("icon")[0];
 
-            // Si ambos mensajes de error están visibles, ajusta la posición del icono del ojo
-            if (errorMesaggeInputNumberDocument.style.display == "block" && errorMesaggeInputContrasena.style.display == "block") {
-              iconEye.style.top = "30px";
+            // Si ambos mensajes de error están visibles o solo el de la contraseña, ajusta la posición del icono del ojo
+            if ((errorMesaggeInputNumberDocument.style.display == "block" && errorMesaggeInputContrasena.style.display == "block") || (errorMesaggeInputContrasena.style.display == "block")) {
+                iconEye.style.top = "30px";
             }
         }
 
