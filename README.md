@@ -7,4 +7,7 @@ Este es el repositorio del backend para el Proyecto Integrador de un sistema de 
 - Hibernate para la capa de persistencia y mapeo objeto-relacional.
 - Gradle como herramienta de construcción y gestión de dependencias.
 - Thymeleaf para las vistas en el frontend.
-- JavaScript para darle funcionalidad adicional al frontend.
+- JavaScript para darle funcionalidad adicional al frontend 
+## Diagrama Entidad - Relación
+![EER-ProyectoIntegrador](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/d630d4ed-7760-458e-a1a4-e134100d9230)
+
