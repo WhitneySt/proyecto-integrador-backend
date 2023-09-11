@@ -117,20 +117,16 @@ main .input-container {
 }
 
 .user-icon{
-    background-image: url('./public/images/user-icon.svg');
-
+    background-image: url('../images/user-icon.svg');
 }
-
 .email-icon{
-    background-image: url('./public/images/email-icon.svg');
+    background-image: url('../images/email-icon.svg');
 }
-
 .id-icon{
-    background-image: url('./public/images/id-icon.svg');
+    background-image: url('../images/id-icon.svg');
 }
-
 .password-icon{
-    background-image: url('./public/images/password-icon.svg');
+    background-image: url('../images/password-icon.svg');
 }
 
 /*iconos de los ojos para ver u ocultar la contaseña*/
