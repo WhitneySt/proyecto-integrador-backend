@@ -34,7 +34,7 @@
 
     <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
         <div class="input-container">
-            <input  class=" input-field user-icon" type="text" th:field="*{nombre}" id="nombre" name="nombre" id="nombre-completo" placeholder="Nombre de Completo" >
+            <input  class=" input-field user-icon" type="text" th:field="*{nombre}"  name="nombre" id="nombre-completo" placeholder="Nombre de Completo" >
             <span class="error-message" id="nombre-completo-error">Ingrese su nombre completo</span>
         </div>
         <div class="input-container">
@@ -42,11 +42,11 @@
             <span class="error-message" id="correo-electronico-error">Ingrese un correo electrónico válido</span>
         </div>
         <div class="input-container">
-            <input class="input-field id-icon" type="numbre" th:field="*{id}" id="documento" name="documento"  id="numero-documento" placeholder="Número documento">
+            <input class="input-field id-icon" type="text" th:field="*{id}"  name="documento"  id="numero-documento" placeholder="Número documento">
             <span class="error-message" id="numero-documento-error">Ingrese un número de documento válido</span>
         </div>
         <div class="input-container">
-            <input class="input-field password-icon" type="password" th:field="*{contrasena}" id="contrasena" name="contrasena" id="contrasena"  placeholder="Contraseña">
+            <input class="input-field password-icon" type="password" th:field="*{contrasena}"  name="contrasena" id="contrasena"  placeholder="Contraseña">
             <span class="error-message" id="contrasena-error">Ingrese una contraseña válida <br> <br> * Debe tener mínimo una letra
                     minúscula, una letra mayúscula y un número, y  una longitud mínima de 8 caracteres </span>
             <i class="fa fa-eye icon" onclick="togglePassword()"></i>
@@ -67,8 +67,6 @@
         // Esta función se encarga de validar el formulario y retorna un valor booleano que indica si el formulario es válido o no para poder enviarlo
         function validateForm(event) {
 
-            event.preventDefault(); // Evita que el formulario se envíe automáticamente al hacer clic en el botón de envío porque se usa para prevenir el comportamiento prederteminado del formulario
-
             // Obtiene los elementos de los inputs del formulario
             const nombreCompletoInput = document.getElementById("nombre-completo");
             const correoElectronicoInput = document.getElementById("correo-electronico");
@@ -76,7 +74,7 @@
             const contrasenaInput = document.getElementById("contrasena");
 
             // Define las expresiones regulares para cada input
-            const nombreCompletoRegex = /^[a-zA-Z ]+$/;  // Verifica si una cadena contiene solo constras mayúsculas, minúsculas y espacios en blanco
+            const nombreCompletoRegex =  /^[a-zA-ZñÑáéíóúÁÉÍÓÚ ]+$/// Verifica si una cadena contiene solo constras mayúsculas, minúsculas y espacios en blanco,permite que tenga la ñ y tíldes
             const correoElectronicoRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // verifica si una cadena es una dirección de correo electrónico válida.
             const numeroDocumentoRegex = /^[0-9]+$/; // verifica si una cadena contiene solo números.
             const contrasenaRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/; // verifica si una cadena contiene al menos una letra minúscula, una letra mayúscula y un número, y tiene una longitud mínima de 8 caracteres
@@ -92,9 +90,15 @@
             isValid = validateInput(numeroDocumentoInput, numeroDocumentoRegex) && isValid;
             isValid = validateInput(contrasenaInput, contrasenaRegex) && isValid;
 
+            console.log(isValid);
 
-
-            return isValid;
+            // Si el formulario no es válido, evita que se envíe
+            if (isValid) {
+                return true;
+            } else {
+                event.preventDefault(); // Evita que el formulario se envíe automáticamente al hacer clic en el botón de envío porque se usa para prevenir el comportamiento prederteminado del formulario
+                return false;
+            }
 
 
         }
