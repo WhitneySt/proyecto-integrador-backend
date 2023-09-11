@@ -1,0 +1,13 @@
+package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper;
+
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.TipoTransaccion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.TipoTransaccionDto;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.TipoTransaccionJPAEntity;
+
+public interface MapperTipoTransaccion {
+    TipoTransaccion TipoTransaccionJPAToTipoTransaccionDomain(TipoTransaccionJPAEntity tipoTransaccionJPAEntity);
+    TipoTransaccionJPAEntity TipoTransaccionDomainToTipoTransaccionJPA(TipoTransaccion tipoTransaccion);
+
+    TipoTransaccion TipoTransaccionDtoToTipoTransaccionDomain(TipoTransaccionDto tipoTransaccionDto);
+    TipoTransaccionDto TipoTransaccionDomainToTipoTransaccionDto(TipoTransaccion tipoTransaccion);
+}

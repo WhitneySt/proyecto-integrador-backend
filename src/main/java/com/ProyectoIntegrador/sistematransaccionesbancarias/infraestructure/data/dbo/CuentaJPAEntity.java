@@ -10,6 +10,8 @@ public class CuentaJPAEntity {
 
     @Id
     private Integer id;
+    @Column(length = 100, nullable = false)
+    private String nombre;
     @Column(length = 50, nullable = false)
     private String numeroCuenta;
     @Column(length = 50, nullable = false)
@@ -17,6 +19,9 @@ public class CuentaJPAEntity {
     @Column(length = 50, nullable = false)
     private Double saldo;
     private Double metaAhorro;
+
+    @Column(length = 100, nullable = false)
+    private String color;
 
     @ManyToOne
     @JoinColumn(name = "usuarioId",referencedColumnName = "id", nullable = false)

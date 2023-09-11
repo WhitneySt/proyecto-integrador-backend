@@ -7,22 +7,28 @@ import java.sql.Date;
 public class CuentaDto {
 
     private Integer id;
+
+    private String nombre;
     private String numeroCuenta;
     private Date fechaCreacion;
     private Double saldo;
     private Double metaAhorro;
+
+    private String color;
     private Usuario usuarioId;
 
     public CuentaDto(){
         this.fechaCreacion = new Date(System.currentTimeMillis());
     }
 
-    public CuentaDto(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, Usuario usuarioId) {
+    public CuentaDto(Integer id, String nombre, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, String color, Usuario usuarioId) {
         this.id = id;
+        this.nombre = nombre;
         this.numeroCuenta = numeroCuenta;
         this.fechaCreacion = fechaCreacion;
         this.saldo = saldo;
         this.metaAhorro = metaAhorro;
+        this.color = color;
         this.usuarioId = usuarioId;
     }
 
@@ -32,6 +38,14 @@ public class CuentaDto {
 
     public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getNumeroCuenta() {
@@ -66,6 +80,14 @@ public class CuentaDto {
         this.metaAhorro = metaAhorro;
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
     public Usuario getUsuarioId() {
         return usuarioId;
     }
@@ -73,6 +95,4 @@ public class CuentaDto {
     public void setUsuarioId(Usuario usuarioId) {
         this.usuarioId = usuarioId;
     }
-    
-    
 }

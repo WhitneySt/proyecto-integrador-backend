@@ -1,0 +1,12 @@
+package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories;
+
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Transaccion;
+
+import java.util.List;
+
+public interface TransaccionRepository {
+    public List<Transaccion> getAllTransacciones();
+    public Transaccion getTransaccionById(Integer id);
+    public boolean  saveOrUpdateTransaccion(Transaccion transaccion);
+    public boolean deleteTransaccionById(Integer id);
+}
