@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 
 <head>
     <meta charset="UTF-8">
@@ -62,8 +62,29 @@
     </form>
 
 </main>
-<script th:inline="javaScript"  th:src="@{js/validationFormLoginAndRegister.js}">
- </script>
+<script th:inline="javaScript"  th:src="@{js/validationFormLoginAndRegister.js}"></script>
+<script th:inline="javaScript">
+    window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == "createOk") {
+                        mensajeMostrar = "El usuario se ha registrado correctamente";
+                    }
+                    else if (mensajeRecibido == "createError") {
+                        mensajeMostrar = "Usuario ya registrado";
+                    }
+
+
+                    alert(mensajeMostrar);
+                }
+
+            };
+</script>
 </body>
 
 </html>
