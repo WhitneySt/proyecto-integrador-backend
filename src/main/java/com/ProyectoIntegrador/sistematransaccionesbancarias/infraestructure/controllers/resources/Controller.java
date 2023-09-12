@@ -46,7 +46,7 @@ public class Controller {
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
         if(usuarioService.createUsuario(usuario)){
             redirectAttributes.addFlashAttribute("mensaje", "createOk");
-            return "redirect:/registro"; // Se redireciona al servicio
+            return "redirect:/login"; // Se redireciona al servicio
         }
 
         redirectAttributes.addFlashAttribute("mensaje", "createError");
