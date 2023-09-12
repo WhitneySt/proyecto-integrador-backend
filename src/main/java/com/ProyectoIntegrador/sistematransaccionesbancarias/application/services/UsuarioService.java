@@ -2,8 +2,11 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.application.service
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.UsuarioRepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.UsuarioJPAEntity;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.UserNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioService {
 
@@ -22,12 +25,16 @@ public class UsuarioService {
     }
 
     public  boolean createUsuario(Usuario usuario){
-
-        if(usuarioRepository.getUsuarioById(usuario.getId())==null){ // si no hay un usuario creado con ese id se crea
+        try {
+            usuarioRepository.getUsuarioById(usuario.getId());
+            return false; // Ya existe un usuario con ese ID
+        } catch (UserNotFoundException ex) {
+            // Si se lanza una excepción UserNotFoundException, significa que no se encontró ningún usuario con el ID especificado
+            // Por lo tanto, podemos registrar un nuevo usuario con ese ID
             usuarioRepository.createUsuario(usuario);
-            return  true;
+            return true;
         }
-        return  false;
+
     }
 
     public boolean UpdateUsuario(Usuario usuario) {
