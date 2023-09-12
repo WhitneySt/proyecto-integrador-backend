@@ -3,10 +3,12 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.dat
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.UsuarioRepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.UsuarioJPAEntity;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.UserNotFoundException;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class UsuarioImplementacion implements UsuarioRepository {
 
@@ -34,19 +36,29 @@ public class UsuarioImplementacion implements UsuarioRepository {
     public Usuario getUsuarioById(Integer id) {
 
         // obtengo el usuario de la base de datos
-        UsuarioJPAEntity usuarioJPAEntity = usuarioJPARepository.findById(id).get();
-        return mapperUsuario.UsuarioJPAToUsuarioDomain(usuarioJPAEntity);  // se tiene que hacer el mapeo de la entidad de la base de datos a la entidad de dominio para que se retorne el tipo de valor correcto
+        Optional<UsuarioJPAEntity> optionalUsuario = usuarioJPARepository.findById(id);
+
+        if (optionalUsuario.isPresent()) {
+            return mapperUsuario.UsuarioJPAToUsuarioDomain(optionalUsuario.get()); // se tiene que hacer el mapeo de la entidad de la base de datos a la entidad de dominio para que se retorne el tipo de valor correcto
+        }
+        else {
+                // Manejo del caso en que no se encuentre el usuario
+            throw new UserNotFoundException("No se encontró ningún usuario con el id especificado");
+            }
 
     }
 
     @Override
     public boolean createUsuario(Usuario usuario) {
 
-        if(usuarioJPARepository.findById(usuario.getId()).isEmpty()){ // si no hay un usuario creado con ese id se crea
+        Optional<UsuarioJPAEntity> optionalUsuario = usuarioJPARepository.findById(usuario.getId());
+        if (optionalUsuario.isPresent()) {
+            return false; // Ya existe un usuario con ese ID
+        } else {
             usuarioJPARepository.save(mapperUsuario.UsuarioDomainToUsuarioJPA(usuario));
-            return  true;
+            return true;
         }
-        return  false;
+
     }
 
     @Override
