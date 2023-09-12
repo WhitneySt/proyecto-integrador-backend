@@ -12,7 +12,7 @@
           integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
     <!-- libreria de iconos -->
     <link rel="stylesheet" type="text/css" th:href="@{css/registroAndLogin.css}">
-    <title>Registro</title>
+    <title>Inicio de sesión</title>
 </head>
 
 <body>
@@ -22,25 +22,18 @@
         <h1> Makaia Bank</h1>
     </header>
     <div id="sectionInformationText">
-        <h2>Bienvenido a Makaia Bank</h2>
-        <p>Estamos emocionados de tenerte como parte de nuestra comunidad financiera.</p>
-        <p> Para comenzar a aprovechar al máximo nuestra plataforma, te pedimos que ingreses los siguientes datos
-            para crear tu perfil personal</p>
+        <h2>Bienvenido de  nuevo</h2>
+        <p>Ingresa tus credenciales para acceder a tu cuenta y comenzar a gestionar tus finanzas de manera conveniente y segura
+        </p>
     </div>
 </section>
 <main>
 
-    <h2>Registrarce</h2>
+    <h2>Iniciar sesión</h2>
 
-    <form th:action="@{registro/guardarUsuario}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
-        <div class="input-container">
-            <input  class=" input-field user-icon" type="text" th:field="*{nombre}"  name="nombre" id="nombre-completo" placeholder="Nombre de Completo" >
-            <span class="error-message" id="nombre-completo-error">Ingrese su nombre completo</span>
-        </div>
-        <div class="input-container">
-            <input class="input-field email-icon" type="text" th:field="*{correo}"  name="correo" id="correo-electronico" placeholder="Correo electrónico">
-            <span class="error-message" id="correo-electronico-error">Ingrese un correo electrónico válido</span>
-        </div>
+
+    <form th:action="@{login/autenticacion}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
+
         <div class="input-container">
             <input class="input-field id-icon" type="text" th:field="*{id}"  name="documento"  id="numero-documento" placeholder="Número documento">
             <span class="error-message" id="numero-documento-error">Ingrese un número de documento válido</span>
@@ -52,11 +45,10 @@
             <i class="fa fa-eye icon" onclick="togglePassword()"></i>
         </div>
 
-        <p>¿Tienes una cuenta? <a href="">Ingresa</a></p>
+        <p>¿No tienes una cuenta? <a th:href="@{/registro}">Create una</a></p>
 
         <div class="container">
-            <button type="submit" class="btnSubmit">Crear cuenta
-            </button>
+            <button type="submit" class="btnSubmit">Enviar</button>
         </div>
 
     </form>
