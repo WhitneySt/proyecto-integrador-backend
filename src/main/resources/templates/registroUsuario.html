@@ -63,6 +63,9 @@
 
 </main>
 <script th:inline="javaScript"  th:src="@{js/validationFormLoginAndRegister.js}"></script>
+<!-- trae la librerias de alerta -->
+<script type="text/javascript"  src="//cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+
 <script th:inline="javaScript">
     window.onload = function () {
 
@@ -74,13 +77,22 @@
 
                     if (mensajeRecibido == "createOk") {
                         mensajeMostrar = "El usuario se ha registrado correctamente";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
                     }
                     else if (mensajeRecibido == "createError") {
-                        mensajeMostrar = "Usuario ya registrado";
+                        mensajeMostrar = "El usuario ya se encuentra registrado";
+                        Swal.fire({
+                            icon: 'error',
+                            title: mensajeMostrar,
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
                     }
-
-
-                    alert(mensajeMostrar);
                 }
 
             };
