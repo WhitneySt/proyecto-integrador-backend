@@ -48,11 +48,11 @@
         <div class="input-container">
             <input class="input-field password-icon" type="password" th:field="*{contrasena}"  name="contrasena" id="contrasena"  placeholder="Contraseña">
             <span class="error-message" id="contrasena-error">Ingrese una contraseña válida <br> <br> * Debe tener mínimo una letra
-                    minúscula, una letra mayúscula y un número, y  una longitud mínima de 8 caracteres </span>
+                    minúscula, una letra mayúscula, un número y  una longitud mínima de 8 caracteres </span>
             <i class="fa fa-eye icon" onclick="togglePassword()"></i>
         </div>
 
-        <p>¿Tienes una cuenta? <a href="">Ingresa</a></p>
+        <p>¿Tienes una cuenta? <a th:href="@{/login}">Ingresa</a></p>
 
         <div class="container">
             <button type="submit" class="btnSubmit">Crear cuenta
@@ -75,16 +75,7 @@
 
                 if (mensajeRecibido != "") {
 
-                    if (mensajeRecibido == "createOk") {
-                        mensajeMostrar = "El usuario se ha registrado correctamente";
-                        Swal.fire({
-                        icon: 'success',
-                        title: mensajeMostrar,
-                        showConfirmButton: false,
-                        timer: 3000
-                    })
-                    }
-                    else if (mensajeRecibido == "createError") {
+                    if (mensajeRecibido == "createError") {
                         mensajeMostrar = "El usuario ya se encuentra registrado";
                         Swal.fire({
                             icon: 'error',

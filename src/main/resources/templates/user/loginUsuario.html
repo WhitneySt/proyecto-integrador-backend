@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+          integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+    <!-- libreria de iconos -->
+    <link rel="stylesheet" type="text/css" th:href="@{css/registroAndLogin.css}">
+    <title>Inicio de sesión</title>
+</head>
+
+<body>
+<section class="sectionInformation">
+    <header>
+        <img th:src="@{images/iconBanco.png}" alt="Logo empresa">
+        <h1> Makaia Bank</h1>
+    </header>
+    <div id="sectionInformationText">
+        <h2>Bienvenido de  nuevo</h2>
+        <p>Ingresa tus credenciales para acceder a tu cuenta y comenzar a gestionar tus finanzas de manera conveniente y segura
+        </p>
+    </div>
+</section>
+<main>
+
+    <h2>Iniciar sesión</h2>
+
+
+    <form th:action="@{login/autenticacion}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
+
+        <div class="input-container">
+            <input class="input-field id-icon" type="text" th:field="*{id}"  name="documento"  id="numero-documento" placeholder="Número documento">
+            <span class="error-message" id="numero-documento-error">Ingrese un número de documento válido</span>
+        </div>
+        <div class="input-container">
+            <input class="input-field password-icon" type="password" th:field="*{contrasena}"  name="contrasena" id="contrasena"  placeholder="Contraseña">
+            <span class="error-message" id="contrasena-error">Ingrese una contraseña válida <br> <br> * Debe tener mínimo una letra
+                    minúscula, una letra mayúscula, un número y  una longitud mínima de 8 caracteres </span>
+            <i class="fa fa-eye icon" onclick="togglePassword()"></i>
+        </div>
+
+        <p>¿No tienes una cuenta? <a th:href="@{/registro}">Create una</a></p>
+
+        <div class="container">
+            <button type="submit" class="btnSubmit">Enviar</button>
+        </div>
+
+    </form>
+
+</main>
+<script th:inline="javaScript"  th:src="@{js/validationFormLoginAndRegister.js}"></script>
+<!-- trae la librerias de alerta -->
+<script type="text/javascript"  src="//cdn.jsdelivr.net/npm/sweetalert2@11" ></script>
+
+<script th:inline="javaScript">
+    window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == "createOk") {
+                        mensajeMostrar = "El usuario se ha registrado correctamente";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    }
+
+                    }
+                }
+
+
+</script>
+</body>
+
+</html>

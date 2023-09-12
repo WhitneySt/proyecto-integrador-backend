@@ -36,7 +36,7 @@ public class Controller {
 
         model.addAttribute("usuarioDto", nuevoUsuario); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
         model.addAttribute("mensaje", mensajeRecibido); // Se agrega el mensaje al modelo para poder usarlo en la vista
-        return "/registroUsuario"; // Se retorna el nombre de la vista
+        return "user/registroUsuario"; // Se retorna el nombre de la vista
 
     }
 
@@ -44,15 +44,22 @@ public class Controller {
     public String guardarUsuario(UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
-        System.out.println("Intentando registrar  un usuario");
         if(usuarioService.createUsuario(usuario)){
             redirectAttributes.addFlashAttribute("mensaje", "createOk");
-            return "redirect:/registro"; // Se redireciona al servicio
+            return "redirect:/login"; // Se redireciona al servicio
         }
 
         redirectAttributes.addFlashAttribute("mensaje", "createError");
         return "redirect:/registro";
 
+    }
+
+    @GetMapping("/login")
+    public String login(Model model, @ModelAttribute("mensaje") String mensajeRecibido){
+        UsuarioDto usuarioDto = new UsuarioDto();
+        model.addAttribute("usuarioDto", usuarioDto);
+        model.addAttribute("mensaje", mensajeRecibido);
+        return "user/loginUsuario";
     }
 
 

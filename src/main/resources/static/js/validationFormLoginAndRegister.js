@@ -19,12 +19,14 @@ function validateForm(event) {
     // Hace la verificación para cada input y por cada uno que no cumpla con la validación cambia el valor de isValid a false
     /*Al utilizar && isValid, se asegura de que el valor de isValid se actualice correctamente después de cada validación es decir despues de llamar la función llamar a la función validateInput(),
     y que el formulario solo se envíe si todas las validaciones son verdaderas.*/
-    isValid = validateInput(nombreCompletoInput, nombreCompletoRegex) && isValid;
-    isValid = validateInput(correoElectronicoInput, correoElectronicoRegex) && isValid;
+
+    if (nombreCompletoInput != null && correoElectronicoInput != null) { // si elinput no existe, no se valida, esto es porque se está en en formulario de inicio de sesión que no tiene estos inputs
+        isValid = validateInput(nombreCompletoInput, nombreCompletoRegex) && isValid;
+        isValid = validateInput(correoElectronicoInput, correoElectronicoRegex) && isValid;
+    }
     isValid = validateInput(numeroDocumentoInput, numeroDocumentoRegex) && isValid;
     isValid = validateInput(contrasenaInput, contrasenaRegex) && isValid;
 
-    console.log(isValid);
 
     // Si el formulario no es válido, evita que se envíe
     if (isValid) {
