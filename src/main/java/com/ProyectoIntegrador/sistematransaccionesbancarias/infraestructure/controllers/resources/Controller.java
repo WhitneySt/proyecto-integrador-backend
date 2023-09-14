@@ -8,6 +8,8 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -21,6 +23,7 @@ public class Controller {
     private final MapperUsuario mapperUsuario;
     UsuarioService usuarioService;
     UsuarioImplementacion repository;
+
 
     @Autowired
     public Controller(UsuarioJPARepository jpaRepository, MapperUsuario mapperUsuario) {
@@ -60,6 +63,11 @@ public class Controller {
         model.addAttribute("usuarioDto", usuarioDto);
         model.addAttribute("mensaje", mensajeRecibido);
         return "user/loginUsuario";
+    }
+
+    // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
 
