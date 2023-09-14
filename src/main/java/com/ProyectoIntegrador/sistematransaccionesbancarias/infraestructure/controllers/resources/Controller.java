@@ -19,6 +19,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @org.springframework.stereotype.Controller
 public class Controller {
 
+    private static final String NAMEMENSAJE="mensaje";
+
     @Autowired
     private final MapperUsuario mapperUsuario;
     UsuarioService usuarioService;
@@ -38,7 +40,7 @@ public class Controller {
         UsuarioDto nuevoUsuario = new UsuarioDto();
 
         model.addAttribute("usuarioDto", nuevoUsuario); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
-        model.addAttribute("mensaje", mensajeRecibido); // Se agrega el mensaje al modelo para poder usarlo en la vista
+        model.addAttribute(NAMEMENSAJE, mensajeRecibido); // Se agrega el mensaje al modelo para poder usarlo en la vista
         return "user/registroUsuario"; // Se retorna el nombre de la vista
 
     }
@@ -48,11 +50,10 @@ public class Controller {
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
         if(usuarioService.createUsuario(usuario)){
-            redirectAttributes.addFlashAttribute("mensaje", "createOk");
+            redirectAttributes.addFlashAttribute(NAMEMENSAJE, "createOk");
             return "redirect:/login"; // Se redireciona al servicio
         }
-
-        redirectAttributes.addFlashAttribute("mensaje", "createError");
+        redirectAttributes.addFlashAttribute(NAMEMENSAJE, "createError");
         return "redirect:/registro";
 
     }
@@ -61,7 +62,7 @@ public class Controller {
     public String login(Model model, @ModelAttribute("mensaje") String mensajeRecibido){
         UsuarioDto usuarioDto = new UsuarioDto();
         model.addAttribute("usuarioDto", usuarioDto);
-        model.addAttribute("mensaje", mensajeRecibido);
+        model.addAttribute(NAMEMENSAJE, mensajeRecibido);
         return "user/loginUsuario";
     }
 
@@ -69,8 +70,6 @@ public class Controller {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
-
 
 
 }
