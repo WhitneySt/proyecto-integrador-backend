@@ -49,6 +49,13 @@ public class Controller {
     public String guardarUsuario(UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
+
+        // Se encripta la contraseña
+        String passwordEncriptado  = passwordEncoder().encode(usuario.getContrasena());
+
+        // Se cambia la contraseña por la encriptada
+        usuario.setContrasena(passwordEncriptado);
+
         if(usuarioService.createUsuario(usuario)){
             redirectAttributes.addFlashAttribute(NAMEMENSAJE, "createOk");
             return "redirect:/login"; // Se redireciona al servicio
