@@ -14,7 +14,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.tags.Param;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -66,11 +68,16 @@ public class Controller {
     }
 
     @GetMapping("/login")
-    public String login(Model model, @ModelAttribute("mensaje") String mensajeRecibido){
+    public String login(@RequestParam(name = "error", required = false) String error, Model model, @ModelAttribute("mensaje") String mensajeRecibido){// @RequestParam(name = "error", required = false) String error -> permite recibir un parametro por la url y guardarlo en la variable error
         UsuarioDto usuarioDto = new UsuarioDto();
         model.addAttribute("usuarioDto", usuarioDto);
         model.addAttribute(NAMEMENSAJE, mensajeRecibido);
         return "user/loginUsuario";
+    }
+
+    @GetMapping("/home")
+    public String home(Model model){
+        return "/home";
     }
 
     // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
