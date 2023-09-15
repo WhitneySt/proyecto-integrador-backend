@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html" th:with="sesion=${session}"> <!-- Esta línea establece un alias para la sesión de la solicitud actual llamado "session", que se puede utilizar para acceder a los atributos de la sesión en la plantilla HTML.-->
 
 <head>
     <meta charset="UTF-8">
@@ -43,6 +43,20 @@
             <span class="error-message" id="contrasena-error">Ingrese una contraseña válida <br> <br> * Debe tener mínimo una letra
                     minúscula, una letra mayúscula, un número y  una longitud mínima de 8 caracteres </span>
             <i class="fa fa-eye icon" onclick="togglePassword()"></i>
+        </div>
+
+        <!--TODO MENSAJES DE ERROR DESDE LA AUTENTICACIÓN-->
+        <div th:if="${param.deshabilitado}" class="alertDanger" role="alert">
+            <!--Si el parámetro deshabilitado existe en la url, mostramos el mensaje de error-->
+            <p  class="errorMessage" th:text="${sesion.mensaje}"></p>
+            <!--Obtenemos el mensaje que viene desde la sesión de la solicitud actual-->
+        </div>
+
+        <!--Si el parámetro error existe en la url, mostramos el mensaje de error-->
+        <div th:if="${param.error}">
+            <div  role="alert">
+                <p class="errorMessage"> Credenciales de inicio de sesión incorrectas</p>
+            </div>
         </div>
 
         <p>¿No tienes una cuenta? <a th:href="@{/registro}">Create una</a></p>
