@@ -32,7 +32,7 @@
     <h2>Iniciar sesión</h2>
 
 
-    <form th:action="@{login/autenticacion}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
+    <form th:action="@{login}" th:object="${usuarioDto}" method="post" onsubmit="validateForm(event)">
 
         <div class="input-container">
             <input class="input-field id-icon" type="text" th:field="*{id}"  name="documento"  id="numero-documento" placeholder="Número documento">
