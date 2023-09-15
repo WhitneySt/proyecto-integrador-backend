@@ -11,13 +11,13 @@ public class EstadoJPAEntity {
 
     @Id
     private Integer ID; // ? No se puede cambiar el id de un estado
-    @Column(length = 50, nullable = false)
-    private String nombre;
+    @Column(nullable = false)
+    private Boolean nombre;
 
     public EstadoJPAEntity() {
     }
 
-    public EstadoJPAEntity(Integer ID, String nombre) {
+    public EstadoJPAEntity(Integer ID, Boolean nombre) {
         this.ID = ID;
         this.nombre = nombre;
     }
@@ -30,11 +30,11 @@ public class EstadoJPAEntity {
         this.ID = ID;
     }
 
-    public String getNombre() {
+    public Boolean getNombre() {
         return nombre;
     }
 
-    public void setNombre(String Nombre) {
+    public void setNombre(Boolean Nombre) {
         this.nombre = Nombre;
     }
 }

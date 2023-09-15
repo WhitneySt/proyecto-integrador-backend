@@ -7,7 +7,6 @@ import java.sql.Date;
 
 public class UsuarioDto {
 
-
     private Integer id;
     private String nombre;
     private String correo;
@@ -19,13 +18,14 @@ public class UsuarioDto {
 
     public UsuarioDto() {
 
+        // ? Valores por defecto
         this.fechaCreacion = new Date(System.currentTimeMillis());
         this.rol = new Rol(1, "Usuario");
-        this.estado = new Estado(1, "Activo");
+        this.estado = new Estado(1, true);
         System.out.println(fechaCreacion) ;
     }
 
-    public UsuarioDto(Integer id, String nombre, String apellido, String correo, String contrasena, Date fechaCreacion, String urlImage) {
+    public UsuarioDto(Integer id, String nombre, String correo, String contrasena, Date fechaCreacion, String urlImage) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;
@@ -33,9 +33,6 @@ public class UsuarioDto {
         this.fechaCreacion = fechaCreacion;
         this.urlImage = urlImage;
 
-        // ? Valores por defecto
-        this.rol = new Rol(1, "Usuario");
-        this.estado = new Estado(1, "Activo");
     }
 
     public Integer getId() {

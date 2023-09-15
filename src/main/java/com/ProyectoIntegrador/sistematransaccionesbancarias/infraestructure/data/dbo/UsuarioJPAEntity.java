@@ -18,7 +18,7 @@ public class UsuarioJPAEntity {
     private String nombre;
     @Column(length = 255, nullable = false)
     private String correo; // El c
-    @Column(length = 50, nullable = false)
+    @Column(length = 200, nullable = false)
     private String contrasena;
 
     @Column(nullable = false)
