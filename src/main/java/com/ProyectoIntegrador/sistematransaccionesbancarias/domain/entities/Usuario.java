@@ -28,7 +28,7 @@ public class Usuario {
 
         // ? Valores por defecto
         this.rol = new Rol(1, "Usuario");
-        this.estado = new Estado(1, "Activo");
+        this.estado = new Estado(1, true);
     }
 
     public Integer getId() {
