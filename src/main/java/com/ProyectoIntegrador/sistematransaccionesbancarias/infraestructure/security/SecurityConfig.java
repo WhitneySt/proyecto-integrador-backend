@@ -66,12 +66,12 @@ public class SecurityConfig {
                                 .failureHandler((request, response, exception) -> {
                                     // en el caso de que el usuario este deshabilitado
                                     if (exception instanceof DisabledException) { // si la excepcion es de tipo DisabledException es porque el usuario esta deshabilitado
-                                       // request.getSession().setAttribute("mensaje", "Usuario deshabilitado"); //  establece un atributo llamado "mensaje" en la sesión de la solicitud actual.
+                                        request.getSession().setAttribute("mensaje", "Usuario deshabilitado"); //  establece un atributo llamado "mensaje" en la sesión de la solicitud actual.
                                         response.sendRedirect("/login?deshabilitado=true");
                                     }
                                     // si hay algun error aparece esta url, y desde la plantilla se genera un error
                                     else {
-                                        //request.getSession().setAttribute("mensaje", "Credenciales de inicio de sesión incorrectas"); // se comentó para no enviarla a la plantilla y ver otra forma de generar mensajes
+                                        //request.getSession().setAttribute("mensaje", "Credenciales de inicio de sesión incorrectas"); // se comentó para no enviarla a la plantilla y ver otra forma de generar mensajes por medio de la url
                                         response.sendRedirect("/login?error=true");
                                     }
                                 })
