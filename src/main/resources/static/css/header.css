@@ -1,0 +1,75 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    min-height: 100vh;
+    background: #f5f5f5;
+}
+
+
+
+header{
+    display: flex;
+    align-items: center;
+    height: 15vh;
+    width: 100%;
+    margin-left: 6%;
+    background: #151D38;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+}
+
+header .logo{
+    display: flex;
+    height: 60%;
+    width: 6%;
+    margin-left: 5%;
+}
+
+header .logo img{
+    height: 100%;
+    width: 100%;
+}
+
+header h1{
+    color: #F4F8F7;
+    font-size: 35px;
+    font-weight: 600;
+    letter-spacing: 3.85px;
+    margin-left: 24%;
+
+}
+
+header .profile{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    margin-left: 14%;
+
+}
+
+header .profile img.img-profile{
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    margin-right: 4px;
+}
+
+header .profile .nombreUsuario{
+    color: #F4F8F7;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1.3px;
+    text-transform: capitalize;
+    margin-right: 40px;
+    text-align: center;
+}
+
+header .profile .iconSalida{
+
+    margin-right: 30px;
+}
