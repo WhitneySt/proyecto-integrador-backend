@@ -7,6 +7,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.tags.Param;
 
 @org.springframework.stereotype.Controller
 public class Controller {
@@ -75,8 +75,17 @@ public class Controller {
         return "user/loginUsuario";
     }
 
-    @GetMapping("/home")
-    public String home(Model model){
+    @GetMapping({"/home","/"})
+    public String home(Model model, HttpServletRequest request){
+
+        // request es un objeto que contiene la informacion de la peticion que se hace al servidor
+        //System.out.println("Usuario: " + request.getUserPrincipal().getName()); // obtener el nombre del usuario que inició sesion
+        Integer idUsuario =Integer.parseInt(request.getUserPrincipal().getName()); // obtener el id del usuario que inició sesion en este el lo toma como el nombre
+
+        Usuario usuarioLogeado = usuarioService.getUsuarioById(idUsuario);  // Se obtiene el usuario que inició sesión
+
+        model.addAttribute("nombreUsuario", usuarioLogeado.getNombre()); // Se agrega el nombre del usuario al modelo para poder usarlo en la vista
+
         return "/home";
     }
 
