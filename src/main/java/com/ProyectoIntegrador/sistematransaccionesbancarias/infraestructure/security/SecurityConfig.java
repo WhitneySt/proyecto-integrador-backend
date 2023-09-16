@@ -52,6 +52,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRaquests ->
                                 authRaquests
                                         .requestMatchers("/login","/registro").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
+                                        .requestMatchers("/home","/").authenticated() // los endpoints que empiecen con /home requieren autenticacion
                                         .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
                 )
 
