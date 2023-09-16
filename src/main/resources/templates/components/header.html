@@ -1,0 +1,16 @@
+<header th:fragment="Header">
+    <div class="logo">"
+        <img th:src="@{./images/header/iconBanco.png}" alt="Icono del banco ">
+    </div>
+    <h1>
+        Makaia Bank
+    </h1>
+    <div class="profile">
+        <img th:src="@{./images/header/icon-profile-img.png}" alt="Imagen perfil" class="img-profile">
+        <!--<p th:text="'Bienvenido ' + ${nombreUsuario}"></p> -->
+        <p class="nombreUsuario" th:text="${nombreUsuario}"></p>
+        <img th:src="@{./images/header/icon-exit.png}" alt="Icono salida " class="iconSalida">
+    </div>
+
+
+</header>
