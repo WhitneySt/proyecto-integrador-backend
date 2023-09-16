@@ -1,0 +1,54 @@
+
+/* NAV */
+nav {
+    border-right: 1px solid #000;
+    background: #151D38;
+    box-shadow: 6px 31px 4px 0px rgba(0, 0, 0, 0.25);
+    height: 100vh;
+    width: 6vw;
+    /* Alinea la barra de navegación a la derecha */
+    position: fixed;
+    margin-left: auto;
+    top: 0;
+    left: 0;
+  }
+
+  nav ul {
+    list-style: none;
+    margin-top: 15vh;
+    padding: 0;
+  }
+
+  nav li {
+    /* text-align: center;  Alinea las imágenes al centro */
+    margin: 0;
+    padding: 0;
+  }
+
+  nav ul li  a {
+    display: block;
+    padding: 3vh;
+    width: 100%;
+  }
+
+  nav ul li a img{
+    width: 100%;
+    margin-bottom: 10px;
+    transition: all 0.3s ease; /* Agrega una transición suave */
+
+  }
+
+  nav ul li a img:hover {
+    transform: scale(1.2); /* Agranda la imagen */
+    border-bottom: 2px solid #fff; /* Agrega una línea debajo de la imagen */
+
+  }
+
+
+
+
+
+
+
+
+
