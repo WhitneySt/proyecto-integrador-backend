@@ -1,22 +1,103 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <head>
+        <meta charset="UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
 
-    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
-    <title>Home</title>
-</head>
-<body>
-    <header th:replace="components/header :: Header"></header>
-    <main>
-        <nav th:replace="components/nav :: Nav"></nav>
-    </main>
-</body>
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/card.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}">
+
+
+        <title>Home</title>
+    </head>
+    <body>
+        <header th:replace="components/header :: Header"></header>
+        <main>
+            <nav th:replace="components/nav :: Nav"></nav>
+
+            <div class="information">
+                <div class="card">
+                    <div class="card-front">
+                        <div class="card-Information">
+                            <p class="card-number">- - - - - - - -</p>
+                            <p class="card-expiry">MM/AA</p>
+                        </div>
+                        <div class="card-balance">
+                            <div class="saldo-disponible">
+                                <p>No tienes una cuenta disponible
+                                </p>
+                            </div>
+
+                            <a class="crear-cuenta" href="">Create una cuenta ya </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal -->
+            <div id="modal" class="modal">
+                <div class="modal-content">
+                    <h2>Create una cuenta</h2>
+                    <form id="crear-cuenta-form" th:action="@{/crearCuenta}" method="post" th:object="${cuentaDto}">
+                        <div class="form-group">
+                            <label for="monto-inicial">Ingresa el monto inicial<span class="red">*</span></label>
+                            <input type="number" id="monto-inicial" name="monto-inicial" placeholder="Monto inicial"
+                                   th:field="*{saldo}" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="meta">Establece una meta de ahorro (opcional)</label>
+                            <input type="number" id="meta" name="meta" placeholder="Meta" th:field="*{metaAhorro}">
+                        </div>
+                        <div class="form-group">
+                            <label for="tipo-cuenta">Selecciona el tipo de cuenta</label>
+                            <select id="tipo-cuenta" name="tipo-cuenta" th:field="*{tipoCuenta}">
+                                <option value="visa">Visa</option>
+                                <option value="mastercard">Mastercard</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit">Crear</button>
+                            <button type="button" class="cancelar">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </main>
+
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+        <script  th:inline="javaScript" th:src="@{./js/validateModal.js}"></script>
+        <script  th:inline="javaScript" >
+            window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == "createOk") {
+                        mensajeMostrar = "  La cuenta se ha creado correctamente";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                    })
+                    }
+
+                    }
+                }
+
+        </script>
+
+    </body>
 </html>
