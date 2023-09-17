@@ -25,7 +25,12 @@ public class CuentaServices {
     }
 
     public Cuenta getCuentaByIdUsuario(Integer idUsuario) {
-        return cuentaRepository.getCuentaByIdUsuario(idUsuario);
+
+        Cuenta cuenta = cuentaRepository.getCuentaByIdUsuario(idUsuario); // obtiene la cuenta del usuario
+        if (cuenta == null) { // si la cuenta existe
+            throw new RuntimeException("No se encontró una cuenta con el ID de usuario especificado");
+        }
+        return cuenta;
     }
 
 
