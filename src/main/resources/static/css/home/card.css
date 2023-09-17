@@ -1,0 +1,141 @@
+/* CARD */
+.information {
+    width: 490px;
+    height: 250px;
+    border-radius: 35px;
+    background: rgb(2, 24, 113);
+    box-shadow: 18px 12px 4px 0px rgba(0, 0, 0, 0.46);
+    padding: 20px 0;
+    /* Texto */
+    color: #fff;
+
+
+    /* Centrar */
+    position: fixed;
+    left: 50%;
+    top: 60vh;
+    transform: translate(-50%, -50%);
+
+}
+
+
+.card {
+    width: 100%;
+    height: 250px;
+    perspective: 1000px;
+}
+
+.card-front,
+.card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    transition: transform 0.9s ease;
+}
+
+.card-front {
+    transform: rotateY(0deg);
+}
+
+.card-front .card-Information {
+    display: flex;
+    justify-content: space-between;
+    font-weight: 700;
+    padding: 0 20px;
+}
+
+.card-front .card-balance {
+    text-align: center;
+    margin-top: 45px;
+    width: 100%;
+}
+
+/* escoger la primera p  */
+.card-front .card-balance .saldo-disponible p {
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.card-front .card-balance .saldo-disponible span {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.card-front .card-balance .saldo-disponible {
+    margin-bottom: 20px;
+}
+
+.card-front .card-balance .saldo-total {
+    display: flex;
+    justify-content: center;
+    font-size: 17px;
+
+}
+
+.card-front .card-balance .saldo-total p {
+    margin-right: 5px;
+}
+
+.card-front .card-balance .saldo-total span {
+    font-weight: 600;
+}
+
+.card-back {
+    border-radius: 35px;
+}
+
+.card-cvc {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 20px;
+    color: #fff;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+hr {
+    width: 100%;
+    height: 50px;
+    border: none;
+    background: black;
+
+    position: absolute;
+    top: 60%;
+}
+
+.card-cvc .cvc-title {
+    /* position: absolute; */
+    /* top:-230%; */
+    /* left: 75%; */
+
+
+}
+
+.card-back .card-holder {
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    width: 100%;
+    position: absolute;
+    left: 0;
+    top: 30%;
+
+}
+
+
+
+.card-back .card-bank {
+    text-align: center;
+    position: absolute;
+
+    width: 100%;
+    top: 65%;
+    z-index: 1;
+
+}
+
+a {
+    color: #fff;
+}
