@@ -3,9 +3,8 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities;
 import java.sql.Date;
 
 public class Cuenta {
-    private Integer id;
     private String nombre;
-    private String numeroCuenta;
+    private Long id;
     private Date fechaCreacion;
     private Double saldo;
     private Double metaAhorro;
@@ -17,24 +16,16 @@ public class Cuenta {
     public Cuenta(){
     }
 
-    public Cuenta(Integer id, String nombre, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, Integer cvc,String tipoCuenta, Usuario usuarioId) {
-        this.id = id;
+    public Cuenta( String nombre, Long id, Date fechaCreacion, Double saldo, Double metaAhorro, Integer cvc,String tipoCuenta, Usuario usuarioId) {
         this.nombre = nombre;
-        this.numeroCuenta = numeroCuenta;
+        this.id = id;
         this.fechaCreacion = fechaCreacion;
         this.saldo = saldo;
         this.metaAhorro = metaAhorro;
+        this.cvc = cvc;
         this.tipoCuenta = tipoCuenta;
         this.usuarioId = usuarioId;
 
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getNombre() {
@@ -45,12 +36,12 @@ public class Cuenta {
         this.nombre = nombre;
     }
 
-    public String getNumeroCuenta() {
-        return numeroCuenta;
+    public Long getId() {
+        return id;
     }
 
-    public void setNumeroCuenta(String numeroCuenta) {
-        this.numeroCuenta = numeroCuenta;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public Date getFechaCreacion() {
