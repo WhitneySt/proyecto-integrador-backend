@@ -16,7 +16,7 @@ body{
 header{
     display: flex;
     align-items: center;
-    height: 15vh;
+    height: 90px;
     width: 100%;
     margin-left: 6%;
     background: #151D38;
