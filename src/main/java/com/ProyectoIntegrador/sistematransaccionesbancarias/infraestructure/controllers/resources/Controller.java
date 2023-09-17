@@ -25,7 +25,7 @@ public class Controller {
 
     @Autowired
     private final MapperUsuario mapperUsuario;
-    UsuarioService usuarioService;
+    static UsuarioService usuarioService;
     UsuarioImplementacion repository;
 
 
@@ -75,19 +75,6 @@ public class Controller {
         return "user/loginUsuario";
     }
 
-    @GetMapping({"/home","/"})
-    public String home(Model model, HttpServletRequest request){
-
-        // request es un objeto que contiene la informacion de la peticion que se hace al servidor
-        //System.out.println("Usuario: " + request.getUserPrincipal().getName()); // obtener el nombre del usuario que inició sesion
-        Integer idUsuario =Integer.parseInt(request.getUserPrincipal().getName()); // obtener el id del usuario que inició sesion en este el lo toma como el nombre
-
-        Usuario usuarioLogeado = usuarioService.getUsuarioById(idUsuario);  // Se obtiene el usuario que inició sesión
-
-        model.addAttribute("nombreUsuario", usuarioLogeado.getNombre()); // Se agrega el nombre del usuario al modelo para poder usarlo en la vista
-
-        return "/home";
-    }
 
     // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
     public PasswordEncoder passwordEncoder() {
@@ -95,4 +82,13 @@ public class Controller {
     }
 
 
+    static Usuario getUsuarioLogeado(HttpServletRequest request) {
+
+        // request es un objeto que contiene la informacion de la peticion que se hace al servidor
+        //System.out.println("Usuario: " + request.getUserPrincipal().getName()); // obtener el nombre del usuario que inició sesion
+        Integer idUsuario = Integer.parseInt(request.getUserPrincipal().getName()); // obtener el id del usuario que inició sesion en este el lo toma como el nombre
+        Usuario usuarioLogeado = usuarioService.getUsuarioById(idUsuario);  // Se obtiene el usuario que inició sesión
+
+        return usuarioLogeado;
+    }
 }
