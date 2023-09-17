@@ -7,29 +7,30 @@ import java.sql.Date;
 public class CuentaDto {
 
     private Integer id;
-
     private String nombre;
     private String numeroCuenta;
     private Date fechaCreacion;
     private Double saldo;
     private Double metaAhorro;
+    private Integer cvc;
 
-    private String color;
+    private String tipoCuenta;
     private Usuario usuarioId;
 
     public CuentaDto(){
-        this.fechaCreacion = new Date(System.currentTimeMillis());
     }
 
-    public CuentaDto(Integer id, String nombre, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, String color, Usuario usuarioId) {
+    public CuentaDto(Integer id, String nombre, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, Integer cvc,String tipoCuenta, Usuario usuarioId) {
         this.id = id;
         this.nombre = nombre;
         this.numeroCuenta = numeroCuenta;
         this.fechaCreacion = fechaCreacion;
         this.saldo = saldo;
         this.metaAhorro = metaAhorro;
-        this.color = color;
+        this.cvc = cvc;
+        this.tipoCuenta = tipoCuenta;
         this.usuarioId = usuarioId;
+
     }
 
     public Integer getId() {
@@ -80,13 +81,22 @@ public class CuentaDto {
         this.metaAhorro = metaAhorro;
     }
 
-    public String getColor() {
-        return color;
+    public String getTipoCuenta() {
+        return tipoCuenta;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setTipoCuenta(String tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
     }
+
+    public Integer getCvc() {
+        return cvc;
+    }
+
+    public void setCvc(Integer cvc) {
+        this.cvc = cvc;
+    }
+
 
     public Usuario getUsuarioId() {
         return usuarioId;

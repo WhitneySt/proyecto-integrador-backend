@@ -10,7 +10,7 @@ public class CuentaJPAEntity {
 
     @Id
     private Integer id;
-    @Column(length = 100, nullable = false)
+    @Column(length = 100, nullable = true)
     private String nombre;
     @Column(length = 50, nullable = false)
     private String numeroCuenta;
@@ -19,9 +19,11 @@ public class CuentaJPAEntity {
     @Column(length = 50, nullable = false)
     private Double saldo;
     private Double metaAhorro;
+    @Column(length = 3, nullable = false)
+    private Integer cvc;
 
-    @Column(length = 100, nullable = false)
-    private String color;
+    @Column(length = 50, nullable = false)
+    private String tipoCuenta;
 
     @ManyToOne
     @JoinColumn(name = "usuarioId",referencedColumnName = "id", nullable = false)
@@ -30,12 +32,14 @@ public class CuentaJPAEntity {
     public CuentaJPAEntity(){
     }
 
-    public CuentaJPAEntity(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, UsuarioJPAEntity usuarioId) {
+    public CuentaJPAEntity(Integer id, String numeroCuenta, Date fechaCreacion, Double saldo, Double metaAhorro, String tipoCuenta,Integer cvc,UsuarioJPAEntity usuarioId) {
         this.id = id;
         this.numeroCuenta = numeroCuenta;
         this.fechaCreacion = fechaCreacion;
         this.saldo = saldo;
         this.metaAhorro = metaAhorro;
+        this.tipoCuenta = tipoCuenta;
+        this.cvc = cvc;
         this.usuarioId = usuarioId;
     }
 
@@ -95,12 +99,12 @@ public class CuentaJPAEntity {
         this.nombre = nombre;
     }
 
-    public String getColor() {
-        return color;
+    public Integer getCvc() {
+        return cvc;
     }
 
-    public void setColor(String color) {
-        this.color = color;
+    public void setCvc(Integer cvc) {
+        this.cvc = cvc;
     }
 
     public UsuarioJPAEntity getUsuarioId() {
