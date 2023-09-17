@@ -1,0 +1,16 @@
+/* Se encarga de hacer el movimiento de rotación */
+.card-back {
+  transform: rotateY(180deg);
+}
+
+
+.card:hover .card-front {
+  cursor: pointer;
+
+  transform: rotateY(-180deg);
+}
+
+.card:hover .card-back {
+  cursor: pointer;
+  transform: rotateY(0deg);
+}
