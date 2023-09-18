@@ -9,7 +9,7 @@
         <img th:src="@{./images/header/icon-profile-img.png}" alt="Imagen perfil" class="img-profile">
         <!--<p th:text="'Bienvenido ' + ${nombreUsuario}"></p> -->
         <p class="nombreUsuario" th:text="${nombreUsuario}"></p>
-        <img th:src="@{./images/header/icon-exit.png}" alt="Icono salida " class="iconSalida">
+        <a th:href="@{/logout}"><img th:src="@{./images/header/icon-exit.png}" alt="Icono salida " class="iconSalida"></a>
     </div>
 
 
