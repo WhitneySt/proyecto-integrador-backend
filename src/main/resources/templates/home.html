@@ -50,7 +50,7 @@
                         <div class="form-group">
                             <label for="monto-inicial">Ingresa el monto inicial<span class="red">*</span></label>
                             <input type="number" id="monto-inicial" name="monto-inicial" placeholder="Monto inicial"
-                                   th:field="*{saldo}" required>
+                                   th:field="*{saldo}" >
                         </div>
                         <div class="form-group">
                             <label for="meta">Establece una meta de ahorro (opcional)</label>
@@ -63,7 +63,7 @@
                                 <option value="mastercard">Mastercard</option>
                             </select>
                         </div>
-                        <div class="form-group">
+                        <div class="form-group-buttons">
                             <button type="submit">Crear</button>
                             <button type="button" class="cancelar">Cancelar</button>
                         </div>
@@ -85,17 +85,26 @@
                 if (mensajeRecibido != "") {
 
                     if (mensajeRecibido == "createOk") {
-                        mensajeMostrar = "  La cuenta se ha creado correctamente";
+                        mensajeMostrar = "La cuenta se ha creado correctamente";
                         Swal.fire({
                         icon: 'success',
                         title: mensajeMostrar,
                         showConfirmButton: false,
                         timer: 3000
-                    })
+                        })
+                    } else if (mensajeRecibido == "createError") {
+                        mensajeMostrar = "No se ha podido crear la cuenta";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
                     }
 
-                    }
+
                 }
+            }
 
         </script>
 
