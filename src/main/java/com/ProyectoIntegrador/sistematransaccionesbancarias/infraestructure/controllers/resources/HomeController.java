@@ -11,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 
@@ -32,7 +34,7 @@ public class HomeController {
     }
 
     @GetMapping({"/home", "/"})
-    public String home(Model model,HttpServletRequest request) {
+    public String home(Model model,HttpServletRequest request,@ModelAttribute("mensaje") String mensajeRecibido) {
         CuentaDto cuentaDto = new CuentaDto();
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
@@ -45,47 +47,20 @@ public class HomeController {
 
 
     @PostMapping("/crearCuenta")
-    public String crearCuenta(CuentaDto cuentaDto, Model model,HttpServletRequest request) {
+    public String crearCuenta(CuentaDto cuentaDto,RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         cuentaDto.setUsuarioId(usuarioLogeado);
         boolean guardar=cuentaServices.saveOrUpdateCuenta(mapperCuenta.CuentaDtoToCuentaDomain(cuentaDto)); // Se guarda la cuenta en la base de datos
 
         if(guardar){
-            System.out.println("Guardando cuenta");
-            System.out.println(cuentaDto.toString());
-            System.out.println(cuentaDto.toString());
-
-            System.out.println(cuentaDto.toString());
-
-            System.out.println(cuentaDto.toString());
-            System.out.println(cuentaDto.toString());
-
-
-            System.out.println(cuentaDto.toString());
-
-
+            System.out.println("Se guardo la cuenta");
+            redirectAttributes.addFlashAttribute("mensaje","createOk");
         }
         else{
             System.out.println("No se guardo la cuenta");
-            System.out.println("No se guardo la cuenta");
-
-            System.out.println("No se guardo la cuenta");
-            System.out.println("No se guardo la cuenta");
-
-            System.out.println("No se guardo la cuenta");
-
-            System.out.println("No se guardo la cuenta");
-
-            System.out.println("No se guardo la cuenta");
-
-            System.out.println("No se guardo la cuenta");
-
-
-
+            redirectAttributes.addFlashAttribute("mensaje","createError");
         }
-
-        //model.addAttribute("createOk","mensaje");
 
         return "redirect:/home";
     }
