@@ -12,7 +12,6 @@ import java.sql.Date;
 public class UsuarioJPAEntity {
 
     @Id
-    
     private Integer id;
     @Column(length = 50, nullable = false)
     private String nombre;

@@ -1,0 +1,150 @@
+/* SEGUNDO MODAL */
+/* Estilos para el modal */
+.modal {
+  display: none;
+  color: var(--dark-medium, #4F4F4F);
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.4);
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+
+
+.modal-content {
+  background-color: #fefefe;
+  margin: 5% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 500px;
+  border-radius: 5px;
+}
+
+.modal-content h2 {
+  margin-bottom: 20px;
+  color: inherit;
+  font-size: 1.875em;
+  font-weight: 600;
+  text-align: center;
+  text-transform: none;
+  word-wrap: break-word
+}
+
+/* Estilos para el formulario */
+#crear-cuenta-form {
+  margin-top: 20px;
+}
+
+/* Estilos para los campos de entrada */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 25px;
+}
+
+.form-group label {
+  font-weight: 600;
+  line-height: 20px;
+  margin-bottom: 5px;
+  text-align: start;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px 13px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.form-group select,
+.form-group input::placeholder {
+  color: #767575;
+  transition: all 0.3s ease-in-out;
+
+}
+
+.form-group input[type="number"]::-webkit-outer-spin-button,
+.form-group input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  outline: none;
+  border-color: #5F65F6;
+}
+
+.form-group-buttons {
+  display: flex;
+  justify-content: center;
+
+}
+
+.form-group-buttons button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+.form-group-buttons button:hover {
+  opacity: 0.8;
+}
+
+.form-group-buttons button[type="submit"]{
+  background-color: #5F65F6;
+}
+
+.form-group-buttons button[type="button"]{
+  background-color: #6e7881;
+}
+
+.red {
+  color: red;
+}
+
+.errorInput{
+    border: solid 1px red !important;
+
+}
+.error-mensaje {
+  color: red;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+.visible {
+  opacity: 1;
+}
+/* Animaciónes de desvanecimiento */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+
