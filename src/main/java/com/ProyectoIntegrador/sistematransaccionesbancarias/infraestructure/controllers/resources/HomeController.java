@@ -1,10 +1,12 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources;
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.CuentaDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaJPARepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,12 +37,21 @@ public class HomeController {
 
     @GetMapping({"/home", "/"})
     public String home(Model model,HttpServletRequest request,@ModelAttribute("mensaje") String mensajeRecibido) {
-        CuentaDto cuentaDto = new CuentaDto();
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
-
-        model.addAttribute("cuentaDto", cuentaDto); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
         model.addAttribute("nombreUsuario", usuarioLogeado.getNombre()); // Se agrega el nombre del usuario al modelo para poder usarlo en la vista
+
+        try{
+            Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()); // Se obtiene la cuenta del usuario logeado
+            System.out.println("Cuenta del usuario logeado: "+cuenta.getMetaAhorro());
+        }
+        catch(CuentaNotFoundException e){ // Si no se encuentra la cuenta del usuario logeado se puede crear una
+            System.out.println(e.getMessage());
+
+            CuentaDto cuentaDto = new CuentaDto();
+            model.addAttribute("cuentaDto", cuentaDto); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
+
+        }
 
         return "/home";
     }
