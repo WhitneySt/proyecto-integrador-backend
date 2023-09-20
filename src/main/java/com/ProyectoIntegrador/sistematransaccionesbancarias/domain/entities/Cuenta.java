@@ -92,4 +92,18 @@ public class Cuenta {
     public void setUsuarioId(Usuario usuarioId) {
         this.usuarioId = usuarioId;
     }
+
+    @Override
+    public String toString() {
+        return "Cuenta{" +
+                "nombre='" + nombre + '\'' +
+                ", id=" + id +
+                ", fechaCreacion=" + fechaCreacion +
+                ", saldo=" + saldo +
+                ", metaAhorro=" + metaAhorro +
+                ", cvc=" + cvc +
+                ", tipoCuenta='" + tipoCuenta + '\'' +
+                ", usuarioId=" + usuarioId +
+                '}';
+    }
 }

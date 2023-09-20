@@ -2,7 +2,10 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.dat
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.CuentaRepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.CuentaJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
+
+import java.util.Optional;
 
 public class CuentaImplementacion implements CuentaRepository {
 
@@ -22,7 +25,9 @@ public class CuentaImplementacion implements CuentaRepository {
     }
 
     @Override
-    public Cuenta getCuentaByIdUsuario(Integer idUsuario) {
-        return null;
+    public Optional<Cuenta> getCuentaByIdUsuario(Integer idUsuario) {
+        Optional<CuentaJPAEntity> cuentaJpa = cuentaJPARepository.findByUsuarioId(idUsuario);
+        Optional<Cuenta> cuenta = cuentaJpa.map(mapperCuenta::CuentaJPAToCuentaDomain); // Se utiliza el  mapperCuenta  para convertir la entidad JPA a un objeto de dominio  Cuenta . Se devuelve un  Optional  que puede contener la cuenta encontrada o estar vacío
+        return cuenta;
     }
 }

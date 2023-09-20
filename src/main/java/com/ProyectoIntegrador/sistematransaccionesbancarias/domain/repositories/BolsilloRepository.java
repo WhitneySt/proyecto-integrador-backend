@@ -9,4 +9,6 @@ public interface BolsilloRepository {
     public Bolsillo getBolsilloById(Integer id);
     public boolean  saveOrUpdateBolsillo(Bolsillo bolsillo);
     public boolean deleteBolsilloById(Integer id);
+
+    public Double getTotalSaldoBolsillos(Long id);
 }

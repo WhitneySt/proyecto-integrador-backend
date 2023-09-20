@@ -13,8 +13,8 @@
         <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
         <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
         <link rel="stylesheet" type="text/css" th:href="@{./css/home/card.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}" th:if="${isCuentaCreada}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}" th:if="${!isCuentaCreada}">
 
 
         <title>Home</title>
@@ -24,26 +24,18 @@
         <main>
             <nav th:replace="components/nav :: Nav"></nav>
 
-            <div class="information">
-                <div class="card">
-                    <div class="card-front">
-                        <div class="card-Information">
-                            <p class="card-number">- - - - - - - -</p>
-                            <p class="card-expiry">MM/AA</p>
-                        </div>
-                        <div class="card-balance">
-                            <div class="saldo-disponible">
-                                <p>No tienes una cuenta disponible
-                                </p>
-                            </div>
-
-                            <a class="crear-cuenta" href="">Create una cuenta ya </a>
-                        </div>
-                    </div>
-                </div>
+            <!--Contiene la información de la cuenta y se muestra algo dependiendo si esxiste o no la cuenta-->
+            <div  class="information" th:if="${isCuentaCreada}">
+                <!-- Componente o contenido que deseas mostrar si isCuentaCreada es verdadero -->
+                <div  th:replace="components/informationCuenta :: cardInformation"></div>
             </div>
+            <div class="information" th:unless="${isCuentaCreada}">
+                <!-- Componente o contenido que se desea mostrar si isCuentaCreada es falso -->
+                <div  th:replace="components/crearCuenta :: cardCrearCuenta"></div>
+            </div>
+
             <!-- Modal -->
-            <div id="modal" class="modal">
+            <div id="modal" class="modal" th:if="${!isCuentaCreada}">
                 <div class="modal-content">
                     <h2>Create una cuenta</h2>
                     <form id="crear-cuenta-form" th:action="@{/crearCuenta}" method="post" th:object="${cuentaDto}">
@@ -70,6 +62,10 @@
                     </form>
                 </div>
             </div>
+
+
+
+
         </main>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -3,6 +3,9 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.application.service
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.CuentaRepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
+
+import java.util.Optional;
 
 public class CuentaServices {
 
@@ -26,11 +29,9 @@ public class CuentaServices {
 
     public Cuenta getCuentaByIdUsuario(Integer idUsuario) {
 
-        Cuenta cuenta = cuentaRepository.getCuentaByIdUsuario(idUsuario); // obtiene la cuenta del usuario
-        if (cuenta == null) { // si la cuenta existe
-            throw new RuntimeException("No se encontró una cuenta con el ID de usuario especificado");
-        }
-        return cuenta;
+        Optional<Cuenta> cuenta = cuentaRepository.getCuentaByIdUsuario(idUsuario); // obtiene la cuenta del usuario
+
+        return cuenta.orElseThrow(() -> new CuentaNotFoundException("No se encontró la cuenta del usuario con id: " + idUsuario));
     }
 
 
