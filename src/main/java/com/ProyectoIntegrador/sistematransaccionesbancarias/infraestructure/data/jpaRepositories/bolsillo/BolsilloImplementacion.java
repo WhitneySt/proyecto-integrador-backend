@@ -42,4 +42,9 @@ public class BolsilloImplementacion implements BolsilloRepository {
         bolsilloJPARepository.deleteById(id);
         return bolsilloJPARepository.findById(id).isEmpty();
     }
+
+    @Override
+    public Double getTotalSaldoBolsillos(Long id) {
+        return bolsilloJPARepository.getTotalSaldoBolsillos(id);
+    }
 }
