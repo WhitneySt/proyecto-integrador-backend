@@ -13,8 +13,8 @@
         <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
         <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
         <link rel="stylesheet" type="text/css" th:href="@{./css/home/card.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}">
-        <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}" th:if="${isCuentaCreada}">
+        <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}" th:if="${!isCuentaCreada}">
 
 
         <title>Home</title>
