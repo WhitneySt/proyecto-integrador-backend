@@ -1,17 +1,17 @@
 <div class="card" th:fragment="cardInformation">
   <div class="card-front"  th:object="${cuenta}">
     <div class="card-Information" >
-      <p class="card-number"  th:text="${cuenta.id}"></p>
+      <p class="card-number"  th:text="'**** **** ' + ${ultimosDigitosNumeroCuenta}"></p>
       <p class="card-expiry" th:text="${cuenta.fechaCreacion}"></p>
     </div>
     <div class="card-balance">
       <div class="saldo-disponible">
         <p>Saldo disponible</p>
-        <span th:text="${saldoDisponible}"></span>
+        <span th:text="'$' + ${#numbers.formatInteger(saldoDisponible,3, 'POINT')}"></span>
       </div>
       <div class="saldo-total">
         <p>Total:</p>
-        <span th:text="${cuenta.saldo}"></span>
+        <span th:text="'$' + ${#numbers.formatInteger(cuenta.saldo,3, 'POINT')}"></span>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
     <div class="card-cvc">
       <!-- <p class="card-type">Mastercard</p> -->
       <p class="card-type" th:text="${cuenta.tipoCuenta}"></p>
-      <p class="cvc-title" th:text="${cuenta.cvc}"></p>
+      <p class="cvc-title" th:text="'CVC - '+${cuenta.cvc}"></p>
     </div>
 
     <p class="card-holder" th:text="${cuenta.usuarioId.nombre}"></p>
