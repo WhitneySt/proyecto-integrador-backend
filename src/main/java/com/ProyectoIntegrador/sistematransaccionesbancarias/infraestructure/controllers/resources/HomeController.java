@@ -21,6 +21,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 
 
@@ -64,8 +67,11 @@ public class HomeController {
             Double totalSaldoBolsillos= bolsilloServices.getTotalSaldoBolsillos(cuenta.getId()); // Se obtiene el saldo disponible del usuario logeado
             Double saldoDisponible= cuenta.getSaldo()-totalSaldoBolsillos; // Se calcula el saldo disponible del usuario logeado
 
+            int ultimosDigitosNumeroCuenta = (int) (cuenta.getId() % 1000);
+
             model.addAttribute("cuenta", cuenta); // Se agrega la cuenta al modelo para poder usarlo en la vista
             model.addAttribute("saldoDisponible", saldoDisponible); // Se agrega el saldo disponible al modelo para poder usarlo en la vista
+            model.addAttribute("ultimosDigitosNumeroCuenta", ultimosDigitosNumeroCuenta); // Se agrega los ultimos digitos del numero de cuenta al modelo para poder usarlo en la vista
 
             isCuentaCreada = true;
         }
