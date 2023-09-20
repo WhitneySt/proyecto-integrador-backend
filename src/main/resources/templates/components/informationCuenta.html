@@ -1,0 +1,33 @@
+<div class="card" th:fragment="cardInformation">
+  <div class="card-front"  th:object="${cuenta}">
+    <div class="card-Information" >
+      <p class="card-number"  th:text="${cuenta.id}"></p>
+      <p class="card-expiry" th:text="${cuenta.fechaCreacion}"></p>
+    </div>
+    <div class="card-balance">
+      <div class="saldo-disponible">
+        <p>Saldo disponible</p>
+        <span th:text="${saldoDisponible}"></span>
+      </div>
+      <div class="saldo-total">
+        <p>Total:</p>
+        <span th:text="${cuenta.saldo}"></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card-back">
+    <div class="card-cvc">
+      <!-- <p class="card-type">Mastercard</p> -->
+      <p class="card-type" th:text="${cuenta.tipoCuenta}"></p>
+      <p class="cvc-title" th:text="${cuenta.cvc}"></p>
+    </div>
+
+    <p class="card-holder" th:text="${cuenta.usuarioId.nombre}"></p>
+    <p class="card-bank">Makaia Bank</p>
+    <hr>
+    <!-- <p>Titutar: <span>Andres Felipe Briñez Lopez </span></p> -->
+    <!-- <p class="name-banck">Makaia banck</p> -->
+    <hr>
+  </div>
+</div>
