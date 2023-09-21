@@ -21,9 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 
 
@@ -55,13 +52,12 @@ public class HomeController {
 
         Boolean isCuentaCreada = false;
 
-        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
-        model.addAttribute("nombreUsuario", usuarioLogeado.getNombre()); // Se agrega el nombre del usuario al modelo para poder usarlo en la vista
+        NombreUsuarioModel(model,request); // Se obtiene el nombre del usuario que inició sesión y lo guarda eel model
 
         CuentaDto cuentaDto = new CuentaDto();
         
         try{
-
+            Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
             Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()); // Se obtiene la cuenta del usuario logeado
 
             Double totalSaldoBolsillos= bolsilloServices.getTotalSaldoBolsillos(cuenta.getId()); // Se obtiene el saldo disponible del usuario logeado
@@ -105,6 +101,15 @@ public class HomeController {
 
         return "redirect:/home";
     }
+
+    // Obtener el  nombre de usuario que inició sesión y lo pasa al model
+    static Model NombreUsuarioModel(Model model,HttpServletRequest request) {
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        String nombreUsuario = usuarioLogeado.getNombre(); // Se obtiene el nombre del usuario que inició sesión y lo guarda en una variable global
+        model.addAttribute("nombreUsuario", nombreUsuario); // Se agrega el nombre del usuario al modelo para poder usarlo en la vista
+        return model;
+    }
+
 
 
 
