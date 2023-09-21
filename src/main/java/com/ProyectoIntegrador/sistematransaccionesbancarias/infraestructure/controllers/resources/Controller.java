@@ -43,7 +43,7 @@ public class Controller {
 
         model.addAttribute("usuarioDto", nuevoUsuario); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
         model.addAttribute(NAMEMENSAJE, mensajeRecibido); // Se agrega el mensaje al modelo para poder usarlo en la vista
-        return "user/registroUsuario"; // Se retorna el nombre de la vista
+        return "autenticacion/registroUsuario"; // Se retorna el nombre de la vista
 
     }
 
@@ -72,7 +72,7 @@ public class Controller {
         UsuarioDto usuarioDto = new UsuarioDto();
         model.addAttribute("usuarioDto", usuarioDto);
         model.addAttribute(NAMEMENSAJE, mensajeRecibido);
-        return "user/loginUsuario";
+        return "autenticacion/loginUsuario";
     }
 
 
