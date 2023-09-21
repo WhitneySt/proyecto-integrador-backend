@@ -82,7 +82,8 @@ public class Controller {
     }
 
 
-    static Usuario getUsuarioLogeado(HttpServletRequest request) {
+    // Obtener el usuario que inició sesión
+    public static Usuario getUsuarioLogeado(HttpServletRequest request) {
 
         // request es un objeto que contiene la informacion de la peticion que se hace al servidor
         //System.out.println("Usuario: " + request.getUserPrincipal().getName()); // obtener el nombre del usuario que inició sesion
@@ -91,4 +92,10 @@ public class Controller {
 
         return usuarioLogeado;
     }
+
+
+
+
+
+
 }
