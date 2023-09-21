@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/users/users.css}">
+    <link rel="stylesheet" href="./css/usuarios.css">
+
+    <title>Usuarios</title>
+</head>
+
+<body>
+
+<header th:replace="components/header :: Header"></header>
+
+<nav th:replace="components/nav :: Nav"></nav>
+
+<main>
+    <h2>Usuarios</h2>
+    <!-- buttons -->
+    <div class="buttons">
+        <button class="btn-detalle">Detalle</button>
+        <div class="buttons-group">
+            <button class="btn-crear">Crear</button>
+            <button class="btn-editar">"Editar</button>
+        </div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>John Doe</td>
+            <td>johndoe@example.com</td>
+            <td>Administrador</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Jane Doe</td>
+            <td>janedoe@example.com</td>
+            <td>Usuario</td>
+            <td class="bloqueado">Bloqueado</td>
+        </tr>
+        <!-- Agregar más filas para más usuarios -->
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 3</td>
+            <td>usuario3@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 4</td>
+            <td>usuario4@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 5</td>
+            <td>usuario5@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 6</td>
+            <td>usuario6@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 7</td>
+            <td>usuario7@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 8</td>
+            <td>usuario8@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 9</td>
+            <td>usuario9@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 10</td>
+            <td>usuario10@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 10</td>
+            <td>usuario10@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 10</td>
+            <td>usuario10@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 10</td>
+            <td>usuario10@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 10</td>
+            <td>usuario10@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+        <tr>
+            <td><input type="checkbox"></td>
+            <td>Usuario 10</td>
+            <td>usuario10@example.com</td>
+            <td>Usuario</td>
+            <td class="activo">Activo</td>
+        </tr>
+
+        </tbody>
+    </table>
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="./js/usuarios.js"></script>
+<script  th:inline="javaScript" th:src="@{./js/usuarios.js}"></script>
+
+<script>
+</script>
+</body>
+
+</html>
