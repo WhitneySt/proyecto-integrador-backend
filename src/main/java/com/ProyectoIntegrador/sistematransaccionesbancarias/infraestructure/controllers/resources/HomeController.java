@@ -30,7 +30,7 @@ public class HomeController {
     @Autowired
     MapperCuenta mapperCuenta;
     MapperBolsillo mapperBolsillo;
-    static CuentaServices cuentaServices;
+    CuentaServices cuentaServices;
     CuentaImplementacion repository;
     BolsilloServices bolsilloServices;
     BolsilloImplementacion bolsilloRepository;
