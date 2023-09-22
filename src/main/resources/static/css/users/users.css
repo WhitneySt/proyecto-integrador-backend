@@ -2,7 +2,7 @@ main {
     width: 80vw;
     position: absolute;
     left: 52%;
-    top: 590px;
+    top: 370px;
     transform: translate(-50%, -50%);
 
 }
@@ -18,7 +18,7 @@ h2 {
 .buttons {
     display: flex;
     justify-content: space-between;
-    width: 70%;
+    width: 90%;
     margin: 0 auto 5px;
 }
 
@@ -57,7 +57,7 @@ button:hover {
 
 
 table {
-    width: 70%;
+    width: 90%;
     border-collapse: collapse;
     border-spacing: 0;
     margin: 10px auto 50px;
@@ -71,19 +71,24 @@ tr {
 
 }
 
+tr:last-child {
+  /* Estilos para el último hijo de tr */
+  margin-right: 10px;
+}
+
 
 table thead tr th {
     font-size: 1.2em;
     font-weight: 600;
     color: #16203F;
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
 }
 
 table tbody tr td {
     font-size: 1em;
     /* color: #16203F; */
-    padding: 10px 0;
+    padding: 15px 0;
     text-align: center;
 }
 
