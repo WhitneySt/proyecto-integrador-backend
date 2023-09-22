@@ -12,7 +12,6 @@
     <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
     <link rel="stylesheet" type="text/css" th:href="@{./css/users/users.css}">
-    <link rel="stylesheet" href="./css/usuarios.css">
 
     <title>Usuarios</title>
 </head>
@@ -27,10 +26,10 @@
     <h2>Usuarios</h2>
     <!-- buttons -->
     <div class="buttons">
-        <button class="btn-detalle">Detalle</button>
+        <button class="btn-detalle"> <a th:href="@{/detalleUsuario}">Detalle</a></button>
         <div class="buttons-group">
             <button class="btn-crear">Crear</button>
-            <button class="btn-editar">"Editar</button>
+            <button class="btn-editar">Editar</button>
         </div>
     </div>
     <table>
@@ -44,112 +43,16 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>John Doe</td>
-            <td>johndoe@example.com</td>
-            <td>Administrador</td>
-            <td class="activo">Activo</td>
+        <tr th:each="usuario : ${usuarios}" >
+            <td><input value=th:value="${usuario.id}" type="checkbox"></td>
+            <td th:text="${usuario.nombre}"></td>
+            <td th:text="${usuario.correo}"></td>
+            <td th:text="${usuario.rol.nombre}"></td>
+            <td th:text="${usuario.estado.nombre}"></td>
+
+<!--            <td class="activo">Activo</td>-->
         </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Jane Doe</td>
-            <td>janedoe@example.com</td>
-            <td>Usuario</td>
-            <td class="bloqueado">Bloqueado</td>
-        </tr>
-        <!-- Agregar más filas para más usuarios -->
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 3</td>
-            <td>usuario3@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 4</td>
-            <td>usuario4@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 5</td>
-            <td>usuario5@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 6</td>
-            <td>usuario6@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 7</td>
-            <td>usuario7@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 8</td>
-            <td>usuario8@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 9</td>
-            <td>usuario9@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 10</td>
-            <td>usuario10@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 10</td>
-            <td>usuario10@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 10</td>
-            <td>usuario10@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 10</td>
-            <td>usuario10@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 10</td>
-            <td>usuario10@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
-        <tr>
-            <td><input type="checkbox"></td>
-            <td>Usuario 10</td>
-            <td>usuario10@example.com</td>
-            <td>Usuario</td>
-            <td class="activo">Activo</td>
-        </tr>
+
 
         </tbody>
     </table>
