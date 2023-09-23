@@ -53,6 +53,7 @@ public class SecurityConfig {
                                 authRaquests
                                         .requestMatchers("/login","/registro").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
                                         .requestMatchers("/home","/").authenticated() // los endpoints que empiecen con /home requieren autenticacion
+                                        .requestMatchers("/usuarios","/detalleUsuario/**").authenticated() // los endpoints que empiecen con /usuarios y /detalleUsuario requieren autenticacion
                                         .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
                 )
 
@@ -93,12 +94,13 @@ public class SecurityConfig {
                                 .deleteCookies("JSESSIONID") // elimina la cookie de la sesion
                 )
 
+
+
                 .build(); // Se construye el objeto SecurityFilterChain
 
 
     }
 
 
-
-
 }
+
