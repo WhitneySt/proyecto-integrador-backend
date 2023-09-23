@@ -26,7 +26,7 @@
     <h2>Usuarios</h2>
     <!-- buttons -->
     <div class="buttons">
-        <button class="btn-detalle"> <a th:href="@{/detalleUsuario}">Detalle</a></button>
+        <button class="btn-detalle" onclick="redirigirDetalleUsuario()">Detalle</button>
         <div class="buttons-group">
             <button class="btn-crear">Crear</button>
             <button class="btn-editar">Editar</button>
@@ -44,7 +44,7 @@
         </thead>
         <tbody>
         <tr th:each="usuario : ${usuarios}" >
-            <td><input value=th:value="${usuario.id}" type="checkbox"></td>
+            <td><input th:value="${usuario.id}" type="checkbox"></td>
             <td th:text="${usuario.nombre}"></td>
             <td th:text="${usuario.correo}"></td>
             <td th:text="${usuario.rol.nombre}"></td>
@@ -63,9 +63,8 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script src="./js/usuarios.js"></script>
-<script  th:inline="javaScript" th:src="@{./js/usuarios.js}"></script>
-
+<script  th:inline="javaScript" th:src="@{./js/selectCheckbox.js}"></script>
+<script  th:inline="javaScript" th:src="@{./js/usersButtons.js}"></script>
 <script>
 </script>
 </body>
