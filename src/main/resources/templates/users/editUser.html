@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{./css/users/edicionUsuario.css}">
+
+
+  <title>Usuarios</title>
+</head>
+
+<body>
+
+
+<nav th:replace="components/nav :: Nav"></nav>
+
+<main>
+  <h1>Editar información del usuario</h1>
+  <form  th:object="${usuario}" method="post" th:action="@{login}">
+    <ul th:object="${usuario}" >
+      <li>
+        <label for="identificacion">Número de identificación</label>
+        <input type="text" id="identificacion" name="identificacion" th:value="*{id}" readonly>
+      </li>
+      <li>
+        <label for="nombre">Nombre <span class="red">*</span></label>
+        <input type="text" id="nombre" name="nombre" th:value="*{nombre}">
+      </li>
+      <li>
+        <label for="correo">Correo electrónico <span class="red">*</span></label>
+        <input type="email" id="correo" name="correo" th:value="*{correo}">
+      </li>
+      <li>
+        <label for="rol">Rol <span class="red">*</span></label>
+        <select id="rol" name="rol">
+          <option value="Administrador" th:selected="${usuario.rol.nombre == 'Administrador'}">Administrador</option>
+          <option value="Usuario" th:selected="${usuario.rol.nombre == 'Usuario'}">Usuario</option>
+        </select>
+      </li>
+      <li>
+        <label for="estado">Estado <span class="red">*</span></label>
+        <select id="estado" name="estado">
+          <option value="Activo" th:selected="${usuario.estado.nombre == 'Activo'}">Activo</option>
+          <option value="Inactivo" th:selected="${usuario.estado.nombre == 'Inactivo'}">Inactivo</option>
+        </select>
+      </li>
+      <li class="input-container">
+        <label for="contrasena">Contraseña</label>
+        <div class="password-input">
+          <input type="password" id="contrasena" name="contrasena">
+        </div>
+      </li>
+    </ul>
+    <button type="submit">Guardar</button>
+  </form>
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+</script>
+</body>
+
+</html>
