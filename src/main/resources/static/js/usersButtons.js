@@ -1,34 +1,54 @@
 function redirigirDetalleUsuario() {
 
+    let checkboxSeleccionado = checkboxSelect(); // obtiene el checkbox seleccionado
+
+    //Si encuentra un checkbox seleccionado, es decir es diferente a null,
+    if (checkboxSeleccionado) {
+        const idUsuario = checkboxSeleccionado.value; // obtiene el valor del checkbox que se asume como el ID del usuario
+        window.location.href = "detalleUsuario/" + idUsuario; // redirige a la URL "detalleUsuario/{id}"
+        }
+
+}
+
+function redirigirEditarUsuario() {
+
+    let checkboxSeleccionado = checkboxSelect(); // obtiene el checkbox seleccionado
+
+    //Si encuentra un checkbox seleccionado, es decir es diferente a null,
+    if (checkboxSeleccionado) {
+        const idUsuario = checkboxSeleccionado.value; // obtiene el valor del checkbox que se asume como el ID del usuario
+        window.location.href = "getInformationUser/" + idUsuario; // redirige a la URL "editarUsuario/{id}"
+        }
+
+}
+
+function redirigirEliminarUsuario() {}
+
+
+function checkboxSelect(){
+
+    // Selecciona todos los checkboxes dentro del contenedor
     let checkboxes = document.querySelectorAll('input[type="checkbox"]'); // Selecciona todos los checkboxes dentro del contenedor
     let checkboxSeleccionado = null; // Variable para almacenar el checkbox seleccionado
 
     // Recorre todos los checkboxes y verifica cuál está marcado utilizando la propiedad  checked
     checkboxes.forEach(function(checkbox) {
-    if (checkbox.checked) {
-      checkboxSeleccionado = checkbox;
-    }
+        if (checkbox.checked) {
+            checkboxSeleccionado = checkbox;
+        }
     });
 
-    //Si encuentra un checkbox seleccionado,
-    if (checkboxSeleccionado) {
-        const idUsuario = checkboxSeleccionado.value; // obtiene el valor del checkbox que se asume como el ID del usuario
-        window.location.href = "detalleUsuario/" + idUsuario; // redirige a la URL "detalleUsuario/{id}"
-        }
-    // Si no hay checkbox seleccionado
-    else {
-        // muestra una alerta utilizando Swal.fire indicando que no hay un usuario seleccionado.
+    if(checkboxSeleccionado == null){
+         // muestra una alerta utilizando Swal.fire indicando que no hay un usuario seleccionado.
         Swal.fire({
               icon: 'warning',
               title: 'Alerta',
               text: 'No hay un usuario seleccionado',
               confirmButtonColor: '#3085d6',
               confirmButtonText: 'Aceptar'
-            });
+        });
+    }
+    else{
+        return checkboxSeleccionado;
     }
 }
-
-function redirigirEditarUsuario() {
-}
-
-function redirigirEliminarUsuario() {}
