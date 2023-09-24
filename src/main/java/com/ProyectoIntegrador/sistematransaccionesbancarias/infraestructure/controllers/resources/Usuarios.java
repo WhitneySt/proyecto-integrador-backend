@@ -76,5 +76,27 @@ public class Usuarios {
         return "users/informationUser";
     }
 
+    @GetMapping("/getInformationUser/{id}")
+    public String editarUsuario(@PathVariable int id,RedirectAttributes redirectAttributes){
+
+        try {
+            Usuario usuario = usuarioServices.getUsuarioById(id);
+            redirectAttributes.addFlashAttribute("usuario", usuario);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+
+        return "redirect:/editarUsuario";
+
+    }
+
+    @GetMapping("/editarUsuario")
+    public String editarUsuario(Model model,@ModelAttribute("usuario") Usuario usuario){
+
+        model.addAttribute("usuario",usuario);
+
+        return "users/editUser";
+    }
+
 
 }
