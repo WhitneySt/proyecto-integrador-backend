@@ -48,9 +48,7 @@
             <td th:text="${usuario.nombre}"></td>
             <td th:text="${usuario.correo}"></td>
             <td th:text="${usuario.rol.nombre}"></td>
-            <td th:text="${usuario.estado.nombre}"></td>
-
-<!--            <td class="activo">Activo</td>-->
+            <td th:class="*{usuario.estado.nombre ? 'activo' : 'bloqueado'}" th:text="*{usuario.estado.nombre ? 'Activo' : 'Bloqueado'}"></td>
         </tr>
 
 
