@@ -107,4 +107,18 @@ public  void setId(Integer id){
     public void setEstado(EstadoJPAEntity estado) {
         this.estado = estado;
     }
+
+    @Override
+    public String toString() {
+        return "UsuarioJPAEntity{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", urlImage='" + urlImage + '\'' +
+                ", rol=" + rol +
+                ", estado=" + estado +
+                '}';
+    }
 }
