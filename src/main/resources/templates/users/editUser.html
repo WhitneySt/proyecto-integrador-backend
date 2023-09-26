@@ -24,52 +24,49 @@
 
 <main>
   <h1>Editar información del usuario</h1>
-  <form  th:object="${usuario}" method="post" th:action="@{login}">
-    <ul th:object="${usuario}" >
+  <form  th:object="${usuario}" method="post" th:action="@{updateUser}">
+    <input type="hidden" th:field="*{fechaCreacion}" >
+    <input type="hidden" th:field="*{urlImage}" >
+    <input type="hidden" th:field="*{contrasena}">
+
+    <ul >
       <li>
         <label for="identificacion">Número de identificación</label>
-        <input type="text" id="identificacion" name="identificacion" th:value="*{id}" readonly>
+        <input type="number" id="identificacion" name="identificacion" th:value="*{id}"  th:field="*{id}" readonly>
       </li>
       <li>
         <label for="nombre">Nombre <span class="red">*</span></label>
-        <input type="text" id="nombre" name="nombre" th:value="*{nombre}">
+        <input type="text" id="nombre" name="nombre" th:value="*{nombre}"  th:field="*{nombre}">
       </li>
       <li>
         <label for="correo">Correo electrónico <span class="red">*</span></label>
-        <input type="email" id="correo" name="correo" th:value="*{correo}">
+        <input type="email" id="correo" name="correo" th:value="*{correo}" th:field="*{correo}">
       </li>
       <li>
         <label for="rol">Rol <span class="red">*</span></label>
-        <select id="rol" name="rol">
-          <option value="Administrador" th:selected="${usuario.rol.nombre == 'Administrador'}">Administrador</option>
-          <option value="Usuario" th:selected="${usuario.rol.nombre == 'Usuario'}">Usuario</option>
+        <select id="rol" name="rol"  th:field="*{rol}">
+          <option th:each="rol : ${listaRoles}" th:text="${rol.nombre}" th:value="${rol.ID}"></option>
         </select>
       </li>
       <li>
         <label for="estado">Estado <span class="red">*</span></label>
-        <select id="estado" name="estado">
-          <option value="Activo" th:selected="${usuario.estado.nombre == 'Activo'}">Activo</option>
-          <option value="Inactivo" th:selected="${usuario.estado.nombre == 'Inactivo'}">Inactivo</option>
+        <select id="estado" name="estado" th:field="*{estado}">
+          <option th:each="estado:${listaEstados}" th:text="${estado.nombre  ? 'Activo' : 'Inactivo'}" th:value="${estado.ID}"></option>
         </select>
-      </li>
-      <li class="input-container">
-        <label for="contrasena">Contraseña</label>
-        <div class="password-input">
-          <input type="password" id="contrasena" name="contrasena">
-        </div>
-      </li>
+
     </ul>
     <button type="submit">Guardar</button>
   </form>
 </main>
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script  th:inline="javaScript" th:src="@{./js/validateUserEdit.js}"></script>
+
 
 <script>
+
 </script>
 </body>
 
