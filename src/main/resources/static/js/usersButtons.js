@@ -5,7 +5,7 @@ function redirigirDetalleUsuario() {
     //Si encuentra un checkbox seleccionado, es decir es diferente a null,
     if (checkboxSeleccionado) {
         const idUsuario = checkboxSeleccionado.value; // obtiene el valor del checkbox que se asume como el ID del usuario
-        window.location.href = "detalleUsuario/" + idUsuario; // redirige a la URL "detalleUsuario/{id}"
+        window.location.href = "getInformationUser/verUsuario/" + idUsuario; // redirige a la URL "detalleUsuario/{id}"
         }
 
 }
@@ -17,7 +17,7 @@ function redirigirEditarUsuario() {
     //Si encuentra un checkbox seleccionado, es decir es diferente a null,
     if (checkboxSeleccionado) {
         const idUsuario = checkboxSeleccionado.value; // obtiene el valor del checkbox que se asume como el ID del usuario
-        window.location.href = "getInformationUser/" + idUsuario; // redirige a la URL "editarUsuario/{id}"
+        window.location.href = "getInformationUser/editarUsuario/" + idUsuario; // redirige a la URL "editarUsuario/{id}"
         }
 
 }
