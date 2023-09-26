@@ -63,7 +63,36 @@
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script  th:inline="javaScript" th:src="@{./js/selectCheckbox.js}"></script>
 <script  th:inline="javaScript" th:src="@{./js/usersButtons.js}"></script>
-<script>
+<script  th:inline="javaScript">
+    window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; // Obtenemos el mensaje que viene desde el controlador
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == "updateOk") {
+                        mensajeMostrar = "El usuario se ha actualizado correctamente";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    } else if (mensajeRecibido == "updateError") {
+                        mensajeMostrar = "No se ha podido actualizar el usuario";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+
+
+                }
+            }
 </script>
 </body>
 
