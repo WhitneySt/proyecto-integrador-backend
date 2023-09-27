@@ -20,18 +20,18 @@
         <title>Home</title>
     </head>
     <body>
-        <header th:replace="components/header :: Header"></header>
+        <header th:replace="~{components/header :: Header}"></header>
         <main>
-            <nav th:replace="components/nav :: Nav"></nav>
+            <nav th:replace="~{components/nav :: Nav}"></nav>
 
             <!--Contiene la información de la cuenta y se muestra algo dependiendo si esxiste o no la cuenta-->
             <div  class="information" th:if="${isCuentaCreada}">
                 <!-- Componente o contenido que deseas mostrar si isCuentaCreada es verdadero -->
-                <div  th:replace="components/informationCuenta :: cardInformation"></div>
+                <div th:replace="~{components/informationCuenta :: cardInformation}"></div>
             </div>
             <div class="information" th:unless="${isCuentaCreada}">
                 <!-- Componente o contenido que se desea mostrar si isCuentaCreada es falso -->
-                <div  th:replace="components/crearCuenta :: cardCrearCuenta"></div>
+                <div th:replace="components/crearCuenta :: cardCrearCuenta"></div>
             </div>
 
             <!-- Modal -->
