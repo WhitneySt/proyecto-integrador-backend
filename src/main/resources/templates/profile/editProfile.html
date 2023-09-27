@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/formStyle.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/users/profile.css}">
+
+    <title>Usuarios</title>
+</head>
+
+<body>
+
+<nav th:replace="~{components/nav :: Nav}"></nav>
+
+<main>
+    <h1>Editar Perfil</h1>
+    <form  th:object="${usuario}" method="post" th:action="@{updateProfile}" enctype="multipart/form-data ">
+
+        <div class="imagen-perfil">
+            <img th:src="@{./images/profileImg.jpg}"alt="Imagen de perfil">
+            <div class="container-input">
+                <input type="file" name="file-1" id="file-1" class="inputfile inputfile-1" accept="image/*" th:field="*{urlImage}" />
+                <label for="file-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="iborrainputfile" width="20" height="17" viewBox="0 0 20 17">
+                        <path
+                                d="M10 0l-5.2 4.9h3.3v5.1h3.8v-5.1h3.3l-5.2-4.9zm9.3 11.5l-3.2-2.1h-2l3.4 2.6h-3.5c-.1 0-.2.1-.2.1l-.8 2.3h-6l-.8-2.2c-.1-.1-.1-.2-.2-.2h-3.6l3.4-2.6h-2l-3.2 2.1c-.4.3-.7 1-.6 1.5l.6 3.1c.1.5.7.9 1.2.9h16.3c.6 0 1.1-.4 1.3-.9l.6-3.1c.1-.5-.2-1.2-.7-1.5z">
+                        </path>
+                    </svg>
+                    <span class="iborrainputfile">Seleccionar archivo</span>
+                </label>
+            </div>
+        </div>
+        <ul >
+            <li>
+                <label for="identificacion">Número de identificación</label>
+                <input type="number" id="identificacion" name="identificacion" th:value="*{id}"  th:field="*{id}" readonly>
+            </li>
+            <li>
+                <label for="nombre">Nombre <span class="red">*</span></label>
+                <input type="text" id="nombre" name="nombre" th:value="*{nombre}"  th:field="*{nombre}">
+            </li>
+            <li>
+                <label for="correo">Correo electrónico <span class="red">*</span></label>
+                <input type="email" id="correo" name="correo" th:value="*{correo}" th:field="*{correo}">
+            </li>
+            <!--Contraseña-->
+            <li>
+                <label for="contrasena">Contraseña <span class="red">*</span></label>
+                <input type="password" id="contrasena" name="contrasena" th:value="*{contrasena}" th:field="*{contrasena}">
+            </li>
+
+        </ul>
+
+        <!--No se muestran estos datos pero se envian-->
+        <input type="hidden" th:field="*{fechaCreacion}" >
+        <input type="hidden" th:field="*{contrasena}">
+        <input type="hidden" th:field="*{estado}">
+        <input type="hidden" th:field="*{rol}">
+
+
+        <button type="submit">Guardar</button>
+    </form>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script  th:inline="javaScript" >
+    'use strict';
+
+    ; (function (document, window, index) {
+      // selecciona el input y le agrega un evento change
+      var inputs = document.querySelectorAll('.inputfile');
+      Array.prototype.forEach.call(inputs, function (input) {
+        var label = input.nextElementSibling,
+          labelVal = label.innerHTML;
+
+        // cuando haya un cambio en el input se muestra el nombre del archivo
+        input.addEventListener('change', function (e) {
+          var fileName = '';
+
+          fileName = e.target.value.split('\\').pop();
+
+          if (fileName)
+            label.querySelector('span').innerHTML = fileName;
+          else
+            label.innerHTML = labelVal;
+        });
+      });
+    }(document, window, 0));
+
+</script>
+</body>
+
+</html>
