@@ -56,7 +56,7 @@ main form ul li select {
     cursor: pointer;
 }
 
-li>label[for="identificacion"]+input {
+input[readonly]{
     /* Estilos CSS para el li que contiene el input con id identificacion */
     background-color: #adafb2;
     cursor: not-allowed;
