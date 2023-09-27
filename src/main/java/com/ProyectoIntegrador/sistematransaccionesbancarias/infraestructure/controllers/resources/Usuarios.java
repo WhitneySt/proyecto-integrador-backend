@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.passwordEncoder;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.NombreUsuarioModel;
 
@@ -48,7 +49,6 @@ public class Usuarios {
     EstadoImplementacion repositoryEstado;
     RolImplementacion repositoryRol;
 
-
     @Autowired
     public Usuarios(UsuarioJPARepository usuarioJPARepository,MapperUsuario mapperUsuario,EstadoJPARepository estadoJPARepository, MapperEstado mapperEstado,RolJPARepository rolJPARepository,MapperRol mapperRol) {
         this.repository = new UsuarioImplementacion(usuarioJPARepository,mapperUsuario);
@@ -61,9 +61,9 @@ public class Usuarios {
         this.mapperEstado = mapperEstado;
         this.mapperRol = mapperRol;
 
-
     }
 
+    // ? Adminitración de usuarios (CRUD)
     @GetMapping("/usuarios")
     public String usuarios(Model model,HttpServletRequest request) {
 
@@ -174,6 +174,48 @@ public class Usuarios {
 
         redirectAttributes.addFlashAttribute("mensaje", "createError");
         return "redirect:/usuarios";
+    }
+
+    // ? Administración del pefil de usuario logeado
+
+    @GetMapping("/perfil")
+    public String perfil(Model model,HttpServletRequest request) {
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        model.addAttribute("usuario",usuarioLogeado);
+
+        return "profile/seeProfile";
+    }
+
+    @GetMapping("/editarPerfil")
+    public String editarPerfil(Model model,HttpServletRequest request) {
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        model.addAttribute("usuario",usuarioLogeado);
+
+        return "users/editProfile";
+    }
+
+    @PostMapping("/updateProfile")
+    public String updateProfile(@ModelAttribute("usuario")Usuario usuario, RedirectAttributes redirectAttributes,HttpServletRequest request) {
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+
+        // Se encripta la contraseña
+        String passwordEncriptado  = passwordEncoder().encode(usuario.getContrasena());
+
+        // Se cambia la contraseña por la encriptada
+        usuario.setContrasena(passwordEncriptado);
+
+        try {
+            usuarioServices.UpdateUsuario(usuario);
+            redirectAttributes.addFlashAttribute("mensaje", "updateOk");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            redirectAttributes.addFlashAttribute("mensaje", "updateError");
+        }
+
+        return "redirect:/perfil";
     }
 
 
