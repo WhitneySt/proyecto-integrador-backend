@@ -31,6 +31,8 @@ public class UsuarioJPAEntity {
     @JoinColumn(name = "estado_id", nullable = false)
     private EstadoJPAEntity estado;
     public UsuarioJPAEntity() {
+        // ? Valores por defecto
+        this.fechaCreacion = new Date(System.currentTimeMillis());
     }
 
     public UsuarioJPAEntity(Integer id, String nombre, String correo, String contrasena, Date fechaCreacion, String urlImage) {
