@@ -22,7 +22,9 @@ function redirigirEditarUsuario() {
 
 }
 
-function redirigirEliminarUsuario() {}
+function redirigirCrearUsuario() {
+    window.location.href = "/crearUsuario"; // redirige a la URL "crearUsuario"
+    }
 
 
 function checkboxSelect(){
