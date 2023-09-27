@@ -193,7 +193,7 @@ public class Usuarios {
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         model.addAttribute("usuario",usuarioLogeado);
 
-        return "users/editProfile";
+        return "profile/editProfile";
     }
 
     @PostMapping("/updateProfile")
