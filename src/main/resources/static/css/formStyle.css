@@ -1,0 +1,115 @@
+/*Se encarga del los estilos del main y de cuando hay formulario o se da la idea de que es un formulario por medio de un span*/
+
+main {
+    width: 80vw;
+    position: absolute;
+    left: 53%;
+    top: 70%;
+    transform: translate(-50%, -50%);
+
+}
+
+main h1 {
+    text-align: center;
+    font-size: 1.9rem;
+    font-weight: 600;
+    margin-bottom: 25px;
+    color: #535FE3;
+}
+
+main ul {
+  list-style: none;
+  margin:  30px auto 50px ;
+  padding: 0;
+  width: 550px;
+
+}
+
+main form ul {
+    list-style: none;
+    margin: 30px auto 50px;
+    padding: 0;
+    width: 550px;
+
+}
+
+main ul li {
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+main ul li label {
+    color: rgba(79, 79, 79, 0.74);
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: 10px;
+    margin-bottom: 5px;
+
+}
+
+/*? Para los  inputs */
+.red{
+    color: red;
+}
+
+.errorInput {
+    border: 1px solid red;
+}
+
+main form ul li input,
+main form ul li select {
+    font-size: 16px;
+    border-radius: 15.341px;
+    padding: 8px 15px;
+    background: #dee0e0;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+}
+
+input[readonly]{
+    /* Estilos CSS para el li que contiene el input con id identificacion */
+    background-color: #adafb2;
+    cursor: not-allowed;
+}
+
+
+main form button {
+    width: 200px;
+    padding: 15px 38px;
+    border-radius: 10.341px;
+    border: none;
+    background: rgba(83, 95, 227, 1);
+    color: #fff;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    height: 50px;
+    display: block;
+    margin: 10px auto 30px ;
+    transition: all 500ms ease-in-out;
+
+}
+
+main form button:hover {
+    background: #3f4eef;
+}
+
+/*? Para los span  */
+
+
+main ul li .information {
+  font-size: 16px;
+  border-radius: 15.341px;
+  padding: 8px 15px;
+  background: #dee0e0;
+
+}
+
+main ul li span {
+  font-size: 17px;
+  color: rgba(2, 2, 2, 0.5);
+
+}
+
