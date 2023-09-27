@@ -77,7 +77,7 @@ public class Controller {
 
 
     // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
