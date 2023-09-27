@@ -12,3 +12,42 @@
     height: 100%;
     border-radius: 50%;
   }
+
+
+  /*Edición del perfil*/
+   .container-input {
+      background-color: #324eaa;
+      color: #fff;
+      border-radius: 8px;
+  }
+
+  .inputfile {
+      /* Se encarga de ocultar el input para que se vea el label */
+      opacity: 0;
+      overflow: hidden;
+      position: absolute;
+      z-index: -1;
+  }
+
+  .inputfile + label {
+      font-size: 1rem;
+      font-weight: 700;
+      white-space: nowrap;
+      cursor: pointer;
+      display: inline-block;
+      padding: 4px 10px;
+  }
+
+  .inputfile + label svg {
+      width: 1em;
+      height: 1em;
+      vertical-align: middle;
+      fill: currentColor;
+      margin-top: -0.25em;
+      margin-right: 0.25em;
+  }
+
+  .iborrainputfile {
+  	font-size:16px;
+  	font-weight:normal;
+  }
