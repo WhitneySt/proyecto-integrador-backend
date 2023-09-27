@@ -1,0 +1,14 @@
+.imagen-perfil {
+
+    width: 150px;
+    height: 150px;
+    margin:  auto;
+    display: flex;
+    align-items: end;
+  }
+
+  .imagen-perfil img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+  }
