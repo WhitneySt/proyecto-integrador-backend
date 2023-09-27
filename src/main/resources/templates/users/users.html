@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/users/users.css}">
+
+    <title>Usuarios</title>
+</head>
+
+<body>
+
+<header th:replace="components/header :: Header"></header>
+
+<nav th:replace="components/nav :: Nav"></nav>
+
+<main>
+    <h2>Usuarios</h2>
+    <!-- buttons -->
+    <div class="buttons">
+        <button class="btn-detalle" onclick="redirigirDetalleUsuario()">Detalle</button>
+        <div class="buttons-group">
+            <button class="btn-crear" onclick="redirigirCrearUsuario()">Crear</button>
+            <button class="btn-editar" onclick="redirigirEditarUsuario()">Editar</button>
+        </div>
+    </div>
+    <table>
+        <thead>
+        <tr>
+            <th></th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Estado</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="usuario : ${usuarios}" >
+            <td><input th:value="${usuario.id}" type="checkbox"></td>
+            <td th:text="${usuario.nombre}"></td>
+            <td th:text="${usuario.correo}"></td>
+            <td th:text="${usuario.rol.nombre}"></td>
+            <td th:class="*{usuario.estado.nombre ? 'activo' : 'bloqueado'}" th:text="*{usuario.estado.nombre ? 'Activo' : 'Bloqueado'}"></td>
+        </tr>
+
+
+        </tbody>
+    </table>
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script  th:inline="javaScript" th:src="@{./js/selectCheckbox.js}"></script>
+<script  th:inline="javaScript" th:src="@{./js/usersButtons.js}"></script>
+<script  th:inline="javaScript">
+    window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; // Obtenemos el mensaje que viene desde el controlador
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == "updateOk") {
+                        mensajeMostrar = "El usuario se ha actualizado correctamente";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    } else if (mensajeRecibido == "updateError") {
+                        mensajeMostrar = "No se ha podido actualizar el usuario";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+                    else if (mensajeRecibido == "createError") {
+                        mensajeMostrar = "EL usuario ya tiene una cuenta asociada";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+                    else if (mensajeRecibido == "createOk") {
+                        mensajeMostrar = "Se creó el usuario";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+
+
+
+                }
+            }
+</script>
+</body>
+
+</html>

@@ -21,7 +21,17 @@ public class UsuarioService {
     }
 
     public Usuario getUsuarioById(Integer id) {
-        return usuarioRepository.getUsuarioById(id);
+        Usuario usuario=null;
+
+        try {
+            usuario = usuarioRepository.getUsuarioById(id);
+        }
+        catch (UserNotFoundException ex) {
+            // Si se lanza una excepción UserNotFoundException, significa que no se encontró ningún usuario con el ID especificado
+            // Por lo tanto, podemos registrar un nuevo usuario con ese ID
+            usuario = null;
+        }
+        return usuario;
     }
 
     public  boolean createUsuario(Usuario usuario){

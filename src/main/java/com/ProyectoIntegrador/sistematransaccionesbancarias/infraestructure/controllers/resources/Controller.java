@@ -43,7 +43,7 @@ public class Controller {
 
         model.addAttribute("usuarioDto", nuevoUsuario); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
         model.addAttribute(NAMEMENSAJE, mensajeRecibido); // Se agrega el mensaje al modelo para poder usarlo en la vista
-        return "user/registroUsuario"; // Se retorna el nombre de la vista
+        return "autenticacion/registroUsuario"; // Se retorna el nombre de la vista
 
     }
 
@@ -72,17 +72,18 @@ public class Controller {
         UsuarioDto usuarioDto = new UsuarioDto();
         model.addAttribute("usuarioDto", usuarioDto);
         model.addAttribute(NAMEMENSAJE, mensajeRecibido);
-        return "user/loginUsuario";
+        return "autenticacion/loginUsuario";
     }
 
 
     // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
-    public PasswordEncoder passwordEncoder() {
+    public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
 
-    static Usuario getUsuarioLogeado(HttpServletRequest request) {
+    // Obtener el usuario que inició sesión
+    public static Usuario getUsuarioLogeado(HttpServletRequest request) {
 
         // request es un objeto que contiene la informacion de la peticion que se hace al servidor
         //System.out.println("Usuario: " + request.getUserPrincipal().getName()); // obtener el nombre del usuario que inició sesion
@@ -91,4 +92,10 @@ public class Controller {
 
         return usuarioLogeado;
     }
+
+
+
+
+
+
 }

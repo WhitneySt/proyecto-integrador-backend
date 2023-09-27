@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/users/informationUser.css}">
+
+
+    <title>Usuarios</title>
+</head>
+
+<body>
+
+
+<nav th:replace="components/nav :: Nav"></nav>
+
+<main>
+    <h1>Información del usuario</h1>
+    <ul th:object="${usuario}">
+        <li>
+            <label>Número de identificación</label>
+            <div class="information">
+                <span th:text="*{id}"></span>
+            </div>
+
+        </li>
+        <li>
+            <label>Nombre</label>
+            <div class="information">
+                <span  th:text="*{nombre}"></span>
+
+            </div>
+
+        </li>
+        <li>
+            <label>Correo electrónico</label>
+            <div class="information">
+                <span  th:text="*{correo}"></span>
+
+            </div>
+        </li>
+        <li>
+            <label>Rol</label>
+            <div class="information">
+                <span  th:text="*{rol.nombre}"></span>
+
+            </div>
+        </li>
+        <li>
+            <label>Estado</label>
+            <div class="information">
+                <span th:text="*{estado.nombre ? 'Activo' : 'Bloqueado'}"></span>
+
+            </div>
+        </li>
+        <li>
+            <label>Fecha de creación</label>
+            <div class="information">
+                <span  th:text="*{fechaCreacion}"></span>
+            </div>
+        </li>
+    </ul>
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+</script>
+</body>
+
+</html>

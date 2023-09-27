@@ -17,6 +17,10 @@ public class Rol {
         return ID;
     }
 
+    public void setID(Integer ID) {
+        this.ID = ID;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -25,4 +29,11 @@ public class Rol {
         this.nombre = Nombre;
     }
 
+    @Override
+    public String toString() {
+        return "Rol{" +
+                "ID=" + ID +
+                ", nombre='" + nombre + '\'' +
+                '}';
+    }
 }

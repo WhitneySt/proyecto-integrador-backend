@@ -1,0 +1,57 @@
+main {
+  width: 80vw;
+  position: absolute;
+  left: 53%;
+  top: 60%;
+  transform: translate(-50%, -50%);
+
+}
+
+main h1 {
+  text-align: center;
+  font-size: 1.9rem;
+  font-weight: 600;
+  margin-bottom: 25px;
+  color: #535FE3;
+
+
+}
+
+main ul {
+  list-style: none;
+  margin:  30px auto 50px ;
+  padding: 0;
+  width: 550px;
+
+}
+
+main ul li {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+
+}
+
+main ul li label {
+  color: rgba(79, 79, 79, 0.74);
+  font-size: 1rem;
+  font-weight: 600;
+  margin-left: 10px;
+  margin-bottom: 5px;
+
+}
+
+main ul li .information {
+  font-size: 16px;
+  border-radius: 15.341px;
+  padding: 8px 15px;
+  background: #dee0e0;
+
+}
+
+main ul li span {
+  font-size: 17px;
+  color: rgba(2, 2, 2, 0.5);
+
+}
+

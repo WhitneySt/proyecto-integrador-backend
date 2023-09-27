@@ -3,7 +3,7 @@
 nav {
     border-right: 1px solid #000;
     background: #151D38;
-    box-shadow: 6px 31px 4px 0px rgba(0, 0, 0, 0.25);
+    box-shadow: 8px 0px 4px 0px rgba(0, 0, 0, 0.25);
     height: 100vh;
     width: 6vw;
     /* Alinea la barra de navegación a la derecha */
@@ -15,7 +15,7 @@ nav {
 
   nav ul {
     list-style: none;
-    margin-top: 15vh;
+    margin-top: 10vh;
     padding: 0;
   }
 

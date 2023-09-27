@@ -27,6 +27,8 @@ public class UsuarioImplementacion implements UsuarioRepository {
 
         List<Usuario> usuariosList = new ArrayList<>();
         // obtener todos los usuarios de la base de datos y los  guardar en la lista usuarios, se tiene que hacer el mapeo de la entidad de la base de datos a la entidad de dominio
+        //Regresa un objeto iterable, se puede acceder a cada uno de los usuarios y agregarlos a la lista
+
         usuarioJPARepository.findAll().forEach(Usuario -> usuariosList.add(mapperUsuario.UsuarioJPAToUsuarioDomain(Usuario)));
 
         return usuariosList;
