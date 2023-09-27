@@ -53,6 +53,7 @@
         <select id="estado" name="estado" th:field="*{estado}">
           <option th:each="estado:${listaEstados}" th:text="${estado.nombre  ? 'Activo' : 'Inactivo'}" th:value="${estado.ID}"></option>
         </select>
+      </li>
 
     </ul>
     <button type="submit">Guardar</button>
