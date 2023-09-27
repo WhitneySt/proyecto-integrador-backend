@@ -31,6 +31,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.List;
 
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.passwordEncoder;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.NombreUsuarioModel;
 
 @Controller
@@ -117,7 +118,6 @@ public class Usuarios {
     @GetMapping("/editarUsuario")
     public String editarUsuario(Model model,@ModelAttribute("usuario") UsuarioJPAEntity usuario){
 
-
         List<Estado> estados = estadoService.getAllEstados();
         List<Rol> roles = rolService.getAllRoles();
         roles.forEach(rol -> System.out.println(rol.toString()));
@@ -130,22 +130,53 @@ public class Usuarios {
         return "users/editUser";
     }
 
+    //? Se trabaja con el objeto UsuarioJPAEntity para poder hacer la realcion con uroles y estados porque si lo uso con un objeto dto genera error
     @PostMapping("/updateUser")
     public String updateUser(@ModelAttribute("usuario")UsuarioJPAEntity usuario, RedirectAttributes redirectAttributes) {
-        System.out.println("Actualizando usuario");
-        System.out.println(usuario.toString());
+
         try {
             usuarioServices.UpdateUsuario(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario));
-            System.out.println("Usuario actualizado correctamente");
             redirectAttributes.addFlashAttribute("mensaje", "updateOk");
         } catch (Exception e) {
-            System.out.println("Error al actualizar el usuario");
             System.out.println(e.getMessage());
             redirectAttributes.addFlashAttribute("mensaje", "updateError");
         }
 
         return "redirect:/usuarios";
     }
+
+    @GetMapping("/crearUsuario")
+    public String crearUsuario(Model model) {
+
+        List<Estado> estados = estadoService.getAllEstados();
+        List<Rol> roles = rolService.getAllRoles();
+
+        model.addAttribute("listaEstados",estados);
+        model.addAttribute("listaRoles",roles);
+        model.addAttribute("usuario",new Usuario());
+
+        return "users/createUser";
+    }
+
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("usuario")UsuarioJPAEntity usuario, RedirectAttributes redirectAttributes) {
+
+        // Se encripta la contraseña
+        String passwordEncriptado  = passwordEncoder().encode(usuario.getContrasena());
+
+        // Se cambia la contraseña por la encriptada
+        usuario.setContrasena(passwordEncriptado);
+
+        if(usuarioServices.createUsuario(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario))){
+            redirectAttributes.addFlashAttribute("mensaje", "createOk");
+            return "redirect:/usuarios"; // Se redireciona al servicio
+        }
+
+        redirectAttributes.addFlashAttribute("mensaje", "createError");
+        return "redirect:/usuarios";
+    }
+
+
 
 
 }
