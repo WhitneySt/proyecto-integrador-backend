@@ -28,7 +28,7 @@
     <div class="buttons">
         <button class="btn-detalle" onclick="redirigirDetalleUsuario()">Detalle</button>
         <div class="buttons-group">
-            <button class="btn-crear">Crear</button>
+            <button class="btn-crear" onclick="redirigirCrearUsuario()">Crear</button>
             <button class="btn-editar" onclick="redirigirEditarUsuario()">Editar</button>
         </div>
     </div>
@@ -89,6 +89,25 @@
                         timer: 3000
                         })
                     }
+                    else if (mensajeRecibido == "createError") {
+                        mensajeMostrar = "EL usuario ya tiene una cuenta asociada";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+                    else if (mensajeRecibido == "createOk") {
+                        mensajeMostrar = "Se creó el usuario";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+
 
 
                 }
