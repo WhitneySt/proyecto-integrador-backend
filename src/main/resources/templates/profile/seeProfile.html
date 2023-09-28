@@ -106,6 +106,16 @@
                         timer: 3000
                         })
                     }
+                    else if (mensajeRecibido== "updateErrorImg") {
+                        mensajeMostrar = "Error al guardar la imagen del perfil";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+
+                    }
 
 
                 }
