@@ -31,7 +31,7 @@ import java.util.List;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.passwordEncoder;
-import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.NombreUsuarioModel;
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 @Controller
 public class Usuarios {
@@ -65,7 +65,7 @@ public class Usuarios {
     @GetMapping("/usuarios")
     public String usuarios(Model model,HttpServletRequest request) {
 
-        NombreUsuarioModel(model,request); // Se obtiene el nombre del usuario que inició sesión y lo guarda en el model
+        InformationUsuarioModel(model,request); // Se obtiene el nombre del usuario y la img que inició sesión y lo guarda en el model
 
         List<Usuario> listaUsuarios = usuarioServices.getAllUsuarios();
         model.addAttribute("usuarios",listaUsuarios);
@@ -180,6 +180,9 @@ public class Usuarios {
     public String perfil(Model model,HttpServletRequest request) {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        String urlImageUsuario = usuarioLogeado.getUrlImage(); // Se obtiene la url de la imagen del usuario que inició sesión y lo guarda en una variable global
+
+        model.addAttribute("urlImageUsuario", urlImageUsuario); // Se agrega la url de la imagen del usuario al modelo para poder usarlo en la vista
         model.addAttribute("usuario",usuarioLogeado);
 
         return "profile/seeProfile";
@@ -187,9 +190,11 @@ public class Usuarios {
 
     @GetMapping("/editarPerfil")
     public String editarPerfil(Model model, HttpServletRequest request ) {
-        
-        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
 
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        String urlImageUsuario = usuarioLogeado.getUrlImage(); // Se obtiene la url de la imagen del usuario que inició sesión y lo guarda en una variable global
+
+        model.addAttribute("urlImageUsuario", urlImageUsuario); // Se agrega la url de la imagen del usuario al modelo para poder usarlo en la vista
         model.addAttribute("usuario",usuarioLogeado);
 
         return "profile/editProfile";
@@ -204,22 +209,20 @@ public class Usuarios {
         // Validaciones de la imagen, si la imagen no está vacia se guarda obtiene la url de la imagen y se guarda en el usuario
         if(!imagen.isEmpty()){
 
-            System.out.println("Se intenta guardar la imagen");
-
             Path directorioImagenes = Paths.get("src//main//resources//static//images/profile"); // Se obtiene la ruta de la carpeta donde se guardará la imagen
             String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath(); // Se obtiene la ruta absoluta de la carpeta
 
-        // Se intenta guardar la imagen en la carpeta
-        try {
+            // Se intenta guardar la imagen en la carpeta
+            try {
 
-            byte[] bytesImg = imagen.getBytes(); // Se obtienen los bytes de la imagen
-            Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename()); // Se obtiene la ruta completa de la imagen
-            Files.write(rutaCompleta, bytesImg); // Se guarda la imagen en la ruta especificada
-            usuario.setUrlImage(imagen.getOriginalFilename()); // Se guarda la url de la imagen en el usuario que es el nombre de la imagen
+                byte[] bytesImg = imagen.getBytes(); // Se obtienen los bytes de la imagen
+                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename()); // Se obtiene la ruta completa de la imagen
+                Files.write(rutaCompleta, bytesImg); // Se guarda la imagen en la ruta especificada
+                usuario.setUrlImage(imagen.getOriginalFilename()); // Se guarda la url de la imagen en el usuario que es el nombre de la imagen
 
-            updateProfile = true; // Se puede actualizar el perfil porque se pudo guardar la imagen
+                updateProfile = true; // Se puede actualizar el perfil porque se pudo guardar la imagen
 
-            } catch (Exception e) {
+                } catch (Exception e) {
                 updateProfile = false; // No se guarda el perfil porque no se pudo guardar la imagen
                 System.out.println(e.getMessage());
                 System.out.println("No se pudo guardar la imagen");
@@ -229,7 +232,6 @@ public class Usuarios {
         if(updateProfile){
             // se intenta actualizar el usuario
             try {
-                System.out.println("Se intenta actualizar el usuario");
                 usuarioServices.UpdateUsuario(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario));
                 redirectAttributes.addFlashAttribute("mensaje", "updateOk");
             } catch (Exception e) {
