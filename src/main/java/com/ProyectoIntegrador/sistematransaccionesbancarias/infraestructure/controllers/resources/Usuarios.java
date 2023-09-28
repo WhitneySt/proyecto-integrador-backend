@@ -191,24 +191,18 @@ public class Usuarios {
     public String editarPerfil(Model model,HttpServletRequest request) {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+
         model.addAttribute("usuario",usuarioLogeado);
 
         return "profile/editProfile";
     }
 
     @PostMapping("/updateProfile")
-    public String updateProfile(@ModelAttribute("usuario")Usuario usuario, RedirectAttributes redirectAttributes,HttpServletRequest request) {
+    public String updateProfile(@ModelAttribute("usuario")UsuarioJPAEntity usuario, RedirectAttributes redirectAttributes,HttpServletRequest request) {
 
-        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
-
-        // Se encripta la contraseña
-        String passwordEncriptado  = passwordEncoder().encode(usuario.getContrasena());
-
-        // Se cambia la contraseña por la encriptada
-        usuario.setContrasena(passwordEncriptado);
 
         try {
-            usuarioServices.UpdateUsuario(usuario);
+            usuarioServices.UpdateUsuario(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario));
             redirectAttributes.addFlashAttribute("mensaje", "updateOk");
         } catch (Exception e) {
             System.out.println(e.getMessage());
