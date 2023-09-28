@@ -52,19 +52,15 @@
                 <label for="correo">Correo electrónico <span class="red">*</span></label>
                 <input type="email" id="correo" name="correo" th:value="*{correo}" th:field="*{correo}">
             </li>
-            <!--Contraseña-->
-            <li>
-                <label for="contrasena">Contraseña <span class="red">*</span></label>
-                <input type="password" id="contrasena" name="contrasena" th:value="*{contrasena}" th:field="*{contrasena}">
-            </li>
+
 
         </ul>
 
         <!--No se muestran estos datos pero se envian-->
         <input type="hidden" th:field="*{fechaCreacion}" >
-        <input type="hidden" th:field="*{contrasena}">
-        <input type="hidden" th:field="*{estado}">
-        <input type="hidden" th:field="*{rol}">
+        <input type="text" hidden="hidden" th:field="*{contrasena}">
+        <input type="hidden" th:field="*{estado.ID}">
+        <input type="hidden" th:field="*{rol.ID}">
 
 
         <button type="submit">Guardar</button>
@@ -74,6 +70,30 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+<script  th:inline="javaScript" >
+document.querySelector('form').addEventListener("submit", function(event) {
+  event.preventDefault(); // Evita que el formulario se envíe automáticamente
+
+  let nombre = document.getElementById("nombre").value;
+  let correo = document.getElementById("correo").value;
+
+  // Verificar que ningún campo esté vacío, excepto la contraseña
+  if (nombre.trim() === "" || correo.trim() === "") {
+    mostrarAlerta('error', 'Error', 'Por favor, complete todos los campos obligatorios.');
+  }
+  else {
+    event.target.submit(); // Si todo está correcto, envía el formulario
+    }
+
+});
+function mostrarAlerta(icon, title, mensaje) {
+      Swal.fire({
+        icon: icon,
+        title: title,
+        text: mensaje,
+      });
+}
+</script>
 <script  th:inline="javaScript" >
     'use strict';
 
