@@ -6,11 +6,15 @@
         Makaia Bank
     </h1>
     <div class="profile">
-        <img th:src="@{./images/header/icon-profile-img.png}" alt="Imagen perfil" class="img-profile">
-        <!--<p th:text="'Bienvenido ' + ${nombreUsuario}"></p> -->
+
+        <img th:if="${urlImageUsuario != null}" th:src="@{'./images/profile/' + ${urlImageUsuario}}" alt="Imagen perfil" class="img-profile">
+        <img th:unless="${urlImageUsuario != null}" th:src="@{./images/header/icon-profile-img.png}" alt="Imagen perfil" class="img-profile">
+
         <p class="nombreUsuario" th:text="${nombreUsuario}"></p>
+
         <a th:href="@{/logout}"><img th:src="@{./images/header/icon-exit.png}" alt="Icono salida " class="iconSalida"></a>
     </div>
 
 
 </header>
+
