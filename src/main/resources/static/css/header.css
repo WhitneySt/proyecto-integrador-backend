@@ -58,6 +58,8 @@ header .profile img.img-profile{
     width: 50px;
     border-radius: 50%;
     margin-right: 4px;
+    object-fit: cover;
+
 }
 
 header .profile .nombreUsuario{
