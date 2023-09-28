@@ -206,7 +206,7 @@ public class Usuarios {
         // @RequestParam("file") MultipartFile file -> Se obtiene la imagen del formulario y se guarda en un objeto MultipartFile
         boolean updateProfile = true;
 
-        // Validaciones de la imagen, si la imagen no está vacia se guarda obtiene la url de la imagen y se guarda en el usuario
+        // Validaciones de la imagen, si la imagen no está vacia se guarda la nueva imagen
         if(!imagen.isEmpty()){
 
             Path directorioImagenes = Paths.get("src//main//resources//static//images/profile"); // Se obtiene la ruta de la carpeta donde se guardará la imagen
@@ -227,6 +227,13 @@ public class Usuarios {
                 System.out.println(e.getMessage());
                 System.out.println("No se pudo guardar la imagen");
             }
+        }
+        // si la imagen está vacia se guarda la url de la imagen que ya tenía el usuario
+        else{
+
+            Usuario usuarioLogeado = usuarioServices.getUsuarioById(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario).getId());
+            usuario.setUrlImage(usuarioLogeado.getUrlImage());
+
         }
 
         if(updateProfile){
