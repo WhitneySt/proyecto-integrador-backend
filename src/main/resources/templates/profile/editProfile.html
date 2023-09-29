@@ -23,7 +23,7 @@
 
 <main>
     <h1>Editar Perfil</h1>
-    <form  th:object="${usuario}" method="post" th:action="@{updateProfile}" enctype="multipart/form-data">
+    <form  id="formulario" th:object="${usuario}" method="post" th:action="@{updateProfile}" enctype="multipart/form-data">
 
         <div class="imagen-perfil">
             <!--Si el usuario tiene una imagen de perfil, se muestra, de lo contrario se muestra una imagen por defecto-->
@@ -71,7 +71,7 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script  th:inline="javaScript" >
+<script th:inline="javaScript" >
 document.querySelector('form').addEventListener("submit", function(event) {
   event.preventDefault(); // Evita que el formulario se envíe automáticamente
 
@@ -94,8 +94,8 @@ function mostrarAlerta(icon, title, mensaje) {
         text: mensaje,
       });
 }
-</script>
-<script  th:inline="javaScript" >
+</script> <!-- Validación de campos vacíos -->
+<script th:inline="javaScript" >
     'use strict';
 
     ; (function (document, window, index) {
@@ -119,7 +119,7 @@ function mostrarAlerta(icon, title, mensaje) {
       });
     }(document, window, 0));
 
-</script>
+</script>  <!-- Muestra el nombre del archivo seleccionado-->
 
 
 </body>
