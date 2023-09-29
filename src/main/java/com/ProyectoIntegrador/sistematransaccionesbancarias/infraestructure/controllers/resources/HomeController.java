@@ -107,8 +107,6 @@ public class HomeController {
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         String nombreUsuario = usuarioLogeado.getNombre(); // Se obtiene el nombre del usuario que inició sesión y lo guarda en una variable global
         String urlImageUsuario = usuarioLogeado.getUrlImage(); // Se obtiene la url de la imagen del usuario que inició sesión y lo guarda en una variable global
-        System.out.println("Nombre usuario: " + nombreUsuario);
-        System.out.println("Url imagen usuario: " + urlImageUsuario);
         model.addAttribute("nombreUsuario", nombreUsuario); // Se agrega el nombre del usuario al modelo para poder usarlo en la vista
         model.addAttribute("urlImageUsuario", urlImageUsuario); // Se agrega la url de la imagen del usuario al modelo para poder usarlo en la vista
         return model;

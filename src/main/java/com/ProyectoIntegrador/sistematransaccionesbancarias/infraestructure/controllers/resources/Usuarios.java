@@ -276,7 +276,6 @@ public class Usuarios {
         try {
             Map<?, ?> uploadResult= cloudinary.uploader().upload(imagen.getBytes(), ObjectUtils.emptyMap());
             String imageUrl = (String) uploadResult.get("secure_url");
-            System.out.println(imageUrl);
             usuario.setUrlImage(imageUrl);
             return true;
         } catch (Exception e) {
