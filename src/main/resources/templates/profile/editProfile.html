@@ -26,8 +26,9 @@
     <form  th:object="${usuario}" method="post" th:action="@{updateProfile}" enctype="multipart/form-data">
 
         <div class="imagen-perfil">
-            <img th:if="${urlImageUsuario != null}" th:src="@{'./images/profile/' + ${urlImageUsuario}}" alt="Imagen perfil" class="img-profile">
-            <img th:unless="${urlImageUsuario != null}" th:src="@{./images/profileImg.jpg}" alt="Imagen perfil" class="img-profile">
+            <!--Si el usuario tiene una imagen de perfil, se muestra, de lo contrario se muestra una imagen por defecto-->
+            <img th:if="${urlImageUsuario != null}" th:src="@{${urlImageUsuario}}" alt="Imagen perfil" class="img-profile">
+            <img id="img-profile"  th:unless="${urlImageUsuario != null}" th:src="@{./images/profileImg.jpg}" alt="Imagen perfil" class="img-profile">
             <div class="container-input">
                 <input type="file" name="file" id="file" class="inputfile inputfile-1" accept="image/*" />
                 <label for="file">
@@ -70,7 +71,6 @@
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 <script  th:inline="javaScript" >
 document.querySelector('form').addEventListener("submit", function(event) {
   event.preventDefault(); // Evita que el formulario se envíe automáticamente
@@ -120,6 +120,8 @@ function mostrarAlerta(icon, title, mensaje) {
     }(document, window, 0));
 
 </script>
+
+
 </body>
 
 </html>
