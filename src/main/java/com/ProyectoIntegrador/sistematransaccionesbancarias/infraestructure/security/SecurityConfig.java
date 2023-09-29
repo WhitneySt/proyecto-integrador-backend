@@ -55,6 +55,7 @@ public class SecurityConfig {
                                         .requestMatchers("/home","/").authenticated() // los endpoints que empiecen con /home requieren autenticacion
                                         .requestMatchers("/usuarios","/detalleUsuario/**").authenticated() // los endpoints que empiecen con /usuarios y /detalleUsuario requieren autenticacion
                                         .requestMatchers("/editarPerfi").authenticated() // los endpoints que empiecen con /editarPerfil requieren autenticacion
+                                        .requestMatchers("/editarPerfil","/perfil").authenticated() // los endpoints que empiecen con /editarPerfil y /perfil requieren autenticacion
                                         .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
                 )
 
