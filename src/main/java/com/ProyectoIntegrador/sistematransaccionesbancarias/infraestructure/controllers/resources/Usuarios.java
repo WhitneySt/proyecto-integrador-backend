@@ -16,6 +16,8 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperEstado;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperRol;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +30,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.passwordEncoder;
@@ -201,37 +204,23 @@ public class Usuarios {
     }
 
     @PostMapping("/updateProfile")
-    public String updateProfile(@ModelAttribute("usuario")UsuarioJPAEntity usuario, RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile imagen) {
+    public String updateProfile(@ModelAttribute("usuario")Usuario usuario, RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile imagen) {
 
         // @RequestParam("file") MultipartFile file -> Se obtiene la imagen del formulario y se guarda en un objeto MultipartFile
         boolean updateProfile = true;
 
-        // Validaciones de la imagen, si la imagen no está vacia se guarda la nueva imagen
+        // Validaciones de la imagen, si la imagen no está vacia indica que se seleccionó una nueva iamgen que se debe guardar
         if(!imagen.isEmpty()){
 
-            Path directorioImagenes = Paths.get("src//main//resources//static//images/profile"); // Se obtiene la ruta de la carpeta donde se guardará la imagen
-            String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath(); // Se obtiene la ruta absoluta de la carpeta
+            // Se guarda la imagen en Cloudinary
+           //  updateProfile=saveImg(imagen); //guarda la imagen en la carpeta y si se guarda correctamente retorna true
+            updateProfile=updateCloudinary(imagen,usuario); //guarda la imagen en cloudinary y si se guarda correctamente retorna true y  si no reotrna flase
 
-            // Se intenta guardar la imagen en la carpeta
-            try {
-
-                byte[] bytesImg = imagen.getBytes(); // Se obtienen los bytes de la imagen
-                Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename()); // Se obtiene la ruta completa de la imagen
-                Files.write(rutaCompleta, bytesImg); // Se guarda la imagen en la ruta especificada
-                usuario.setUrlImage(imagen.getOriginalFilename()); // Se guarda la url de la imagen en el usuario que es el nombre de la imagen
-
-                updateProfile = true; // Se puede actualizar el perfil porque se pudo guardar la imagen
-
-                } catch (Exception e) {
-                updateProfile = false; // No se guarda el perfil porque no se pudo guardar la imagen
-                System.out.println(e.getMessage());
-                System.out.println("No se pudo guardar la imagen");
-            }
         }
         // si la imagen está vacia se guarda la url de la imagen que ya tenía el usuario
         else{
 
-            Usuario usuarioLogeado = usuarioServices.getUsuarioById(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario).getId());
+            Usuario usuarioLogeado = usuarioServices.getUsuarioById(usuario.getId());
             usuario.setUrlImage(usuarioLogeado.getUrlImage());
 
         }
@@ -239,7 +228,7 @@ public class Usuarios {
         if(updateProfile){
             // se intenta actualizar el usuario
             try {
-                usuarioServices.UpdateUsuario(mapperUsuario.UsuarioJPAToUsuarioDomain(usuario));
+                usuarioServices.UpdateUsuario(usuario);
                 redirectAttributes.addFlashAttribute("mensaje", "updateOk");
             } catch (Exception e) {
                 System.out.println(e.getMessage());
@@ -252,6 +241,51 @@ public class Usuarios {
         return "redirect:/perfil";
     }
 
+    // Este método se encarga de guardar la imagen en la carpeta images/profile
+    public boolean saveImgLocal(MultipartFile imagen){
+
+        Path directorioImagenes = Paths.get("src//main//resources//static//images/profile"); // Se obtiene la ruta de la carpeta donde se guardará la imagen
+        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath(); // Se obtiene la ruta absoluta de la carpeta
+
+        // Se intenta guardar la imagen en la carpeta
+        try {
+
+            byte[] bytesImg = imagen.getBytes(); // Se obtienen los bytes de la imagen
+            Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename()); // Se obtiene la ruta completa de la imagen
+            Files.write(rutaCompleta, bytesImg); // Se guarda la imagen en la ruta especificada
+
+            return true; // Se puede actualizar el perfil porque se pudo guardar la imagen
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("No se pudo guardar la imagen");
+            return false; // No se puede actualizar el perfil porque no se pudo guardar la imagen
+        }
+
+    }
+
+    // Este metodo se encarga de subir la imagen a  cloudinary y guardar la url de la imagen en la base de datos
+    public  boolean updateCloudinary(MultipartFile imagen, Usuario usuario){
+
+        // datos de la cuenta de cloudinary
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dkzspm2fj",
+                "api_key", "229982374928582",
+                "api_secret", "ZM54qomggmRWESmK2QQgui7_WPo"));
+
+        try {
+            Map<?, ?> uploadResult= cloudinary.uploader().upload(imagen.getBytes(), ObjectUtils.emptyMap());
+            String imageUrl = (String) uploadResult.get("secure_url");
+            System.out.println(imageUrl);
+            usuario.setUrlImage(imageUrl);
+            return true;
+        } catch (Exception e) {
+            System.out.println("No se pudo guardar la imagen");
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
 
 
 
