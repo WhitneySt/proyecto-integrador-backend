@@ -6,9 +6,6 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Estado;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Rol;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.UsuarioDto;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.EstadoJPAEntity;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.RolJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.UsuarioJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.Rol.RolImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.estado.EstadoImplementacion;
@@ -19,20 +16,25 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperEstado;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperRol;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
+import com.cloudinary.Cloudinary;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
+import java.util.Map;
 
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.passwordEncoder;
-import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.NombreUsuarioModel;
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 @Controller
 public class Usuarios {
@@ -48,7 +50,6 @@ public class Usuarios {
     EstadoImplementacion repositoryEstado;
     RolImplementacion repositoryRol;
 
-
     @Autowired
     public Usuarios(UsuarioJPARepository usuarioJPARepository,MapperUsuario mapperUsuario,EstadoJPARepository estadoJPARepository, MapperEstado mapperEstado,RolJPARepository rolJPARepository,MapperRol mapperRol) {
         this.repository = new UsuarioImplementacion(usuarioJPARepository,mapperUsuario);
@@ -61,13 +62,13 @@ public class Usuarios {
         this.mapperEstado = mapperEstado;
         this.mapperRol = mapperRol;
 
-
     }
 
+    // ? Adminitración de usuarios (CRUD)
     @GetMapping("/usuarios")
     public String usuarios(Model model,HttpServletRequest request) {
 
-        NombreUsuarioModel(model,request); // Se obtiene el nombre del usuario que inició sesión y lo guarda en el model
+        InformationUsuarioModel(model,request); // Se obtiene el nombre del usuario y la img que inició sesión y lo guarda en el model
 
         List<Usuario> listaUsuarios = usuarioServices.getAllUsuarios();
         model.addAttribute("usuarios",listaUsuarios);
@@ -176,6 +177,114 @@ public class Usuarios {
         return "redirect:/usuarios";
     }
 
+    // ? Administración del pefil de usuario logeado
+
+    @GetMapping("/perfil")
+    public String perfil(Model model,HttpServletRequest request) {
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        String urlImageUsuario = usuarioLogeado.getUrlImage(); // Se obtiene la url de la imagen del usuario que inició sesión y lo guarda en una variable global
+
+        model.addAttribute("urlImageUsuario", urlImageUsuario); // Se agrega la url de la imagen del usuario al modelo para poder usarlo en la vista
+        model.addAttribute("usuario",usuarioLogeado);
+
+        return "profile/seeProfile";
+    }
+
+    @GetMapping("/editarPerfil")
+    public String editarPerfil(Model model, HttpServletRequest request ) {
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
+        String urlImageUsuario = usuarioLogeado.getUrlImage(); // Se obtiene la url de la imagen del usuario que inició sesión y lo guarda en una variable global
+
+        model.addAttribute("urlImageUsuario", urlImageUsuario); // Se agrega la url de la imagen del usuario al modelo para poder usarlo en la vista
+        model.addAttribute("usuario",usuarioLogeado);
+
+        return "profile/editProfile";
+    }
+
+    @PostMapping("/updateProfile")
+    public String updateProfile(@ModelAttribute("usuario")Usuario usuario, RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile imagen) {
+
+        // @RequestParam("file") MultipartFile file -> Se obtiene la imagen del formulario y se guarda en un objeto MultipartFile
+        boolean updateProfile = true;
+
+        // Validaciones de la imagen, si la imagen no está vacia indica que se seleccionó una nueva iamgen que se debe guardar
+        if(!imagen.isEmpty()){
+
+            // Se guarda la imagen en Cloudinary
+           //  updateProfile=saveImg(imagen); //guarda la imagen en la carpeta y si se guarda correctamente retorna true
+            updateProfile=updateCloudinary(imagen,usuario); //guarda la imagen en cloudinary y si se guarda correctamente retorna true y  si no reotrna flase
+
+        }
+        // si la imagen está vacia se guarda la url de la imagen que ya tenía el usuario
+        else{
+
+            Usuario usuarioLogeado = usuarioServices.getUsuarioById(usuario.getId());
+            usuario.setUrlImage(usuarioLogeado.getUrlImage());
+
+        }
+
+        if(updateProfile){
+            // se intenta actualizar el usuario
+            try {
+                usuarioServices.UpdateUsuario(usuario);
+                redirectAttributes.addFlashAttribute("mensaje", "updateOk");
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                redirectAttributes.addFlashAttribute("mensaje", "updateError");
+            }
+        }else{
+            redirectAttributes.addFlashAttribute("mensaje", "updateErrorImg");
+        }
+
+        return "redirect:/perfil";
+    }
+
+    // Este método se encarga de guardar la imagen en la carpeta images/profile
+    public boolean saveImgLocal(MultipartFile imagen){
+
+        Path directorioImagenes = Paths.get("src//main//resources//static//images/profile"); // Se obtiene la ruta de la carpeta donde se guardará la imagen
+        String rutaAbsoluta = directorioImagenes.toFile().getAbsolutePath(); // Se obtiene la ruta absoluta de la carpeta
+
+        // Se intenta guardar la imagen en la carpeta
+        try {
+
+            byte[] bytesImg = imagen.getBytes(); // Se obtienen los bytes de la imagen
+            Path rutaCompleta = Paths.get(rutaAbsoluta + "//" + imagen.getOriginalFilename()); // Se obtiene la ruta completa de la imagen
+            Files.write(rutaCompleta, bytesImg); // Se guarda la imagen en la ruta especificada
+
+            return true; // Se puede actualizar el perfil porque se pudo guardar la imagen
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            System.out.println("No se pudo guardar la imagen");
+            return false; // No se puede actualizar el perfil porque no se pudo guardar la imagen
+        }
+
+    }
+
+    // Este metodo se encarga de subir la imagen a  cloudinary y guardar la url de la imagen en la base de datos
+    public  boolean updateCloudinary(MultipartFile imagen, Usuario usuario){
+
+        // datos de la cuenta de cloudinary
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dkzspm2fj",
+                "api_key", "229982374928582",
+                "api_secret", "ZM54qomggmRWESmK2QQgui7_WPo"));
+
+        try {
+            Map<?, ?> uploadResult= cloudinary.uploader().upload(imagen.getBytes(), ObjectUtils.emptyMap());
+            String imageUrl = (String) uploadResult.get("secure_url");
+            usuario.setUrlImage(imageUrl);
+            return true;
+        } catch (Exception e) {
+            System.out.println("No se pudo guardar la imagen");
+            System.out.println(e.getMessage());
+            return false;
+        }
+
+    }
 
 
 

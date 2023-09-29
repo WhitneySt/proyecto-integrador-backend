@@ -22,7 +22,6 @@ public class UsuarioDto {
         this.fechaCreacion = new Date(System.currentTimeMillis());
         this.rol = new Rol(1, "Usuario");
         this.estado = new Estado(1, true);
-        System.out.println(fechaCreacion) ;
     }
 
     public UsuarioDto(Integer id, String nombre, String correo, String contrasena, Date fechaCreacion, String urlImage) {

@@ -11,7 +11,8 @@
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
   <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
-  <link rel="stylesheet" type="text/css" th:href="@{./css/users/edicionUsuario.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{./css/formStyle.css}">
+
 
 
   <title>Usuarios</title>
@@ -20,10 +21,10 @@
 <body>
 
 
-<nav th:replace="components/nav :: Nav"></nav>
+<nav th:replace="~{components/nav :: Nav}"></nav>
 
 <main>
-  <h1>Editar información del usuario</h1>
+  <h1>Creaar usuario</h1>
   <form  th:object="${usuario}" method="post" th:action="@{saveUser}">
     <ul >
       <li>
