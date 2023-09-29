@@ -31,7 +31,7 @@
             </div>
             <div class="information" th:unless="${isCuentaCreada}">
                 <!-- Componente o contenido que se desea mostrar si isCuentaCreada es falso -->
-                <div th:replace="components/crearCuenta :: cardCrearCuenta"></div>
+                <div th:replace="~{components/crearCuenta :: cardCrearCuenta}"></div>
             </div>
 
             <!-- Modal -->
