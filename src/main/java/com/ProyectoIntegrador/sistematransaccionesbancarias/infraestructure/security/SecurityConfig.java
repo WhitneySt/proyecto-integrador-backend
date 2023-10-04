@@ -1,14 +1,17 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.JWT.JWTAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import javax.sql.DataSource;
 
@@ -20,6 +23,12 @@ public class SecurityConfig {
 
     @Autowired
     private DataSource dataSource;  // Copia virtual de la base de datos para poder hacer consultas y no ir directamente a la base de datos, esto es más eficiente
+
+   @Autowired
+   private AuthenticationManager authenticationManager;
+    @Autowired
+    private CustomSuccessHandler customSuccessHandler;
+
 
     // Cuando el usuario intente iniciar sesión se debe hacer una consulta a la base de datos para verificar que el usuario exista
 
@@ -57,9 +66,13 @@ public class SecurityConfig {
                                         .requestMatchers("/editarPerfi").authenticated() // los endpoints que empiecen con /editarPerfil requieren autenticacion
                                         .requestMatchers("/editarPerfil","/perfil").authenticated() // los endpoints que empiecen con /editarPerfil y /perfil requieren autenticacion
                                         .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
-                )
 
-                //.formLogin(Customizer.withDefaults()) // el login por defecto es el que viene por defecto de spring
+                )
+                .addFilter(new JWTAuthenticationFilter(authenticationManager)) // Se agrega el filtro de autenticación personalizado es decir el filtro que se encarga de la autenticación del usuario y la creación del token JWT.
+                //.addFilter(new JWTAuthorizationFilter(authenticationManager));
+
+
+        //.formLogin(Customizer.withDefaults()) // el login por defecto es el que viene por defecto de spring
                 .formLogin(formLogin -> // Se configura el formulario de inicio de sesión personalizado
                         formLogin
                                 .loginPage("/login") // Se especifica la ruta del formulario de inicio de sesión personalizado
@@ -83,8 +96,7 @@ public class SecurityConfig {
                                 .usernameParameter("id") // Se especifica el nombre del parámetro que se utilizará para obtener el nombre de usuario
                                 .passwordParameter("contrasena") // Se especifica el nombre del parámetro que se utilizará para obtener la contraseña
 
-                                // TODO Habilitar cuando se haga autoriazacion por roles
-                                // .successHandler((AuthenticationSuccessHandler) customSuccessHandler) // se envia el manejador de exito para que se ejecute cuando se inicie sesion correctamente para que se haga la redireccion dependiendo del rol
+                                .successHandler((AuthenticationSuccessHandler) customSuccessHandler) // se envia el manejador de exito para que se ejecute cuando se inicie sesion correctamente para que se haga la redireccion dependiendo del rol
                 )
 
                 .logout(logout -> // Se configura el formulario de cierre de sesión personalizado
