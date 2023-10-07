@@ -121,11 +121,9 @@ public class Usuarios {
 
         List<Estado> estados = estadoService.getAllEstados();
         List<Rol> roles = rolService.getAllRoles();
-        roles.forEach(rol -> System.out.println(rol.toString()));
 
         model.addAttribute("listaEstados",estados);
         model.addAttribute("listaRoles",roles);
-        System.out.println(usuario.toString());
         model.addAttribute("usuario",usuario);
 
         return "users/editUser";
