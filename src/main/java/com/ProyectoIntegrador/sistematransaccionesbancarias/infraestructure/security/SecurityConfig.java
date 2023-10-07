@@ -1,17 +1,14 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security;
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.JWT.JwtAuthenticationFilter;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.JWT.JwtService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -26,26 +23,20 @@ import javax.sql.DataSource;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
-    @Autowired
-    private DataSource dataSource;  // Copia virtual de la base de datos para poder hacer consultas y no ir directamente a la base de datos, esto es más eficiente
-    @Autowired
-    private CustomSuccessHandler customSuccessHandler;
-
-
-    //@Autowired
-    //private final JwtAuthenticationFilter jwtAuthenticationFilter;
-
-
-
-    // private final JwtAuthenticationFilter jwtAuthenticationFilter;
-    //private final AuthenticationProvider authProvider;
+    // Inyeccion de dependencias
+    //  Lombok se encarga de la inyección de dependencias automáticamente.
+    // La anotación @RequiredArgsConstructor genera automáticamente un constructor que toma como argumentos todos los campos marcados como final en la clase y los inicializa.
+    // Esto significa  los campos que están como final, no es necesario agregar explícitamente @Autowired en ellos, ya que Lombok generará el constructor automáticamente para ti.
+    private final DataSource dataSource; // Copia virtual de la base de datos para poder hacer consultas y no ir directamente a la base de datos, esto es más eficiente
+    private final CustomSuccessHandler customSuccessHandler; // Inyecta el CustomSuccessHandler  que se encarga de redireccionar dependiendo del rol
+    private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
 
     // Cuando el usuario intente iniciar sesión se debe hacer una consulta a la base de datos para verificar que el usuario exista
-
-    //? Validar la existencia del usuario, codificar la contraseña y verificar que coincida con la contraseña encriptada de la base de datos ( hace la autenticacion de los usuarios)
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception {
+        //? Validar la existencia del usuario, codificar la contraseña y verificar que coincida con la contraseña encriptada de la base de datos ( hace la autenticacion de los usuarios)
+
         try{
             auth.jdbcAuthentication() //  configura la autenticación para que utilice una base de datos a través de JDBC, lo que permitirá autenticar a los usuarios utilizando una tabla de usuarios almacenada en la base de datos.
 
@@ -70,11 +61,14 @@ public class SecurityConfig {
     }
 
 */
-
+    // Configura la seguridad web en la aplicación como el inicio de sesión, el cierre de sesión, la autorización de los endpoints, etc.
     @Bean // Permite que el objeto retornado por el método se administre por el contenedor de Spring
     SecurityFilterChain securiryFilterChain (HttpSecurity http ) throws Exception {
         return http // retorna un objeto SecurityFilterChain que se encarga de configurar la seguridad web en la aplicación
                 .csrf(csrf-> csrf.disable()) // Deshabilita la protección CSRF
+
+                // Agregar el filtro JWT antes del filtro de autenticación por usuario y contraseña
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
 
                 // Autorizacion de los endpoints
                 .authorizeHttpRequests(authRaquests ->
@@ -90,7 +84,6 @@ public class SecurityConfig {
                                         //.anyRequest().authenticated()
 
                 )
-
 
                 //.formLogin(Customizer.withDefaults()) // el login por defecto es el que viene por defecto de spring
                 .formLogin(formLogin -> // Se configura el formulario de inicio de sesión personalizado
@@ -121,8 +114,6 @@ public class SecurityConfig {
 
                 )
 
-                /*.addFilter(jwtAuthenticationFilter)
-                .addFilterBefore(jwtAuthorizationFilter, UsernamePasswordAuthenticationFilter.class)*/
 
                 .logout(logout -> // Se configura el formulario de cierre de sesión personalizado
                         logout
