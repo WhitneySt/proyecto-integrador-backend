@@ -15,10 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @org.springframework.stereotype.Controller
@@ -84,6 +81,14 @@ public class Controller {
         model.addAttribute(NAMEMENSAJE, mensajeRecibido);
         return "autenticacion/loginUsuario";
     }
+
+    //Controlador que  lleva al template de No autorizado
+    @RequestMapping(value="/accessdenied")
+    public String accesoDenegado(){
+        System.out.println("Acceso denegado");
+        return "accessDenied";
+    }
+
 
  /*   @PostMapping("/login/validarUsuario")
     public String login (UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
