@@ -9,6 +9,7 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -54,13 +55,9 @@ public class SecurityConfig {
         }
     }
 
-    //@Bean
-/*
-    public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter();
-    }
 
-*/
+
+
     // Configura la seguridad web en la aplicación como el inicio de sesión, el cierre de sesión, la autorización de los endpoints, etc.
     @Bean // Permite que el objeto retornado por el método se administre por el contenedor de Spring
     SecurityFilterChain securiryFilterChain (HttpSecurity http ) throws Exception {
@@ -75,11 +72,10 @@ public class SecurityConfig {
                                 authRaquests
 
                                         .requestMatchers("/login","/registro").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
-                                        .requestMatchers("/home","/").authenticated() // los endpoints que empiecen con /home requieren autenticacion
-                                        .requestMatchers("/usuarios","/detalleUsuario/**").authenticated() // los endpoints que empiecen con /usuarios y /detalleUsuario requieren autenticacion
-                                        .requestMatchers("/editarPerfi").authenticated() // los endpoints que empiecen con /editarPerfil requieren autenticacion
-                                        .requestMatchers("/editarPerfil","/perfil").authenticated() // los endpoints que empiecen con /editarPerfil y /perfil requieren autenticacion
-                                        .requestMatchers("/auth/**").permitAll()
+                                        .requestMatchers("/home","/").authenticated()  // los endpoints que empiecen con /home y / requieren autenticacion
+                                        .requestMatchers("/usuarios","/usuarios/**").hasAuthority("Administrador") // los endpoints que empiecen con /usuarios y /usuarios/** solo pueden acceder los usuarios con rol 'Administrador', el rol se trae desde la base de datos con el nombre y  no el id, esto se hace en el método configAuthentication
+                                        .requestMatchers("/editarPerfil").authenticated()
+                                        .requestMatchers("/editarPerfil","/perfil").authenticated()
                                         .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
                                         //.anyRequest().authenticated()
 
@@ -114,6 +110,12 @@ public class SecurityConfig {
 
                 )
 
+
+                // si el usuario no tiene permisos para acceder a una ruta
+                .exceptionHandling(exceptionHandling -> // Se configura el manejador de excepciones
+                        exceptionHandling
+                                .accessDeniedPage("/accessdenied") // Se especifica la ruta a la que se redirigirá al usuario cuando no tenga permisos para acceder a una ruta
+                )
 
                 .logout(logout -> // Se configura el formulario de cierre de sesión personalizado
                         logout
