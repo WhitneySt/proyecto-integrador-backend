@@ -73,6 +73,6 @@ header .profile .nombreUsuario{
 }
 
 header .profile .iconSalida{
-
+    cursor: pointer;
     margin-right: 30px;
 }

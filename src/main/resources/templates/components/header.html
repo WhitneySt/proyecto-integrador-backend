@@ -13,7 +13,9 @@
 
         <p class="nombreUsuario" th:text="${nombreUsuario}"></p>
 
-        <a th:href="@{/logout}"><img th:src="@{./images/header/icon-exit.png}" alt="Icono salida " class="iconSalida"></a>
+        <a  onclick="confirmLogout()">
+            <img th:src="@{./images/header/icon-exit.png}" alt="Icono salida" class="iconSalida">
+        </a>
     </div>
 
 
