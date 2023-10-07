@@ -7,8 +7,11 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.Auth.AuthResponse;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.Auth.AuthService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.ui.Model;
@@ -28,15 +31,19 @@ public class Controller {
     static UsuarioService usuarioService;
     UsuarioImplementacion repository;
 
+    private final AuthService authService;
+
+
 
     @Autowired
-    public Controller(UsuarioJPARepository jpaRepository, MapperUsuario mapperUsuario) {
+    public Controller(UsuarioJPARepository jpaRepository, MapperUsuario mapperUsuario, AuthService authService) {
+        this.authService = authService;
         this.repository = new UsuarioImplementacion(jpaRepository, mapperUsuario);
         this.mapperUsuario = mapperUsuario;
         this.usuarioService = new UsuarioService(this.repository);
+
     }
-
-
+    
     @GetMapping("/registro")
     public String registro(Model model, @ModelAttribute("mensaje") String mensajeRecibido){
         UsuarioDto nuevoUsuario = new UsuarioDto();
@@ -47,23 +54,26 @@ public class Controller {
 
     }
 
-    @PostMapping("/registro/guardarUsuario")
+   @PostMapping("/registro/guardarUsuario")
     public String guardarUsuario(UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
-
-        // Se encripta la contraseña
-        String passwordEncriptado  = passwordEncoder().encode(usuario.getContrasena());
-
-        // Se cambia la contraseña por la encriptada
-        usuario.setContrasena(passwordEncriptado);
-
-        if(usuarioService.createUsuario(usuario)){
+        // validaciones
+        AuthResponse token=authService.register(usuario);
+        if (token.getToken() != null){
+            System.out.println("Registro exitoso");
+            System.out.println("Token: " + token.getToken());
+            //return ResponseEntity.ok(token); esto es para postMan
             redirectAttributes.addFlashAttribute(NAMEMENSAJE, "createOk");
             return "redirect:/login"; // Se redireciona al servicio
         }
-        redirectAttributes.addFlashAttribute(NAMEMENSAJE, "createError");
-        return "redirect:/registro";
+        else{
+            System.out.println("Error al registrar");
+            System.out.println("Token: " + token.getToken());
+            // return ResponseEntity.badRequest().body(token); esto es para postMan
+            redirectAttributes.addFlashAttribute(NAMEMENSAJE, "createError");
+            return "redirect:/registro";
+        }
 
     }
 
@@ -75,12 +85,35 @@ public class Controller {
         return "autenticacion/loginUsuario";
     }
 
+ /*   @PostMapping("/login/validarUsuario")
+    public String login (UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
+        System.out.println("Login");
+
+        Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
+        System.out.println(usuario.toString());
+        // validaciones
+        AuthResponse token=authService.login(usuario);
+
+        if (token.getToken() != null){
+            System.out.println("Token: " + token.getToken());
+            //return ResponseEntity.ok(token);
+            redirectAttributes.addFlashAttribute(NAMEMENSAJE, "loginOk");
+            return "redirect:/home"; // Se redireciona al servicio
+        }
+        else{
+            System.out.println("Error al iniciar sesion");
+            System.out.println("Token: " + token.getToken());
+            // return ResponseEntity.badRequest().body(token);
+            redirectAttributes.addFlashAttribute(NAMEMENSAJE, "loginError");
+            return "redirect:/login";
+        }
+
+    }*/
 
     // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
     public static PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 
     // Obtener el usuario que inició sesión
     public static Usuario getUsuarioLogeado(HttpServletRequest request) {
@@ -92,9 +125,6 @@ public class Controller {
 
         return usuarioLogeado;
     }
-
-
-
 
 
 

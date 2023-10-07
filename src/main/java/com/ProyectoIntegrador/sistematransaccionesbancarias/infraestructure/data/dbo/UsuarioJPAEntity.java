@@ -4,12 +4,23 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Esta
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Rol;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.boot.autoconfigure.elasticsearch.ElasticsearchConnectionDetails;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.sql.Date;
+import java.util.Collection;
 
+@Data
+@Builder
+@AllArgsConstructor
 @Entity
 @Table(name = "Usuarios")
-public class UsuarioJPAEntity {
+public class UsuarioJPAEntity implements UserDetails {
 
     @Id
     private Integer id;
@@ -45,14 +56,28 @@ public class UsuarioJPAEntity {
 
     }
 
+
+    @Override
+    public String toString() {
+        return "UsuarioJPAEntity{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", correo='" + correo + '\'' +
+                ", contrasena='" + contrasena + '\'' +
+                ", fechaCreacion=" + fechaCreacion +
+                ", urlImage='" + urlImage + '\'' +
+                ", rol=" + rol +
+                ", estado=" + estado +
+                '}';
+    }
+
     public Integer getId() {
         return id;
     }
 
-public  void setId(Integer id){
+    public void setId(Integer id) {
         this.id = id;
     }
-
 
     public String getNombre() {
         return nombre;
@@ -111,16 +136,38 @@ public  void setId(Integer id){
     }
 
     @Override
-    public String toString() {
-        return "UsuarioJPAEntity{" +
-                "id=" + id +
-                ", nombre='" + nombre + '\'' +
-                ", correo='" + correo + '\'' +
-                ", contrasena='" + contrasena + '\'' +
-                ", fechaCreacion=" + fechaCreacion +
-                ", urlImage='" + urlImage + '\'' +
-                ", rol=" + rol +
-                ", estado=" + estado +
-                '}';
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
+
+    @Override
+    public String getPassword() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return null;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return false;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return false;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return false;
+    }
+
 }
