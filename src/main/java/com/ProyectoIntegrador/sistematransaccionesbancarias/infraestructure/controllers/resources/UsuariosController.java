@@ -37,7 +37,7 @@ import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructu
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 @Controller
-public class Usuarios {
+public class UsuariosController {
 
     @Autowired
     MapperUsuario mapperUsuario;
@@ -51,7 +51,7 @@ public class Usuarios {
     RolImplementacion repositoryRol;
 
     @Autowired
-    public Usuarios(UsuarioJPARepository usuarioJPARepository,MapperUsuario mapperUsuario,EstadoJPARepository estadoJPARepository, MapperEstado mapperEstado,RolJPARepository rolJPARepository,MapperRol mapperRol) {
+    public UsuariosController(UsuarioJPARepository usuarioJPARepository, MapperUsuario mapperUsuario, EstadoJPARepository estadoJPARepository, MapperEstado mapperEstado, RolJPARepository rolJPARepository, MapperRol mapperRol) {
         this.repository = new UsuarioImplementacion(usuarioJPARepository,mapperUsuario);
         this.repositoryEstado = new EstadoImplementacion(estadoJPARepository,mapperEstado);
         this.repositoryRol = new RolImplementacion(rolJPARepository,mapperRol);
