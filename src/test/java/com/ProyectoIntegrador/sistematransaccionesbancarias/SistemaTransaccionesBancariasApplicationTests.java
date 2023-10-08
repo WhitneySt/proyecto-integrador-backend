@@ -8,6 +8,7 @@ class SistemaTransaccionesBancariasApplicationTests {
 
 	@Test
 	void contextLoads() {
+		System.out.println("Se inicializa las pruebas unitarias");
 	}
 
 }
