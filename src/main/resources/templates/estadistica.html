@@ -12,8 +12,8 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{./css/estadistica.css}">
-
+    <link rel="stylesheet" type="text/css" th:href="@{./css/estadistica/estadistica.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/estadistica/estadisticaUser.css}" th:if="${usuarioRol == 'Usuario'}">
 
     <title>Informe</title>
 </head>
@@ -25,7 +25,8 @@
 
 <main th:if="${usuarioRol == 'Usuario'}">
 
-    <p>Usuario</p>
+    <div th:replace="~{components/estadistica/usuario :: usuarioInforme}"></div>
+    <div th:replace="~{components/estadistica/usuario :: consejosUsuario}"></div>
 
 </main>
 
