@@ -88,7 +88,17 @@ public class EstadisticaController {
             List <Usuario> usuarios = usuarioServices.getAllUsuarios(); // Se obtienen todos los usuarios
 
             Integer cantidadUsuarios = usuarios.size(); // Se obtiene la cantidad de usuarios
+            // Cantidad de usuarios activos true
+            Integer cantidadUsuariosActivos = usuarios.stream().filter(usuario -> usuario.getEstado().getNombre().equals(true)).toArray().length;
+
+            // recorre la lista de usuarios
+            for (Usuario usuario : usuarios) {
+                System.out.println(usuario.getEstado().getNombre());
+            }
             System.out.println("Cantidad de usuarios: "+cantidadUsuarios);
+            System.out.println("Cantidad de usuarios activos: "+cantidadUsuariosActivos);
+
+
         }
 
 
