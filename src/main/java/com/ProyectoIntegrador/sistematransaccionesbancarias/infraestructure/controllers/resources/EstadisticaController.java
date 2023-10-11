@@ -49,8 +49,6 @@ public class EstadisticaController {
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         InformationUsuarioModel(model,request); // Se obtiene el nombre  yla imgdel usuario que inició sesión y lo guarda eel model
 
-        model.addAttribute("usuarioRol",usuarioLogeado.getRol().getNombre()); // Se guarda el usuario en el model
-
         String rolUsuario=usuarioLogeado.getRol().getNombre();
 
         if(rolUsuario.equals("Usuario")){
@@ -72,8 +70,8 @@ public class EstadisticaController {
 
             }
 
-            catch(CuentaNotFoundException e){ // Si no se encuentra la cuenta del usuario logeado se puede crear una
-
+            catch(CuentaNotFoundException e){
+                // Los valores por defecto son 0.0
                 System.out.println("No se encontró la cuenta del usuario logeado");
 
             }
@@ -100,7 +98,8 @@ public class EstadisticaController {
             model.addAttribute("cantidadUsuariosTipoAdministrador", cantidadUsuariosTipoAdministrador);
 
         }
-
+        model.addAttribute("usuarioRol",usuarioLogeado.getRol().getNombre()); // Se guarda el usuario en el model
+        
         return "/estadistica";
     }
 
