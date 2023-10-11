@@ -20,50 +20,28 @@
         <title>Home</title>
     </head>
     <body>
+
         <header th:replace="~{components/header :: Header}"></header>
+
         <main>
+
             <nav th:replace="~{components/nav :: Nav}"></nav>
 
             <!--Contiene la información de la cuenta y se muestra algo dependiendo si esxiste o no la cuenta-->
             <div  class="information" th:if="${isCuentaCreada}">
                 <!-- Componente o contenido que deseas mostrar si isCuentaCreada es verdadero -->
-                <div th:replace="~{components/informationCuenta :: cardInformation}"></div>
+                <div th:replace="~{components/cuenta/informationCuenta :: cardInformation}"></div>
             </div>
+
             <div class="information" th:unless="${isCuentaCreada}">
                 <!-- Componente o contenido que se desea mostrar si isCuentaCreada es falso -->
-                <div th:replace="~{components/crearCuenta :: cardCrearCuenta}"></div>
+                <div th:replace="~{components/cuenta/crearCuenta :: cardCrearCuenta}"></div>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal para crear una cuenta, si la cuenta ya está creada no en necesario que se muetre  -->
             <div id="modal" class="modal" th:if="${!isCuentaCreada}">
-                <div class="modal-content">
-                    <h2>Create una cuenta</h2>
-                    <form id="crear-cuenta-form" th:action="@{/crearCuenta}" method="post" th:object="${cuentaDto}">
-                        <div class="form-group">
-                            <label for="monto-inicial">Ingresa el monto inicial<span class="red">*</span></label>
-                            <input type="number" id="monto-inicial" name="monto-inicial" placeholder="Monto inicial"
-                                   th:field="*{saldo}" >
-                        </div>
-                        <div class="form-group">
-                            <label for="meta">Establece una meta de ahorro (opcional)</label>
-                            <input type="number" id="meta" name="meta" placeholder="Meta" th:field="*{metaAhorro}">
-                        </div>
-                        <div class="form-group">
-                            <label for="tipo-cuenta">Selecciona el tipo de cuenta</label>
-                            <select id="tipo-cuenta" name="tipo-cuenta" th:field="*{tipoCuenta}">
-                                <option value="Visa">Visa</option>
-                                <option value="Mastercard">Mastercard</option>
-                            </select>
-                        </div>
-                        <div class="form-group-buttons">
-                            <button type="submit">Crear</button>
-                            <button type="button" class="cancelar">Cancelar</button>
-                        </div>
-                    </form>
-                </div>
+                <div th:replace="~{components/cuenta/modalCrearCuenta :: modalCuenta}"></div>
             </div>
-
-
 
 
         </main>
@@ -106,4 +84,5 @@
         </script>
 
     </body>
+
 </html>
