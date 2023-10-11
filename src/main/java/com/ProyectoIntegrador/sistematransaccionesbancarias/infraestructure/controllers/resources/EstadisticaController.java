@@ -93,7 +93,11 @@ public class EstadisticaController {
             Integer cantidadUsuariosTipoUsuario = usuarios.stream().filter(usuario -> usuario.getRol().getNombre().equals("Usuario")).toArray().length;
             Integer cantidadUsuariosTipoAdministrador = usuarios.stream().filter(usuario -> usuario.getRol().getNombre().equals("Administrador")).toArray().length;
 
-        
+            model.addAttribute("cantidadUsuarios", cantidadUsuarios);
+            model.addAttribute("cantidadUsuariosActivos", cantidadUsuariosActivos);
+            model.addAttribute("cantidadUsuariosInactivos", cantidadUsuariosInactivos);
+            model.addAttribute("cantidadUsuariosTipoUsuario", cantidadUsuariosTipoUsuario);
+            model.addAttribute("cantidadUsuariosTipoAdministrador", cantidadUsuariosTipoAdministrador);
 
         }
 
