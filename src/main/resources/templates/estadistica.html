@@ -12,7 +12,7 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
     <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
-    <link rel="stylesheet" type="text/css" th:href="@{./css/home/card.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/estadistica.css}">
 
 
     <title>Informe</title>
@@ -20,20 +20,19 @@
 <body>
 
 <header th:replace="~{components/header :: Header}"></header>
-
-<main>
-
-    <nav th:replace="~{components/nav :: Nav}"></nav>
+<nav th:replace="~{components/nav :: Nav}"></nav>
 
 
-        <div class="information" th:if="${usuarioRol == 'Usuario'}">
-            <p>Es un usuario</p>
-        </div>
-        <div class="information" th:if="${usuarioRol == 'Administrador'}">
-            <p>Es un administrador </p>
-            <!--                <div th:replace="~{components/cuenta/crearCuenta :: cardCrearCuenta}"></div>-->
-        </div>
+<main th:if="${usuarioRol == 'Usuario'}">
 
+    <p>Usuario</p>
+
+</main>
+
+<main th:if="${usuarioRol == 'Administrador'}" >
+
+    <div th:replace="~{components/estadistica/administrador :: administradorInforme}"></div>
+    <div th:replace="~{components/estadistica/administrador :: consejosAdministrador}"></div>
 
 </main>
 
