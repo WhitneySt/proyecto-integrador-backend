@@ -4,12 +4,13 @@
     <div class="cardsInforme">
 
         <div class="cardInforme">
-            <h3>Usuarios <span>10</span> </h3>
+            <h3>Usuarios <span th:text="${cantidadUsuarios}"></span> </h3>
             <hr>
-            <p>Activos: <span>10</span></p>
-            <p>Inactivos: <span>10</span></p>
-            <p>Administradores: <span>10</span></p>
-            <p>Clientes: <span>10</span></p>
+            <p>Activos: <span th:text="${cantidadUsuariosActivos }"></span></p>
+            <p>Inactivos: <span th:text="${cantidadUsuariosInactivos}"></span></p>
+            <p>Clientes: <span th:text="${cantidadUsuariosTipoUsuario}"></span></p>
+            <p>Administradores: <span th:text="${cantidadUsuariosTipoAdministrador}"></span></p>
+
         </div>
 
         <div class="cardInforme">
