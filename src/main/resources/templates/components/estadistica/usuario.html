@@ -4,12 +4,19 @@
   <div class="cardsInforme">
 
     <div class="cardInforme">
-      <h3>Meta de ahorro </h3>
+      <h3>Meta de ahorro</h3>
       <hr>
-      <p> Total meta: $<span th:text="${metaTotal}"></span></p>
-      <p>Progreso: $<span th:text="${saldoTotal}"></span></p>
+      <!--th:if  para verificar si el valor de la meta total, y el progreso son diferentes de cero.
+      Si alguno de estos valores es cero, se mostrará el valor predeterminado "0".
+       De lo contrario, se formateará el número utilizando la función  #numbers.formatInteger . -->
+      <p th:if="${metaTotal != 0}">Total meta: $<span  th:text="${#numbers.formatInteger(metaTotal,3, 'POINT')}"></span></p> <!-- Si el valor de lameta total es diferente de cero, se hace el formateo del número y se muestra-->
+      <p th:if="${metaTotal == 0}" >Total meta: $<span  >0</span></p>  <!-- Si el valor de la meta total es igual a cero, se muestra el valor predeterminado "0"-->
+
+      <p th:if="${saldoTotal != 0}">Progreso: <span  th:text="'$'+${#numbers.formatInteger(saldoTotal,3, 'POINT')}"></span></p>
+      <p th:if="${saldoTotal == 0}" >Progreso: <span  >$0</span></p>
+
       <div id="progreso">
-        <p>Completado <span th:text="${porcentajeMeta + '%'}">0%</span></p>
+        <p>Completado <span th:if="${porcentajeMeta != 0}" th:text="${porcentajeMeta + '%'}">0%</span></p>
         <progress id="file" max="100" th:value="${porcentajeMeta}"></progress>
       </div>
     </div>
