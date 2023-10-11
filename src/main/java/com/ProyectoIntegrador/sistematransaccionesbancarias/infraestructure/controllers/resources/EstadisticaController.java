@@ -54,7 +54,6 @@ public class EstadisticaController {
         String rolUsuario=usuarioLogeado.getRol().getNombre();
 
         if(rolUsuario.equals("Usuario")){
-            System.out.println("El usuario es un usuario");
 
             Double saldoTotal=0.0;
             Double metaTotal=0.0;
@@ -86,7 +85,10 @@ public class EstadisticaController {
         }
         else if(rolUsuario.equals("Administrador")){
 
-            
+            List <Usuario> usuarios = usuarioServices.getAllUsuarios(); // Se obtienen todos los usuarios
+
+            Integer cantidadUsuarios = usuarios.size(); // Se obtiene la cantidad de usuarios
+            System.out.println("Cantidad de usuarios: "+cantidadUsuarios);
         }
 
 
