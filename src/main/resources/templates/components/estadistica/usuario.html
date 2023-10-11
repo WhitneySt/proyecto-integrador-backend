@@ -6,11 +6,11 @@
     <div class="cardInforme">
       <h3>Meta de ahorro </h3>
       <hr>
-      <p> Total meta: $<span>10000000</span></p>
-      <p>Progreso: $<span>5000000</span></p>
+      <p> Total meta: $<span th:text="${metaTotal}"></span></p>
+      <p>Progreso: $<span th:text="${saldoTotal}"></span></p>
       <div id="progreso">
-        <p>Completado <span>50<span>%</span></span></p>
-        <progress id="file" max="100" value="50"></progress>
+        <p>Completado <span th:text="${porcentajeMeta + '%'}">0%</span></p>
+        <progress id="file" max="100" th:value="${porcentajeMeta}"></progress>
       </div>
     </div>
 
@@ -18,10 +18,10 @@
       <!-- titulo: Movimientos,p:Depositos: 5000000,Tranferencias: 50000, Retiros: 200000, Balane neto: 500000 -->
       <h3>Movimientos</h3>
       <hr>
-      <p>Depósitos: $<span>5000000</span></p>
-      <p>Transferencias: $<span>50000</span></p>
-      <p>Retiros: $<span>200000</span></p>
-      <p>Balance neto: $<span>500000</span></p>
+      <p>Total depósitos: $<span>0</span></p>
+      <p>Total transferencias: $<span>0</span></p>
+      <p>total retiros: $<span>0</span></p>
+      <p>Balance neto: $<span>0</span></p>
     </div>
 
 
