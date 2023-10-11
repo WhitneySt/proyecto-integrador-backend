@@ -57,7 +57,7 @@ public class EstadisticaController {
 
             Double saldoTotal=0.0;
             Double metaTotal=0.0;
-            Double porcentajeCumplido=0.0;
+            double porcentajeCumplido=0.0;
 
             // Obtiene los datos de la estadistica del usuario logeado
             try{
@@ -80,29 +80,22 @@ public class EstadisticaController {
 
             model.addAttribute("saldoTotal", saldoTotal.intValue());
             model.addAttribute("metaTotal", metaTotal.intValue());
-            model.addAttribute("porcentajeMeta",porcentajeCumplido.intValue());
+            model.addAttribute("porcentajeMeta", (int) porcentajeCumplido);
 
         }
         else if(rolUsuario.equals("Administrador")){
 
             List <Usuario> usuarios = usuarioServices.getAllUsuarios(); // Se obtienen todos los usuarios
 
-            Integer cantidadUsuarios = usuarios.size(); // Se obtiene la cantidad de usuarios
-            // Cantidad de usuarios activos true
-            Integer cantidadUsuariosActivos = usuarios.stream().filter(usuario -> usuario.getEstado().getNombre().equals(true)).toArray().length;
+            int cantidadUsuarios = usuarios.size(); // Se obtiene la cantidad de usuarios
+            int cantidadUsuariosActivos = usuarios.stream().filter(usuario -> usuario.getEstado().getNombre().equals(true)).toArray().length;
+            int cantidadUsuariosInactivos =  usuarios.stream().filter(usuario -> usuario.getEstado().getNombre().equals(false)).toArray().length;
+            Integer cantidadUsuariosTipoUsuario = usuarios.stream().filter(usuario -> usuario.getRol().getNombre().equals("Usuario")).toArray().length;
+            Integer cantidadUsuariosTipoAdministrador = usuarios.stream().filter(usuario -> usuario.getRol().getNombre().equals("Administrador")).toArray().length;
 
-            // recorre la lista de usuarios
-            for (Usuario usuario : usuarios) {
-                System.out.println(usuario.getEstado().getNombre());
-            }
-            System.out.println("Cantidad de usuarios: "+cantidadUsuarios);
-            System.out.println("Cantidad de usuarios activos: "+cantidadUsuariosActivos);
-
+        
 
         }
-
-
-
 
         return "/estadistica";
     }
