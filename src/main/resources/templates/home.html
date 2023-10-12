@@ -39,9 +39,11 @@
             </div>
 
             <!-- Modal para crear una cuenta, si la cuenta ya está creada no en necesario que se muetre  -->
+            <!-- Modal Cuenta -->
             <div id="modal" class="modal" th:if="${!isCuentaCreada}">
                 <div th:replace="~{components/cuenta/modalCrearCuenta :: modalCuenta}"></div>
             </div>
+
 
 
         </main>
@@ -77,6 +79,14 @@
                         })
                     }
 
+                    if(mensajeRecibido == "cuenta-null") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Debe existir una cuenta para crear un bolsillo",
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }
 
                 }
             }
