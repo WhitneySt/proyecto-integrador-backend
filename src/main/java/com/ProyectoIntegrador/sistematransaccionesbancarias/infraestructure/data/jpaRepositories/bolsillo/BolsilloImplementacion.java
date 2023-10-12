@@ -1,6 +1,7 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo;
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Bolsillo;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.BolsilloRepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.BolsilloJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
@@ -33,8 +34,10 @@ public class BolsilloImplementacion implements BolsilloRepository {
 
     @Override
     public boolean saveOrUpdateBolsillo(Bolsillo bolsillo) {
-        bolsilloJPARepository.save(mapperBolsillo.BolsilloDomainToBolsilloJPA(bolsillo));
-        return bolsilloJPARepository.findById(bolsillo.getId()).isPresent();
+        BolsilloJPAEntity bolsilloJPAEntity = mapperBolsillo.BolsilloDomainToBolsilloJPA(bolsillo);
+        bolsilloJPARepository.save(bolsilloJPAEntity);
+
+        return bolsilloJPARepository.findById(bolsilloJPAEntity.getId()).isPresent();
     }
 
     @Override

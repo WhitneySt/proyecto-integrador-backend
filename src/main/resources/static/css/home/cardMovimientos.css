@@ -3,10 +3,8 @@
   transform: rotateY(180deg);
 }
 
-
 .card:hover .card-front {
   cursor: pointer;
-
   transform: rotateY(-180deg);
 }
 
