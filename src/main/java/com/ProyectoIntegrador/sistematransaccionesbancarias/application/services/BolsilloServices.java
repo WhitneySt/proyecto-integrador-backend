@@ -27,4 +27,9 @@ public class BolsilloServices {
     public List<Bolsillo> getAllBolsillos() {
         return bolsilloRepository.getAllBolsillos();
     }
+
+    public boolean deleteBolsilloById(Integer id){
+        return bolsilloRepository.deleteBolsilloById(id);
+    }
+
 }
