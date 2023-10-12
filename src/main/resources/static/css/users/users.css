@@ -4,7 +4,6 @@ main {
     left: 52%;
     top: 68%;
     transform: translate(-50%, -50%);
-
 }
 
 h2 {
@@ -45,7 +44,6 @@ button.btn-detalle {
 
 button.btn-crear {
     background-color: #038b70;
-    ;
 }
 
 button.btn-editar {
@@ -54,7 +52,6 @@ button.btn-editar {
 button:hover {
     opacity: 0.8;
 }
-
 
 table {
     width: 90%;
@@ -68,14 +65,12 @@ table {
 
 tr {
     border-bottom: 1px solid #E7E7ED;
-
 }
 
 tr:last-child {
   /* Estilos para el último hijo de tr */
   margin-right: 10px;
 }
-
 
 table thead tr th {
     font-size: 1.2em;

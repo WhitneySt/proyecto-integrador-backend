@@ -20,7 +20,8 @@ public class CuentaImplementacion implements CuentaRepository {
 
     @Override
     public boolean saveOrUpdateCuenta(Cuenta cuenta) {
-        cuentaJPARepository.save(mapperCuenta.CuentaDomainToCuentaJPA(cuenta));
+        CuentaJPAEntity cuentaJPAEntity = mapperCuenta.CuentaDomainToCuentaJPA(cuenta);
+        cuentaJPARepository.save(cuentaJPAEntity);
         return cuentaJPARepository.findById(cuenta.getId()).isPresent();
     }
 

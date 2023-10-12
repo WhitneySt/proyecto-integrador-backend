@@ -4,6 +4,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.BolsilloDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.CuentaDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloJPARepository;
@@ -20,6 +21,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import java.util.List;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 
@@ -51,10 +54,12 @@ public class HomeController {
     public String home(Model model,HttpServletRequest request,@ModelAttribute("mensaje") String mensajeRecibido) {
 
         Boolean isCuentaCreada = false;
+        Boolean isBolsilloCreado = false;
 
         InformationUsuarioModel(model,request); // Se obtiene el nombre  yla imgdel usuario que inició sesión y lo guarda eel model
 
         CuentaDto cuentaDto = new CuentaDto();
+        BolsilloDto bolsilloDto = new BolsilloDto();
         
         try{
             Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
@@ -70,14 +75,17 @@ public class HomeController {
             model.addAttribute("ultimosDigitosNumeroCuenta", ultimosDigitosNumeroCuenta); // Se agrega los ultimos digitos del numero de cuenta al modelo para poder usarlo en la vista
 
             isCuentaCreada = true;
+            isBolsilloCreado = true;
         }
         catch(CuentaNotFoundException e){ // Si no se encuentra la cuenta del usuario logeado se puede crear una
 
             isCuentaCreada = false;
+            isBolsilloCreado = false;
             model.addAttribute("cuentaDto", cuentaDto); //se guarda un objeto en el  modelo para poder usarlo en la vista y guardar valores
-
+            model.addAttribute("bolsilloDto", bolsilloDto);
         }
         model.addAttribute("isCuentaCreada", isCuentaCreada); // Se agrega la variable isCuentaCreada al modelo para poder usarlo en la vista
+        model.addAttribute("isBolsilloCreado", isBolsilloCreado);
 
         return "/home";
     }
@@ -88,7 +96,8 @@ public class HomeController {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         cuentaDto.setUsuarioId(usuarioLogeado);
-        boolean guardar=cuentaServices.saveOrUpdateCuenta(mapperCuenta.CuentaDtoToCuentaDomain(cuentaDto)); // Se guarda la cuenta en la base de datos
+        Cuenta cuenta = mapperCuenta.CuentaDtoToCuentaDomain(cuentaDto);
+        boolean guardar = cuentaServices.saveOrUpdateCuenta(cuenta); // Se guarda la cuenta en la base de datos
 
         if(guardar){
             System.out.println("Se guardo la cuenta");
@@ -99,7 +108,7 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("mensaje","createError");
         }
 
-        return "redirect:/home";
+        return "redirect:/";
     }
 
     // Obtener el  nombre de usuario que inició sesión y lo pasa al model

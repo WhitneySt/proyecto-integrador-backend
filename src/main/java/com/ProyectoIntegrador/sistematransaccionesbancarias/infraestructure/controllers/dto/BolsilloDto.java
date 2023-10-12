@@ -58,4 +58,15 @@ public class BolsilloDto {
     public void setIdCuenta(Cuenta idCuenta) {
         this.idCuenta = idCuenta;
     }
+
+    @Override
+    public String toString() {
+        return "BolsilloDto{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", saldo=" + saldo +
+                ", color='" + color + '\'' +
+                ", idCuenta=" + idCuenta +
+                '}';
+    }
 }

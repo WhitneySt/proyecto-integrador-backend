@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/home/card.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/bolsillos/bolsillo.css}">
+    <title>Bolsillo</title>
+</head>
+
+<body>
+
+<header th:replace="~{components/header :: Header}"></header>
+
+<nav th:replace="~{components/nav :: Nav}"></nav>
+
+<main class="main-bolsillo">
+    <h2 class="title">Bolsillos</h2>
+    <div class="btn-crearBolsillo" th:replace="~{components/crearBolsillo :: cardCrearBolsillo}"></div>
+
+    <section class="bolsillos-container">
+        <article class="card-bolsillo" th:each="bolsillo : ${bolsillos}">
+            <div th:style="'background-color: ' + ${bolsillo.color}"></div>
+            <h5 th:text="${bolsillo.nombre}"></h5>
+            <span th:text="${bolsillo.saldo}"></span>
+        </article>
+    </section>
+
+    <!--table>
+        <thead>
+            <th>Bolsillo</th>
+            <th>Color</th>
+            <th>Saldo</th>
+        </thead>
+        <tbody>
+            <tr th:each="bolsillo : ${bolsillos}">
+                <td th:text="${bolsillo.nombre}"></td>
+                <td th:text="${bolsillo.color}"></td>
+                <td th:text="${bolsillo.saldo}"></td>
+            </tr>
+        </tbody>
+    </table-->
+
+    <!-- Modal Bolsillo -->
+    <div id="modal-bolsillo" class="modal">
+        <div class="modal-content">
+            <h2>Create una cuenta</h2>
+            <form id="crear-bolsillo-form" th:action="@{/crearBolsillo}" method="post" th:object="${bolsilloDto}">
+                <div class="form-group">
+                    <label for="nombre">Ingresa el nombre<span class="red">*</span></label>
+                    <input type="text" id="nombre" name="nombre" placeholder="Nombre" th:field="*{nombre}">
+                </div>
+                <div class="form-group">
+                    <label for="saldo">Establece una saldo (opcional)</label>
+                    <input type="number" id="saldo" name="saldo" placeholder="Saldo" th:field="*{saldo}">
+                </div>
+                <div class="form-group">
+                    <label for="color">Selecciona el color</label>
+                    <input type="color" id="color" name="color" th:field="*{color}">
+                    <!--select id="color" name="color" th:field="*{color}">
+                        <option value="Amarillo">Amarillo</option>
+                        <option value="Negro">Negro</option>
+                    </select-->
+                </div>
+                <div class="form-group-buttons">
+                    <button type="submit">Crear</button>
+                    <button type="button" class="cancelar-bolsillo-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script  th:inline="javaScript" th:src="@{./js/modalBolsillo.js}"></script>
+<script  th:inline="javaScript">
+    window.onload = function () {
+           let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+            console.log(mensajeRecibido);
+            let mensajeMostrar = "";
+
+            if (mensajeRecibido != "") {
+
+                if (mensajeRecibido == "createOk") {
+                    mensajeMostrar = "El bolsillo se ha creado correctamente";
+                    Swal.fire({
+                    icon: 'success',
+                    title: mensajeMostrar,
+                    showConfirmButton: false,
+                    timer: 3000
+                    })
+                } else if (mensajeRecibido == "createError") {
+                    mensajeMostrar = "No se ha podido crear el bolsillo";
+                    Swal.fire({
+                    icon: 'error',
+                    title: mensajeMostrar,
+                    showConfirmButton: false,
+                    timer: 3000
+                    })
+                }
+
+                if(mensajeRecibido == "cuenta-null") {
+                    Swal.fire({
+                        icon: 'error',
+                        title: "Debe existir una cuenta para crear un bolsillo",
+                        showConfirmButton: false,
+                        timer: 3000
+                    });
+                }
+
+            }
+        }
+</script>
+</body>
+
+</html>
