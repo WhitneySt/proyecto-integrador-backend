@@ -34,7 +34,7 @@
                 <div th:replace="~{components/crearCuenta :: cardCrearCuenta}"></div>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal Cuenta -->
             <div id="modal" class="modal" th:if="${!isCuentaCreada}">
                 <div class="modal-content">
                     <h2>Create una cuenta</h2>
@@ -62,10 +62,6 @@
                     </form>
                 </div>
             </div>
-
-
-
-
         </main>
 
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -99,6 +95,14 @@
                         })
                     }
 
+                    if(mensajeRecibido == "cuenta-null") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: "Debe existir una cuenta para crear un bolsillo",
+                            showConfirmButton: false,
+                            timer: 3000
+                        })
+                    }
 
                 }
             }
