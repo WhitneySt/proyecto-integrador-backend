@@ -3,6 +3,7 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.con
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.BolsilloServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.UsuarioService;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Bolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloImplementacion;
@@ -97,19 +98,26 @@ public class EstadisticaController {
         }
         else if(rolUsuario.equals("Administrador")){
 
-            List <Usuario> usuarios = usuarioServices.getAllUsuarios(); // Se obtienen todos los usuarios
+            List <Usuario> usuarios = usuarioServices.getAllUsuarios();
+            List <Bolsillo> bolsillos = bolsilloServices.getAllBolsillos();
 
-            int cantidadUsuarios = usuarios.size(); // Se obtiene la cantidad de usuarios
+
+            // Obtiene los datos de la estadistica de los usuarios
+            int cantidadUsuarios = usuarios.size();
             int cantidadUsuariosActivos = usuarios.stream().filter(usuario -> usuario.getEstado().getNombre().equals(true)).toArray().length;
             int cantidadUsuariosInactivos =  usuarios.stream().filter(usuario -> usuario.getEstado().getNombre().equals(false)).toArray().length;
             Integer cantidadUsuariosTipoUsuario = usuarios.stream().filter(usuario -> usuario.getRol().getNombre().equals("Usuario")).toArray().length;
             Integer cantidadUsuariosTipoAdministrador = usuarios.stream().filter(usuario -> usuario.getRol().getNombre().equals("Administrador")).toArray().length;
+
+            // Obtiene los datos de la estadistica de los bolsillos
+            int cantidadBolsillos = bolsillos.size();
 
             model.addAttribute("cantidadUsuarios", cantidadUsuarios);
             model.addAttribute("cantidadUsuariosActivos", cantidadUsuariosActivos);
             model.addAttribute("cantidadUsuariosInactivos", cantidadUsuariosInactivos);
             model.addAttribute("cantidadUsuariosTipoUsuario", cantidadUsuariosTipoUsuario);
             model.addAttribute("cantidadUsuariosTipoAdministrador", cantidadUsuariosTipoAdministrador);
+            model.addAttribute("cantidadBolsillos", cantidadBolsillos);
 
         }
         model.addAttribute("usuarioRol",usuarioLogeado.getRol().getNombre()); // Se guarda el usuario en el model
