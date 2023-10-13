@@ -17,20 +17,24 @@
             <!-- promedio de trnsacciones,usuarios con metas, Cumplimiento de metas -->
             <h3>Actividad de usuarios </h3>
             <hr>
-
+            <p>Bolsillos creados: <span th:text="${cantidadBolsillos}"></span></p>
+            <p>Saldo promedio: $<span id="saldoPromedio">10000</span></p>
+            <p>Total dinero: $<span id="totalDinero">10000000</span></p>
             <p>Promedio de transacciones: <span>10</span></p>
-            <p>Usuarios con metas: <span>10</span></p>
-            <p>Cumplimiento de metas: <span>10</span></p>
+
+
         </div>
 
         <div class="cardInforme">
             <!-- cuentas activas,bosiilos creados, saldo promedio,total dinero-->
             <h3>Análisis de cuentas</h3>
             <hr>
-            <p>Cuentas activas: <span>10</span></p>
-            <p>Bolsillos creados: <span th:text="${cantidadBolsillos}"></span></p>
-            <p>Saldo promedio: $<span id="saldoPromedio">10000</span></p>
-            <p>Total dinero: $<span id="totalDinero">10000000</span></p>
+            <p>Cuentas creadas: <span th:text="${cantidadCuentasCreadas}"></span></p>
+            <p>Cuentas Activas: <span th:text="${cantidadCuentasActivas}"></span></p>
+            <p>Usuarios con metas: <span>10</span></p>
+            <p>Cumplimiento de metas: <span>10</span></p>
+
+
         </div>
 
         <div class="cardInforme">
