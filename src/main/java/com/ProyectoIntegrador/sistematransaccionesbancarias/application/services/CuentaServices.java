@@ -34,6 +34,14 @@ public class CuentaServices {
         return cuenta.orElseThrow(() -> new CuentaNotFoundException("No se encontró la cuenta del usuario con id: " + idUsuario));
     }
 
+    public Integer getCantidadCuentas() {
+        return cuentaRepository.getCantidadCuentas();
+    }
+
+    public Integer getCantidadCuentasActivas() {
+        return cuentaRepository.getCantidadCuentasActivas();
+    }
+
 
 
 

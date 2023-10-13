@@ -101,6 +101,10 @@ public class EstadisticaController {
             List <Usuario> usuarios = usuarioServices.getAllUsuarios();
             List <Bolsillo> bolsillos = bolsilloServices.getAllBolsillos();
 
+            // ? TODO : Preguntar que forma es mejor para obtener los datos, si de la base de datos por medio de los servicios o desde el controlador haciendo algunas operaciones
+            Integer cantidadCuentasCreadas = cuentaServices.getCantidadCuentas();
+            Integer cantidadCuentasActivas = cuentaServices.getCantidadCuentasActivas();
+
 
             // Obtiene los datos de la estadistica de los usuarios
             int cantidadUsuarios = usuarios.size();
@@ -118,6 +122,9 @@ public class EstadisticaController {
             model.addAttribute("cantidadUsuariosTipoUsuario", cantidadUsuariosTipoUsuario);
             model.addAttribute("cantidadUsuariosTipoAdministrador", cantidadUsuariosTipoAdministrador);
             model.addAttribute("cantidadBolsillos", cantidadBolsillos);
+            model.addAttribute("cantidadCuentasCreadas",cantidadCuentasCreadas );
+            model.addAttribute("cantidadCuentasActivas",cantidadCuentasActivas );
+
 
         }
         model.addAttribute("usuarioRol",usuarioLogeado.getRol().getNombre()); // Se guarda el usuario en el model

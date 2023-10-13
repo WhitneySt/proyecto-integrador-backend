@@ -15,4 +15,15 @@ public interface CuentaJPARepository extends CrudRepository<CuentaJPAEntity,Long
     // consulta sql
     @Query(value = "SELECT * FROM cuentas WHERE usuario_id = ?1", nativeQuery = true)
     Optional<CuentaJPAEntity> findByUsuarioId(Integer usuarioId);
+
+    // Obtener la cantidad de cuentas
+    @Query(value = "SELECT COUNT(*) FROM cuentas", nativeQuery = true)
+    Integer getCantidadCuentas();
+
+
+    // Obtener la cantidad de cuentas activas
+    //estado_id=1 es que un usuario esta activo
+    @Query(value = "SELECT COUNT(*) FROM cuentas JOIN usuarios ON cuentas.usuario_id=usuarios.id  WHERE usuarios.estado_id=1", nativeQuery = true)
+    Integer getCantidadCuentasActivas();
+
 }
