@@ -78,10 +78,16 @@ public class EstadisticaController {
                 Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()); // Se obtiene la cuenta del usuario logeado
 
                 saldoTotal= cuenta.getSaldo();
+
                 metaTotal = cuenta.getMetaAhorro();
 
-                // saca el porcentaje de la meta de ahorro completada
-                porcentajeCumplido = (saldoTotal / metaTotal) * 100;
+                if (( metaTotal != null && metaTotal != 0 ) &&  (saldoTotal != null && saldoTotal != 0)) {
+                    //Se  saca el porcentaje de la meta de ahorro completada si es que tiene una meta de ahorro y saldo
+                    porcentajeCumplido = (saldoTotal / metaTotal) * 100;
+                } else {
+                    porcentajeCumplido = 0.0;
+                    metaTotal = 0.0;
+                }
 
             }
 
