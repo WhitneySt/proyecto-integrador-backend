@@ -30,31 +30,39 @@
 
     <section class="bolsillos-container">
         <article class="card-bolsillo" th:each="bolsillo : ${bolsillos}">
+            <!--input id="idBolsillo" type="hidden" th:value="${bolsillo.id}"-->
             <div th:style="'background-color: ' + ${bolsillo.color}"></div>
             <h5 th:text="${bolsillo.nombre}"></h5>
-            <span th:text="${bolsillo.saldo}"></span>
+            <span class="saldo-bolsillo" th:text="${bolsillo.saldo}"></span>
+            <div class="buttons-bolsillos">
+                <button type="button" th:name="${bolsillo.id}" id="btnEditar">
+                    <svg th:name="${bolsillo.id}" id="btnEditar" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-edit" width="24"
+                         height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none"
+                         stroke-linecap="round" stroke-linejoin="round">
+                        <path th:name="${bolsillo.id}" id="btnEditar" stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path th:name="${bolsillo.id}" id="btnEditar" d="M7 7h-1a2 2 0 0 0 -2 2v9a2 2 0 0 0 2 2h9a2 2 0 0 0 2 -2v-1"></path>
+                        <path th:name="${bolsillo.id}" id="btnEditar" d="M20.385 6.585a2.1 2.1 0 0 0 -2.97 -2.97l-8.415 8.385v3h3l8.385 -8.415z"></path>
+                        <path th:name="${bolsillo.id}" id="btnEditar" d="M16 5l3 3"></path>
+                    </svg>
+                </button>
+                <button type="button" th:name="${bolsillo.id}" id="btnEliminar">
+                    <svg th:name="${bolsillo.id}" id="btnEliminar" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-trash" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                        <path th:name="${bolsillo.id}" id="btnEliminar" stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                        <path th:name="${bolsillo.id}" id="btnEliminar" d="M4 7l16 0"></path>
+                        <path th:name="${bolsillo.id}" id="btnEliminar" d="M10 11l0 6"></path>
+                        <path th:name="${bolsillo.id}" id="btnEliminar" d="M14 11l0 6"></path>
+                        <path th:name="${bolsillo.id}" id="btnEliminar" d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12"></path>
+                        <path th:name="${bolsillo.id}" id="btnEliminar" d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3"></path>
+                    </svg>
+                </button>
+            </div>
         </article>
     </section>
-
-    <!--table>
-        <thead>
-            <th>Bolsillo</th>
-            <th>Color</th>
-            <th>Saldo</th>
-        </thead>
-        <tbody>
-            <tr th:each="bolsillo : ${bolsillos}">
-                <td th:text="${bolsillo.nombre}"></td>
-                <td th:text="${bolsillo.color}"></td>
-                <td th:text="${bolsillo.saldo}"></td>
-            </tr>
-        </tbody>
-    </table-->
 
     <!-- Modal Bolsillo -->
     <div id="modal-bolsillo" class="modal">
         <div class="modal-content">
-            <h2>Create una cuenta</h2>
+            <h2>Crear Bolsillo</h2>
             <form id="crear-bolsillo-form" th:action="@{/crearBolsillo}" method="post" th:object="${bolsilloDto}">
                 <div class="form-group">
                     <label for="nombre">Ingresa el nombre<span class="red">*</span></label>
@@ -64,13 +72,9 @@
                     <label for="saldo">Establece una saldo (opcional)</label>
                     <input type="number" id="saldo" name="saldo" placeholder="Saldo" th:field="*{saldo}">
                 </div>
-                <div class="form-group">
-                    <label for="color">Selecciona el color</label>
-                    <input type="color" id="color" name="color" th:field="*{color}">
-                    <!--select id="color" name="color" th:field="*{color}">
-                        <option value="Amarillo">Amarillo</option>
-                        <option value="Negro">Negro</option>
-                    </select-->
+                <div class="form-group-color">
+                    <label for="color"><img src=".././images/color.png" alt="color"></label>
+                    <input type="color" id="color" name="color" th:field="*{color}" value="#ffffff">
                 </div>
                 <div class="form-group-buttons">
                     <button type="submit">Crear</button>
@@ -83,15 +87,12 @@
 </main>
 
 
-
-
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script  th:inline="javaScript" th:src="@{./js/modalBolsillo.js}"></script>
-<script  th:inline="javaScript">
+<script th:inline="javaScript" th:src="@{./js/bolsillo.js}"></script>
+<script th:inline="javaScript">
     window.onload = function () {
            let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
-            console.log(mensajeRecibido);
             let mensajeMostrar = "";
 
             if (mensajeRecibido != "") {
