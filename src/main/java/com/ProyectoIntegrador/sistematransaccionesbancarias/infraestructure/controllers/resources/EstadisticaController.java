@@ -105,6 +105,8 @@ public class EstadisticaController {
             Integer cantidadCuentasCreadas = cuentaServices.getCantidadCuentas();
             Integer cantidadCuentasActivas = cuentaServices.getCantidadCuentasActivas();
 
+            Long totalDineroCuentas = cuentaServices.getTotalDineroCuentas();
+
 
             // Obtiene los datos de la estadistica de los usuarios
             int cantidadUsuarios = usuarios.size();
@@ -121,9 +123,13 @@ public class EstadisticaController {
             model.addAttribute("cantidadUsuariosInactivos", cantidadUsuariosInactivos);
             model.addAttribute("cantidadUsuariosTipoUsuario", cantidadUsuariosTipoUsuario);
             model.addAttribute("cantidadUsuariosTipoAdministrador", cantidadUsuariosTipoAdministrador);
+
             model.addAttribute("cantidadBolsillos", cantidadBolsillos);
+
             model.addAttribute("cantidadCuentasCreadas",cantidadCuentasCreadas );
             model.addAttribute("cantidadCuentasActivas",cantidadCuentasActivas );
+
+            model.addAttribute("totalDineroCuentas",totalDineroCuentas );
 
 
         }
