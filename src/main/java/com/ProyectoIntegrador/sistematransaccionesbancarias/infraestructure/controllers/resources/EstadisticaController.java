@@ -1,14 +1,18 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.BolsilloServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.UsuarioService;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloImplementacion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,20 +31,30 @@ public class EstadisticaController {
     MapperCuenta mapperCuenta;
     CuentaServices cuentaServices;
     CuentaImplementacion repository;
+
     MapperUsuario mapperUsuario;
     UsuarioService usuarioServices;
     UsuarioImplementacion repositoryUsuario;
 
-    public EstadisticaController(CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, UsuarioJPARepository usuarioJPARepository, MapperUsuario mapperUsuario) {
-        this.repository = new CuentaImplementacion(cuentaJPARepository,mapperCuenta);
+    MapperBolsillo mapperBolsillo;
+    BolsilloServices bolsilloServices;
+    BolsilloImplementacion bolsilloRepository;
+
+    public EstadisticaController(CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, UsuarioJPARepository usuarioJPARepository, MapperUsuario mapperUsuario, BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo) {
+
         this.mapperCuenta = mapperCuenta;
+        this.repository = new CuentaImplementacion(cuentaJPARepository,mapperCuenta);
         this.cuentaServices = new CuentaServices(this.repository);
 
-        this.repositoryUsuario = new UsuarioImplementacion(usuarioJPARepository,mapperUsuario);
         this.mapperUsuario = mapperUsuario;
+        this.repositoryUsuario = new UsuarioImplementacion(usuarioJPARepository,mapperUsuario);
         this.usuarioServices = new UsuarioService(this.repositoryUsuario);
-    }
 
+        this.mapperBolsillo = mapperBolsillo;
+        this.bolsilloRepository = new BolsilloImplementacion(bolsilloJPARepository,mapperBolsillo);
+        this.bolsilloServices = new BolsilloServices(this.bolsilloRepository);
+
+    }
 
 
     @GetMapping("/estadistica")
