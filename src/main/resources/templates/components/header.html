@@ -1,6 +1,6 @@
 <header th:fragment="Header">
     <div class="logo">"
-        <img th:src="@{./images/header/iconBanco.png}" alt="Icono del banco ">
+        <img th:src="@{.././images/header/iconBanco.png}" alt="Icono del banco ">
     </div>
     <h1>
         Makaia Bank
@@ -9,12 +9,12 @@
 
         <!-- Si el usuario tiene una imagen de perfil, se muestra, de lo contrario se muestra una imagen por defecto -->
         <img th:if="${urlImageUsuario != null}" th:src="@{${urlImageUsuario}}" alt="Imagen perfil" class="img-profile">
-        <img th:unless="${urlImageUsuario != null}" th:src="@{./images/header/icon-profile-img.png}" alt="Imagen perfil" class="img-profile">
+        <img th:unless="${urlImageUsuario != null}" th:src="@{.././images/header/icon-profile-img.png}" alt="Imagen perfil" class="img-profile">
 
         <p class="nombreUsuario" th:text="${nombreUsuario}"></p>
 
         <a  onclick="confirmLogout()">
-            <img th:src="@{./images/header/icon-exit.png}" alt="Icono salida" class="iconSalida">
+            <img th:src="@{.././images/header/icon-exit.png}" alt="Icono salida" class="iconSalida">
         </a>
     </div>
 

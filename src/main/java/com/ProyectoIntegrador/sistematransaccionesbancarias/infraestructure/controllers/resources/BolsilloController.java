@@ -20,6 +20,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -49,15 +50,48 @@ public class BolsilloController {
     }
 
     @GetMapping("/bolsillos")
-    public String bolsillos(Model model,HttpServletRequest request) {
+    public String bolsillos(Model model, HttpServletRequest request) {
         InformationUsuarioModel(model,request);
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request);
+        Long idCuentaUsuario = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()).getId();
+
         BolsilloDto bolsilloDto = new BolsilloDto();
+        /*bolsilloDto.setColor("#ffffff");*/
 
         List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillos();
-        model.addAttribute("bolsillos",listaBolsillos);
+        model.addAttribute("bolsillos", listaBolsillos);
         model.addAttribute("bolsilloDto", bolsilloDto);
 
         return "bolsillos/bolsillos";
+    }
+
+    @GetMapping("/bolsillos/{id}")
+    public String bolsillos(Model model, @PathVariable Integer id) {
+        BolsilloDto bolsilloDto = new BolsilloDto();
+
+        List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillos();
+        if(id != null || id > 0) {
+            //find bolsillo
+            for (int i = 0; i < listaBolsillos.size(); i++) {
+                Bolsillo bolsillo = listaBolsillos.get(i);
+                Integer idBolsillo = bolsillo.getId();
+                if(idBolsillo.intValue() == id.intValue()) {
+                    bolsilloDto = mapperBolsillo.BolsilloDomainToBolsilloDto(bolsillo);
+                    break;
+                }
+            }
+        }
+
+        model.addAttribute("bolsilloDto", bolsilloDto);
+
+        return "bolsillos/editar";
+    }
+
+    @GetMapping("/bolsillos/remove/{id}")
+    public String deleteBolsillo(Model model, @PathVariable Integer id) {
+        bolsilloServices.deleteBolsilloById(id);
+        return "redirect:/bolsillos";
     }
 
     @PostMapping("/crearBolsillo")
@@ -72,6 +106,30 @@ public class BolsilloController {
 
             if(guardar){
                 System.out.println("Se guardo el bolsillo");
+                redirectAttributes.addFlashAttribute("mensaje","createOk");
+            } else {
+                System.out.println("No se guardo el bolsillo");
+                redirectAttributes.addFlashAttribute("mensaje","createError");
+            }
+        } catch(CuentaNotFoundException e){
+            redirectAttributes.addFlashAttribute("mensaje","cuenta-null");
+            return "redirect:/";
+        }
+        return "redirect:/bolsillos";
+    }
+
+    @PostMapping("/editarBolsillo")
+    public String editarBolsillo(BolsilloDto bolsilloDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        try {
+            Usuario usuarioLogeado = getUsuarioLogeado(request);
+            Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
+
+            bolsilloDto.setIdCuenta(cuenta);
+            Bolsillo bolsillo = mapperBolsillo.BolsilloDtoToBolsilloDomain(bolsilloDto);
+            boolean guardar = bolsilloServices.saveOrUpdateBolsillo(bolsillo);
+
+            if(guardar){
+                System.out.println("Se edito el bolsillo");
                 redirectAttributes.addFlashAttribute("mensaje","createOk");
             } else {
                 System.out.println("No se guardo el bolsillo");
