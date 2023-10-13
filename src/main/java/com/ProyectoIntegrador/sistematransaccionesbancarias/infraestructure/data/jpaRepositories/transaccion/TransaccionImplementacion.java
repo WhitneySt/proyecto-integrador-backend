@@ -27,6 +27,14 @@ public class TransaccionImplementacion implements TransaccionRepository {
     }
 
     @Override
+    public List<Transaccion> getAllTransaccionesByUsuario(Integer usuarioId) {
+        List<Transaccion> transaccionList = new ArrayList<>();
+        transaccionJPARepository.getAllTransaccionesByUsuario(usuarioId).forEach(transaccion -> transaccionList.add(mapperTransaccion.TransaccionJPAToTransaccionDomain(transaccion)));
+
+        return transaccionList;
+    }
+
+    @Override
     public Transaccion getTransaccionById(Integer id) {
         TransaccionJPAEntity transaccionJPAEntity = transaccionJPARepository.findById(id).get();
         return mapperTransaccion.TransaccionJPAToTransaccionDomain(transaccionJPAEntity);
@@ -42,5 +50,10 @@ public class TransaccionImplementacion implements TransaccionRepository {
     public boolean deleteTransaccionById(Integer id) {
         transaccionJPARepository.deleteById(id);
         return transaccionJPARepository.findById(id).isEmpty();
+    }
+
+    @Override
+    public Double getTotalSaldoTransacciones(Long usuarioId) {
+        return transaccionJPARepository.getTotalSaldoTransacciones(usuarioId);
     }
 }

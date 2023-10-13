@@ -54,12 +54,12 @@ public class BolsilloController {
         InformationUsuarioModel(model,request);
 
         Usuario usuarioLogeado = getUsuarioLogeado(request);
-        Long idCuentaUsuario = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()).getId();
+        Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
 
         BolsilloDto bolsilloDto = new BolsilloDto();
-        /*bolsilloDto.setColor("#ffffff");*/
+        bolsilloDto.setColor("#ffffff");
 
-        List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillos();
+        List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillosByCuenta(cuenta.getId());
         model.addAttribute("bolsillos", listaBolsillos);
         model.addAttribute("bolsilloDto", bolsilloDto);
 

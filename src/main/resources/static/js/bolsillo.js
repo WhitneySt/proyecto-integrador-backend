@@ -3,6 +3,9 @@ const modalBolsillo = document.getElementById('modal-bolsillo');
 const cancelarBolsilloBtn = document.querySelector('.cancelar-bolsillo-modal');
 const colorInput = document.getElementById('color');
 const saldos = document.querySelectorAll('.saldo-bolsillo');
+const formModal = document.getElementById('crear-bolsillo-form');
+const nombreBolsilloInput = document.getElementById('nombre');
+const btnCrear = document.querySelector('button[type=submit]');
 
 
 
@@ -56,6 +59,32 @@ document.addEventListener('click', (e) => {
     }
 
 });
+
+formModal.addEventListener('submit',(e)=>{
+    
+    if (nombreBolsilloInput.value.trim()==='') {
+        e.preventDefault();
+        const errorMensaje = document.createElement('span');
+        errorMensaje.classList.add('error-mensaje');
+        errorMensaje.textContent = 'Por favor ingrese un nombre para el bolsillo';
+
+        nombreBolsilloInput.classList.add('errorInput');
+        nombreBolsilloInput.parentNode.insertBefore(errorMensaje, nombreBolsilloInput.nextSibling);
+
+        btnCrear.disabled = true;
+
+
+    }
+
+});
+
+nombreBolsilloInput.addEventListener('input',()=>{
+    if (nombreBolsilloInput.value.trim()!=='') {
+        nombreBolsilloInput.classList.remove('errorInput');
+        btnCrear.disabled = false;
+    }
+    
+})
 
 
 
