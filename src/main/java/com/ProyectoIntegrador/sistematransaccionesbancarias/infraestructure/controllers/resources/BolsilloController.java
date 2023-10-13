@@ -52,10 +52,13 @@ public class BolsilloController {
     @GetMapping("/bolsillos")
     public String bolsillos(Model model, HttpServletRequest request) {
         InformationUsuarioModel(model,request);
-        BolsilloDto bolsilloDto = new BolsilloDto();
-        /*bolsilloDto.setColor("#ffffff");*/
+        Usuario usuarioLogeado = getUsuarioLogeado(request);
+        Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
 
-        List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillos();
+        BolsilloDto bolsilloDto = new BolsilloDto();
+        bolsilloDto.setColor("#ffffff");
+
+        List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillosByCuenta(cuenta.getId());
         model.addAttribute("bolsillos", listaBolsillos);
         model.addAttribute("bolsilloDto", bolsilloDto);
 

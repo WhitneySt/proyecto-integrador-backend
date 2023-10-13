@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <!--link rel="stylesheet" type="text/css" th:href="@{./css/home/card.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/home/cardMovimientos.css}"-->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/home/modalCrearCuenta.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/transaccion/transaccion.css}">
+    <title>Movimientos</title>
+</head>
+
+<body>
+
+<header th:replace="~{components/header :: Header}"></header>
+
+<nav th:replace="~{components/nav :: Nav}"></nav>
+
+<main class="main-transacciones">
+    <h1>Movimientos</h1>
+    <div class="btn-transacciones">
+        <button id="btnDepositar">Depositar</button>
+        <button id="btnTransferir">Transferir</button>
+        <button id="btnRetirar">Retirar</button>
+    </div>
+    <table class="tabla-transacciones">
+        <thead>
+        <th>Referencia</th>
+        <th>Monto</th>
+        <th>Fecha</th>
+        <th>Tipo</th>
+        <th></th>
+        </thead>
+        <tbody>
+
+        <tr th:each="transaccion : ${transacciones}">
+            <td th:text="${transaccion.id}"></td>
+            <td th:text="${transaccion.monto}"></td>
+            <td th:text="${transaccion.fechaTransaccion}"></td>
+            <td th:text="${transaccion.idTipoMovimiento}"></td>
+            <td th:name="${trasaccion.id}" id="btnDetalles" >
+                <svg th:name="${trasaccion.id}" id="btnDetalles" xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                    <path th:name="${trasaccion.id}" id="btnDetalles" stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                    <path th:name="${trasaccion.id}" id="btnDetalles" d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
+                    <path th:name="${trasaccion.id}" id="btnDetalles" d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
+                </svg>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
+    <!-- Modal Deposito -->
+    <div id="modal-deposito" class="modal">
+        <div class="modal-content">
+            <h2>Depósito</h2>
+            <form id="deposito-form" th:action="@{/crearTransaccion/deposito}" method="post" th:object="${depositoDto}">
+                <div class="form-group">
+                    <label for="monto">Ingresa el monto<span class="red">*</span></label>
+                    <input type="text" id="monto" name="monto" placeholder="Monto">
+                </div>
+                <div class="form-group">
+                    <label for="descripcion">Ingresa una descripción(opcional)</label>
+                    <input type="text" id="descripcion" name="descripcion" placeholder="Descripcion">
+                </div>
+                <div class="form-group-buttons">
+                    <button type="submit">Aceptar</button>
+                    <button id="cancelar" type="button" class="cancelar-bolsillo-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Transferencia -->
+    <div id="modal-transferencia" class="modal">
+        <div class="modal-content">
+            <h2>Transferencia</h2>
+            <form id="tranferencia-form" th:action="@{/crearTransaccion/transferencia}" method="post" th:object="${transferenciaDto}">
+                <!--div class="form-group">
+                    <label for="productoOrigen">Producto origen:<span class="red">*</span></label>
+                    <select id="productoOrigen">
+                        <option value="">Seleccione una opción</option>
+                        <option value="miCuentas">Mi cuenta</option>
+                        <option value="misBolsillos">Mis bolsillos</option>
+                    </select>
+                </div-->
+                <fieldset id="productoOrigen">
+                    <legend>Escoja un producto de origen:</legend>
+                    <div class="button-checkbox">
+                        <input type="checkbox" name="miCuenta" value="micuenta" id="miCuentaOrigen">
+                        <label for="miCuentaOrigen">Mi Cuenta</label>
+                    </div>
+                    <div class="button-checkbox">
+                        <input type="checkbox" name="misBolsillos" value="misBolsillos" id="misBolsillosOrigen">
+                        <label for="misBolsillosOrigen">Mis bolsillos</label>
+                    </div>
+                </fieldset>
+                <div class="form-group" id="listaBolsillosOrigen">
+                    <label for="bolsilloOrigen">Bolsillo:<span class="red">*</span></label>
+                    <select id="bolsilloOrigen">
+                        <option value="">Seleccione una opción</option>
+                        <div th:each="bolsillo : ${bolsillos}">
+                            <option th:value="${bolsillo.id}" th:text="${bolsillo.nombre}"></option>
+                        </div>
+                    </select>
+                </div>
+                <!--div class="form-group">
+                    <label for="cuentaOrigen">Producto destino:<span class="red">*</span></label>
+                    <select id="cuentaOrigen">
+                        <option value="">Seleccione una opción</option>
+                        <option value="misBolsillos">Mis bolsillos</option>
+                        <option value="cuentasTercero">Cuenta de terceros</option>
+                    </select>
+                </div-->
+                <fieldset id="productoDestino">
+                    <legend>Escoja un producto destino:</legend>
+                    <div class="button-checkbox">
+                        <input type="checkbox" name="otrasCuenta" value="OtrasCuenta" id="otrasCuentas">
+                        <label for="otrasCuentas">Cuentas de tercero</label>
+                    </div>
+                    <div class="button-checkbox">
+                        <input type="checkbox" name="misBolsillosDestinos" value="misBolsillosDestinos" id="misBolsillosDestinos">
+                        <label for="misBolsillosDestinos">Mis bolsillos</label>
+                    </div>
+                </fieldset>
+                <div class="form-group" id="listaBolsillosDestino">
+                    <label for="bolsillosDestino">Bolsillo:<span class="red">*</span></label>
+                    <select id="bolsillosDestino">
+                        <option value="">Seleccione una opción</option>
+                        <div th:each="bolsillo : ${bolsillos}">
+                            <option th:value="${bolsillo.id}" th:text="${bolsillo.nombre}"></option>
+                        </div>
+                    </select>
+                </div>
+                <div class="form-group" id="inputCuentaDestino">
+                    <label for="cuentaDestino">Numero de cuenta<span class="red">*</span></label>
+                    <input type="text" id="cuentaDestino" name="cuenta" placeholder="Cuenta">
+                </div>
+                <!--div class="form-group">
+                    <label for="cuentaDestino">Numero de cuenta<span class="red">*</span></label>
+                    <input type="text" id="cuentaDestino" name="cuenta" placeholder="cuenta">
+                </div-->
+                <div class="form-group">
+                    <label for="montoTransferencia">Ingrese el monto<span class="red">*</span></label>
+                    <input type="text" id="montoTransferencia" name="monto" placeholder="Monto">
+                </div>
+                <div class="form-group">
+                    <label for="descripcionTransferencia">Ingresa una descripción(opcional)</label>
+                    <input type="text" id="descripcionTransferencia" name="descripcion" placeholder="Descripcion">
+                </div>
+                <div class="form-group-buttons">
+                    <button type="submit">Aceptar</button>
+                    <button id="cancelarTransferencia" type="button" class="cancelar-bolsillo-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal Retiro -->
+    <div id="modal-Retiro" class="modal">
+        <div class="modal-content">
+            <h2>Retiro</h2>
+            <form id="retiro-form" th:action="@{/crearTransaccion/retiro}" method="post" th:object="${retiroDto}">
+                <div class="form-group">
+                    <label for="montoRetiro">Ingrese el monto<span class="red">*</span></label>
+                    <input type="text" id="montoRetiro" name="monto" placeholder="Monto">
+                </div>
+                <div class="form-group">
+                    <label for="descripcionRetiro">Ingresa una descripción(opcional)</label>
+                    <input type="text" id="descripcionRetiro" name="descripcion" placeholder="Descripcion">
+                </div>
+                <div class="form-group-buttons">
+                    <button type="submit">Aceptar</button>
+                    <button id="cancelarRetiro" type="button" class="cancelar-bolsillo-modal">Cancelar</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</main>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script th:inline="javaScript" th:src="@{./js/transaccion.js}"></script>
+
+</body>
+
+</html>
