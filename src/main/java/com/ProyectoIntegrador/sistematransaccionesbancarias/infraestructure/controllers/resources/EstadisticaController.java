@@ -106,6 +106,9 @@ public class EstadisticaController {
             Integer cantidadCuentasActivas = cuentaServices.getCantidadCuentasActivas();
 
             Long totalDineroCuentas = cuentaServices.getTotalDineroCuentas();
+            Long promedioDineroCuentas = cuentaServices.getPromedioDineroCuentas();
+            Integer cantidadCuentasConMetas = cuentaServices.getCantidadCuentasConMetas();
+            Integer cantidadCuentasCumplenMetaAhorro = cuentaServices.getCantidadCuentasCumplenMetaAhorro();
 
 
             // Obtiene los datos de la estadistica de los usuarios
@@ -130,6 +133,9 @@ public class EstadisticaController {
             model.addAttribute("cantidadCuentasActivas",cantidadCuentasActivas );
 
             model.addAttribute("totalDineroCuentas",totalDineroCuentas );
+            model.addAttribute("promedioDineroCuentas",promedioDineroCuentas );
+            model.addAttribute("cantidadCuentasConMetas",cantidadCuentasConMetas );
+            model.addAttribute("cantidadCuentasCumplenMetaAhorro",cantidadCuentasCumplenMetaAhorro );
 
 
         }
