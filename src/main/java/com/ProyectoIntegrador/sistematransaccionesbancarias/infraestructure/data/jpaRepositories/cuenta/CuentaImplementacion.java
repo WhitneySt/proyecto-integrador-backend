@@ -49,4 +49,22 @@ public class CuentaImplementacion implements CuentaRepository {
         Long totalDineroCuentas = cuentaJPARepository.getTotalDineroCuentas();
         return totalDineroCuentas;
     }
+
+    @Override
+    public Long getPromedioDineroCuentas() {
+        Long promedioDineroCuentas = cuentaJPARepository.getPromedioDineroCuentas();
+        return promedioDineroCuentas;
+    }
+
+    @Override
+    public Integer getCantidadCuentasConMetas() {
+        Integer cantidadCuentasConMetas = cuentaJPARepository.getCantidadCuentasConMetas();
+        return cantidadCuentasConMetas;
+    }
+
+    @Override
+    public Integer getCantidadCuentasCumplenMetaAhorro() {
+        Integer cantidadCuentasCumplenMetaAhorro = cuentaJPARepository.getCantidadCuentasCumplenMetaAhorro();
+        return cantidadCuentasCumplenMetaAhorro;
+    }
 }

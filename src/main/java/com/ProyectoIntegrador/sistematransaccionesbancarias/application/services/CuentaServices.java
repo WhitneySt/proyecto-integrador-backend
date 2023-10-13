@@ -46,6 +46,18 @@ public class CuentaServices {
         return cuentaRepository.getTotalDineroCuentas();
     }
 
+    public Long getPromedioDineroCuentas() {
+        return cuentaRepository.getPromedioDineroCuentas();
+    }
+
+    public Integer getCantidadCuentasConMetas() {
+        return cuentaRepository.getCantidadCuentasConMetas();
+    }
+
+    public Integer getCantidadCuentasCumplenMetaAhorro() {
+        return cuentaRepository.getCantidadCuentasCumplenMetaAhorro();
+    }
+
 
 
 

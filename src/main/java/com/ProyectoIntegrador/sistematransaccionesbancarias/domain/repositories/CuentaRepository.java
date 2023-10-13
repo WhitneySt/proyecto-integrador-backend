@@ -14,6 +14,17 @@ public interface CuentaRepository {
 
     public Long  getTotalDineroCuentas();
 
-//     public boolean transferencia(Integer idCuentaOrigen, Integer idCuentaDestino, Double monto);
+    public Long getPromedioDineroCuentas();
+
+    public Integer getCantidadCuentasConMetas();
+
+    // obtener la cantidad de cuentas que cumplen con la meta de ahorro
+    public Integer getCantidadCuentasCumplenMetaAhorro();
+
+
+
+
+
+
 
 }

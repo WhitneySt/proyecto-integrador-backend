@@ -30,5 +30,17 @@ public interface CuentaJPARepository extends CrudRepository<CuentaJPAEntity,Long
     @Query(value = "SELECT sum(saldo) From cuentas", nativeQuery = true)
     Long getTotalDineroCuentas();
 
+    // Obtener el promedio de dinero en las cuentas en su saldo actual
+    @Query(value = "SELECT avg(saldo) From cuentas", nativeQuery = true)
+    Long getPromedioDineroCuentas();
+
+    // Obtener la cantidad de cuentas con metas
+    @Query(value = "SELECT COUNT(*) FROM sistemabanca.cuentas WHERE cuentas.meta_ahorro IS NOT NULL", nativeQuery = true)
+    Integer getCantidadCuentasConMetas();
+
+    // Obtener la cantidad de cuentas que cumplen con la meta de ahorro
+    @Query(value = "SELECT COUNT(*) FROM sistemabanca.cuentas WHERE cuentas.meta_ahorro IS NOT NULL AND cuentas.saldo >= cuentas.meta_ahorro", nativeQuery = true)
+    Integer getCantidadCuentasCumplenMetaAhorro();
+
 
 }
