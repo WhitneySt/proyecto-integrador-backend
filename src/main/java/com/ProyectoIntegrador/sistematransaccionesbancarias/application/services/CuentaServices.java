@@ -42,6 +42,10 @@ public class CuentaServices {
         return cuentaRepository.getCantidadCuentasActivas();
     }
 
+    public Long getTotalDineroCuentas() {
+        return cuentaRepository.getTotalDineroCuentas();
+    }
+
 
 
 

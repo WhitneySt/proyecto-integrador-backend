@@ -26,4 +26,9 @@ public interface CuentaJPARepository extends CrudRepository<CuentaJPAEntity,Long
     @Query(value = "SELECT COUNT(*) FROM cuentas JOIN usuarios ON cuentas.usuario_id=usuarios.id  WHERE usuarios.estado_id=1", nativeQuery = true)
     Integer getCantidadCuentasActivas();
 
+    // Obtener la cantidad de dinero en todas las cuentas con query method
+    @Query(value = "SELECT sum(saldo) From cuentas", nativeQuery = true)
+    Long getTotalDineroCuentas();
+
+
 }

@@ -43,4 +43,10 @@ public class CuentaImplementacion implements CuentaRepository {
         int cantidadCuentasActivas = cuentaJPARepository.getCantidadCuentasActivas();
         return cantidadCuentasActivas;
     }
+
+    @Override
+    public Long getTotalDineroCuentas() {
+        Long totalDineroCuentas = cuentaJPARepository.getTotalDineroCuentas();
+        return totalDineroCuentas;
+    }
 }

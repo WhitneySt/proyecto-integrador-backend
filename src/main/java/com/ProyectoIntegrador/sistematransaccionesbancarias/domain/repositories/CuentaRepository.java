@@ -12,6 +12,8 @@ public interface CuentaRepository {
 
     public Integer getCantidadCuentasActivas();
 
+    public Long  getTotalDineroCuentas();
+
 //     public boolean transferencia(Integer idCuentaOrigen, Integer idCuentaDestino, Double monto);
 
 }
