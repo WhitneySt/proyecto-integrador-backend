@@ -34,6 +34,30 @@ public class CuentaServices {
         return cuenta.orElseThrow(() -> new CuentaNotFoundException("No se encontró la cuenta del usuario con id: " + idUsuario));
     }
 
+    public Integer getCantidadCuentas() {
+        return cuentaRepository.getCantidadCuentas();
+    }
+
+    public Integer getCantidadCuentasActivas() {
+        return cuentaRepository.getCantidadCuentasActivas();
+    }
+
+    public Long getTotalDineroCuentas() {
+        return cuentaRepository.getTotalDineroCuentas();
+    }
+
+    public Long getPromedioDineroCuentas() {
+        return cuentaRepository.getPromedioDineroCuentas();
+    }
+
+    public Integer getCantidadCuentasConMetas() {
+        return cuentaRepository.getCantidadCuentasConMetas();
+    }
+
+    public Integer getCantidadCuentasCumplenMetaAhorro() {
+        return cuentaRepository.getCantidadCuentasCumplenMetaAhorro();
+    }
+
 
 
 

@@ -9,7 +9,6 @@ import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -76,6 +75,7 @@ public class SecurityConfig {
                                         .requestMatchers("/usuarios","/usuarios/**").hasAuthority("Administrador") // los endpoints que empiecen con /usuarios y /usuarios/** solo pueden acceder los usuarios con rol 'Administrador', el rol se trae desde la base de datos con el nombre y  no el id, esto se hace en el método configAuthentication
                                         .requestMatchers("/editarPerfil").authenticated()
                                         .requestMatchers("/editarPerfil","/perfil").authenticated()
+                                        .requestMatchers("/estadistica").authenticated()
                                         .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
                                         //.anyRequest().authenticated()
 

@@ -31,4 +31,40 @@ public class CuentaImplementacion implements CuentaRepository {
         Optional<Cuenta> cuenta = cuentaJpa.map(mapperCuenta::CuentaJPAToCuentaDomain); // Se utiliza el  mapperCuenta  para convertir la entidad JPA a un objeto de dominio  Cuenta . Se devuelve un  Optional  que puede contener la cuenta encontrada o estar vacío
         return cuenta;
     }
+
+    @Override
+    public Integer getCantidadCuentas() {
+        Integer cantidadCuentas = cuentaJPARepository.getCantidadCuentas();
+        return cantidadCuentas;
+    }
+
+    @Override
+    public Integer getCantidadCuentasActivas() {
+        int cantidadCuentasActivas = cuentaJPARepository.getCantidadCuentasActivas();
+        return cantidadCuentasActivas;
+    }
+
+    @Override
+    public Long getTotalDineroCuentas() {
+        Long totalDineroCuentas = cuentaJPARepository.getTotalDineroCuentas();
+        return totalDineroCuentas;
+    }
+
+    @Override
+    public Long getPromedioDineroCuentas() {
+        Long promedioDineroCuentas = cuentaJPARepository.getPromedioDineroCuentas();
+        return promedioDineroCuentas;
+    }
+
+    @Override
+    public Integer getCantidadCuentasConMetas() {
+        Integer cantidadCuentasConMetas = cuentaJPARepository.getCantidadCuentasConMetas();
+        return cantidadCuentasConMetas;
+    }
+
+    @Override
+    public Integer getCantidadCuentasCumplenMetaAhorro() {
+        Integer cantidadCuentasCumplenMetaAhorro = cuentaJPARepository.getCantidadCuentasCumplenMetaAhorro();
+        return cantidadCuentasCumplenMetaAhorro;
+    }
 }

@@ -1,0 +1,117 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins;
+
+}
+
+h2 {
+    color: #535FE3;
+    text-align: center;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: normal;
+    margin-bottom: 20px;
+
+}
+
+
+main {
+    width: 80%;
+    position: absolute;
+    top: 115%;
+    left: 52%;
+    /* margin-top: 60vh; */
+    transform: translate(-50%, -50%);
+}
+
+#container_informe .cardsInforme {
+    display: flex;
+    flex-wrap: wrap;
+    /* Envolver los elementos en varias filas */
+    width: 70%;
+    margin: 0 auto;
+}
+
+
+.cardInforme {
+    background-color: #FFF;
+    width: 340px;
+    margin: 10px auto 30px;
+    padding: 20px 0;
+    border-radius: 15px;
+
+    /* Centrar */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* width: 100%; */
+
+    fill: #FFF;
+    filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+
+}
+
+h3 {
+    color: #3a3939;
+    margin-bottom: 10px;
+    display: flex;
+
+}
+
+h3 span {
+    color: #ffffff;
+    font-size: 11px;
+    padding: 1px 10px;
+    margin-left: 6px;
+    border-radius: 100%;
+    background-color: #00A3FF;
+    /* centrar el numero */
+    display: flex;
+    align-items: center;
+}
+
+hr {
+    border-color: #e4e7ea;
+    /* Cambiar el color de la línea horizontal a rojo */
+    width: 100%;
+    margin-bottom: 15px;
+
+}
+
+.cardInforme p {
+    color: #212121;
+    margin-bottom: 10px;
+}
+
+/* Estilos para la sección "consejos" */
+#container_consejos {
+    margin: 30px 0 50px;
+}
+
+/* Estilos para las tarjetas de consejos */
+.cardsConsejos {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 80%;
+    margin: 30px auto;
+
+}
+
+.cardConsejo {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.25);
+    flex-basis: calc(50% - 20px);
+    padding: 30px 8px;
+    margin-bottom: 35px;
+}
+
+
+.cardConsejo p {
+    text-align: center;
+    color: #666;
+}

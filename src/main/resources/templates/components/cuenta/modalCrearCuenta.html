@@ -1,0 +1,25 @@
+<div class="modal-content" th:fragment="modalCuenta">
+  <h2>Create una cuenta</h2>
+  <form id="crear-cuenta-form" th:action="@{/crearCuenta}" method="post" th:object="${cuentaDto}">
+    <div class="form-group">
+      <label for="monto-inicial">Ingresa el monto inicial<span class="red">*</span></label>
+      <input type="number" id="monto-inicial" name="monto-inicial" placeholder="Monto inicial"
+             th:field="*{saldo}" >
+    </div>
+    <div class="form-group">
+      <label for="meta">Establece una meta de ahorro (opcional)</label>
+      <input type="number" id="meta" name="meta" placeholder="Meta" th:field="*{metaAhorro}">
+    </div>
+    <div class="form-group">
+      <label for="tipo-cuenta">Selecciona el tipo de cuenta</label>
+      <select id="tipo-cuenta" name="tipo-cuenta" th:field="*{tipoCuenta}">
+        <option value="Visa">Visa</option>
+        <option value="Mastercard">Mastercard</option>
+      </select>
+    </div>
+    <div class="form-group-buttons">
+      <button type="submit">Crear</button>
+      <button type="button" class="cancelar">Cancelar</button>
+    </div>
+  </form>
+</div>
