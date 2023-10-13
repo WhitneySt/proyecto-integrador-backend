@@ -26,6 +26,12 @@ public class BolsilloImplementacion implements BolsilloRepository {
         return bolsilloList;
     }
 
+    public List<Bolsillo> getAllBolsillosByCuenta(Long cuentaId) {
+        List<Bolsillo> bolsilloList = new ArrayList<>();
+        bolsilloJPARepository.getAllBolsillosByCuenta(cuentaId).forEach(bolsillo -> bolsilloList.add(mapperBolsillo.BolsilloJPAToBolsilloDomain(bolsillo)));
+        return bolsilloList;
+    }
+
     @Override
     public Bolsillo getBolsilloById(Integer id) {
         BolsilloJPAEntity bolsilloJPAEntity = bolsilloJPARepository.findById(id).get();

@@ -1,11 +1,16 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.BolsilloJPAEntity;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.CuentaJPAEntity;
 import org.hibernate.mapping.Value;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface BolsilloJPARepository extends CrudRepository<BolsilloJPAEntity, Integer> {
@@ -20,4 +25,6 @@ public interface BolsilloJPARepository extends CrudRepository<BolsilloJPAEntity,
     *  entonces  COALESCE  reemplaza ese valor nulo por cero ( 0 ). Esto garantiza que siempre se devuelva un resultado,
     *  incluso si no hay una cuenta con el ID especificado.
     * */
+    @Query(value = "SELECT * FROM bolsillo WHERE id_cuenta = ?1", nativeQuery = true)
+    List<BolsilloJPAEntity> getAllBolsillosByCuenta(Long cuentaId);
 }

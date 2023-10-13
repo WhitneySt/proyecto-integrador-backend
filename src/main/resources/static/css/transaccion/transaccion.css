@@ -1,0 +1,124 @@
+.main-transacciones {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
+    gap: 15px;
+}
+
+.main-transacciones h1 {
+    font-size: 37px;
+    font-weight: 600;
+    margin-top: 50px;
+}
+
+.btn-transacciones {
+    justify-content: flex-end;
+    display: flex;
+    width: 100%;
+    gap: 15px;
+}
+
+.btn-transacciones button {
+    border: none;
+    cursor: pointer;
+    color: #ffffff;
+    padding: 5px 20px;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+#btnDepositar {
+    background-color: #00B894;
+    border: 1px solid #00B894;
+}
+
+#btnTransferir {
+    background-color: #70A0FF;
+    border: 1px solid #70A0FF;
+}
+
+#btnRetirar {
+    background-color: rgba(255, 34, 34, 0.8);
+    border: 1px solid rgba(255, 34, 34, 0.8);
+}
+
+#btnDepositar:hover {
+    background-color: transparent;
+    color: #00B894;
+}
+
+#btnTransferir:hover {
+    background-color: transparent;
+    color: #70A0FF;
+}
+
+#btnRetirar:hover {
+    background-color: transparent;
+    color: rgba(255, 34, 34, 0.8);
+}
+
+.tabla-transacciones {
+    border: 1px solid #CDCED9;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+    padding: 5px;
+
+}
+
+.tabla-transacciones thead,
+.tabla-transacciones tbody {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+}
+
+.tabla-transacciones th,
+.tabla-transacciones tr {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+fieldset {
+    padding: 15px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+    display: flex;
+    gap: 5px;
+}
+
+legend {
+    padding: 0 10px;
+    font-weight: 600;
+}
+
+.button-checkbox label{
+    cursor: pointer;
+    padding: 5px 15px;
+    border: 1px solid #70A0FF;
+    border-radius: 5px;
+    font-size: 12px;
+    font-weight: 600;
+    background-color: transparent;
+    color: #70A0FF;
+}
+
+.button-checkbox input {
+    display: none; /* Oculta el checkbox */
+  }
+
+.button-checkbox input:checked + label {
+    background-color: #70A0FF; /* Cambia el color cuando está marcado */
+    color: white;
+    border: 2px solid #70A0FF;
+  }

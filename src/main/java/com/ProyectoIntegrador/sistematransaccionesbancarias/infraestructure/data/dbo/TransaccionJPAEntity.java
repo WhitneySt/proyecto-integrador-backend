@@ -41,4 +41,8 @@ public class TransaccionJPAEntity {
     @ManyToOne
     @JoinColumn(name = "idTipoMovimiento", referencedColumnName = "id", nullable = false)
     private TipoMovimientoJPAEntity idTipoMovimiento;
+
+    @ManyToOne
+    @JoinColumn(name = "usuarioId",referencedColumnName = "id", nullable = false)
+    private UsuarioJPAEntity usuarioId;
 }

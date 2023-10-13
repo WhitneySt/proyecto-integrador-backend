@@ -1,6 +1,7 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.application.services;
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Bolsillo;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.BolsilloRepository;
 
@@ -26,6 +27,10 @@ public class BolsilloServices {
 
     public List<Bolsillo> getAllBolsillos() {
         return bolsilloRepository.getAllBolsillos();
+    }
+
+    public List<Bolsillo> getAllBolsillosByCuenta(Long cuentaId) {
+        return bolsilloRepository.getAllBolsillosByCuenta(cuentaId);
     }
 
     public boolean deleteBolsilloById(Integer id){
