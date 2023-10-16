@@ -51,16 +51,21 @@ public class BolsilloController {
 
     @GetMapping("/bolsillos")
     public String bolsillos(Model model, HttpServletRequest request) {
-        InformationUsuarioModel(model,request);
-        Usuario usuarioLogeado = getUsuarioLogeado(request);
-        Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
-
         BolsilloDto bolsilloDto = new BolsilloDto();
-        bolsilloDto.setColor("#ffffff");
+        List<Bolsillo> listaBolsillos = null;
+        try {
+            InformationUsuarioModel(model,request);
+            Usuario usuarioLogeado = getUsuarioLogeado(request);
+            Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
+            bolsilloDto.setColor("#ffffff");
 
-        List<Bolsillo> listaBolsillos = bolsilloServices.getAllBolsillosByCuenta(cuenta.getId());
-        model.addAttribute("bolsillos", listaBolsillos);
-        model.addAttribute("bolsilloDto", bolsilloDto);
+             listaBolsillos = bolsilloServices.getAllBolsillosByCuenta(cuenta.getId());
+        } catch (Exception ex) {
+            System.out.println(ex);
+        } finally {
+            model.addAttribute("bolsillos", listaBolsillos);
+            model.addAttribute("bolsilloDto", bolsilloDto);
+        }
 
         return "bolsillos/bolsillos";
     }

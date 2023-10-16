@@ -5,7 +5,11 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.cont
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.TipoTransaccionDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.TipoMovimientoJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.TipoTransaccionJPAEntity;
+import org.mapstruct.Mapper;
+import org.springframework.stereotype.Component;
 
+@Component
+@Mapper(componentModel = "spring")
 public interface MapperTipoMovimiento {
     TipoMovimiento TipoMovimientoJPAToTipoTransaccionDomain(TipoMovimientoJPAEntity tipoMovimientoJPAEntity);
     TipoMovimientoJPAEntity TipoMovimientoDomainToTipoMovimientoJPA(TipoMovimiento tipoMovimiento);
