@@ -1,0 +1,79 @@
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns="http://www.w3.org/1999/html">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{./css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/estadistica/estadistica.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{./css/estadistica/estadisticaUser.css}" th:if="${usuarioRol == 'Usuario'}">
+
+    <title>Informe</title>
+</head>
+<body>
+
+<header th:replace="~{components/header :: Header}"></header>
+<nav th:replace="~{components/nav :: Nav}"></nav>
+
+
+<main th:if="${usuarioRol == 'Usuario'}">
+
+    <div th:replace="~{components/estadistica/usuario :: usuarioInforme}"></div>
+    <div th:replace="~{components/estadistica/usuario :: consejosUsuario}"></div>
+
+</main>
+
+<main th:if="${usuarioRol == 'Administrador'}" >
+
+    <div th:replace="~{components/estadistica/administrador :: administradorInforme}"></div>
+    <div th:replace="~{components/estadistica/administrador :: consejosAdministrador}"></div>
+
+</main>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script  th:inline="javaScript" th:src="@{./js/validateModal.js}"></script>
+<script  th:inline="javaScript" th:src="@{./js/confirmLogout.js}"></script>
+<script  th:inline="javaScript" >
+            window.onload = function () {
+
+                let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+                console.log(mensajeRecibido);
+                let mensajeMostrar = "";
+
+                if (mensajeRecibido != "") {
+
+                    if (mensajeRecibido == "createOk") {
+                        mensajeMostrar = "La cuenta se ha creado correctamente";
+                        Swal.fire({
+                        icon: 'success',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    } else if (mensajeRecibido == "createError") {
+                        mensajeMostrar = "No se ha podido crear la cuenta";
+                        Swal.fire({
+                        icon: 'error',
+                        title: mensajeMostrar,
+                        showConfirmButton: false,
+                        timer: 3000
+                        })
+                    }
+
+
+                }
+            }
+
+        </script>
+
+</body>
+
+</html>

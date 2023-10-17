@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 // ? Test de la clase UsuarioService
-@TestMethodOrder(MethodOrderer.class)
+@TestMethodOrder(MethodOrderer.class) // Se establece el orden de ejecución de los tests
 public class UsuarioServiceTest {
 
     @Mock // Mock de la dependencia UsuarioRepository

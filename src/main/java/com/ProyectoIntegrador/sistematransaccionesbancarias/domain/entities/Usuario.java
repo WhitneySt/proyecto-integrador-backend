@@ -18,7 +18,7 @@ public class Usuario {
     public Usuario(){
     }
 
-    public Usuario(Integer id, String nombre, String correo, String contrasena, Date fechaCreacion, String urlImage,Rol rol, Estado estado) {
+    public Usuario(Integer id, String nombre, String correo, String contrasena, Date fechaCreacion, String urlImage) {
         this.id = id;
         this.nombre = nombre;
         this.correo = correo;

@@ -1,0 +1,40 @@
+/* Son algunos estilos adicionales a los estilos de estadisticas  ya definidos  */
+
+main {
+    top: 90% !important;
+}
+
+/* Estilos para el progreso */
+#progreso {
+    margin-top: 10px;
+    width: 80%;
+}
+
+  #progreso p {
+    color: #666;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0 !important; /* Anular el margen inferior predeterminado del elemento span */
+
+}
+
+  #progreso p  span {
+    font-weight: bold; /* Establecer un peso de fuente negrita para el porcentaje del progreso */
+}
+
+  progress {
+    width: 100%;
+    height: 13px;
+    border-radius: 5px;
+    background-color: #cfcccc;
+  }
+
+  progress::-webkit-progress-bar {
+    background-color: #c2c0c0;
+    border-radius: 5px;
+  }
+
+  progress::-webkit-progress-value {
+    background-color: rgba(12, 29, 217, 1);
+    border-radius: 5px;
+  }

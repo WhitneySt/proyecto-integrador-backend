@@ -1,0 +1,63 @@
+<section id="container_informe"  th:fragment="usuarioInforme">
+  <h2>Informe</h2>
+
+  <div class="cardsInforme">
+
+    <div class="cardInforme">
+      <h3>Meta de ahorro</h3>
+      <hr>
+      <!--th:if  para verificar si el valor de la meta total, y el progreso son diferentes de cero.
+      Si alguno de estos valores es cero, se mostrará el valor predeterminado "0".
+       De lo contrario, se formateará el número utilizando la función  #numbers.formatInteger . -->
+      <p th:if="${metaTotal != 0}">Total meta: $<span  th:text="${#numbers.formatInteger(metaTotal,3, 'POINT')}"></span></p> <!-- Si el valor de lameta total es diferente de cero, se hace el formateo del número y se muestra-->
+      <p th:if="${metaTotal == 0}" >Total meta: $<span  >0</span></p>  <!-- Si el valor de la meta total es igual a cero, se muestra el valor predeterminado "0"-->
+
+      <p th:if="${saldoTotal != 0}">Progreso: <span  th:text="'$'+${#numbers.formatInteger(saldoTotal,3, 'POINT')}"></span></p>
+      <p th:if="${saldoTotal == 0}" >Progreso: <span  >$0</span></p>
+
+      <div id="progreso">
+        <p>Completado <span th:if="${porcentajeMeta != 0}" th:text="${porcentajeMeta + '%'}">0%</span></p>
+        <progress id="file" max="100" th:value="${porcentajeMeta}"></progress>
+      </div>
+    </div>
+
+    <div class="cardInforme">
+      <!-- titulo: Movimientos,p:Depositos: 5000000,Tranferencias: 50000, Retiros: 200000, Balane neto: 500000 -->
+      <h3>Movimientos</h3>
+      <hr>
+      <p>Total depósitos: $<span>0</span></p>
+      <p>Total transferencias: $<span>0</span></p>
+      <p>total retiros: $<span>0</span></p>
+      <p>Balance neto: $<span>0</span></p>
+    </div>
+
+
+  </div>
+
+
+</section>
+
+<section id="container_consejos"th:fragment="consejosUsuario" >
+  <h2>Consejos</h2>
+
+  <div class="cardsConsejos">
+
+    <div class="cardConsejo">
+      <p>"Tus metas son como estrellas en el cielo nocturno:
+        guían tu camino. No importa cuán lejos estén, puedes alcanzarlas una a una."</p>
+    </div>
+    <div class="cardConsejo">
+      <p>"Piensa en tus depósitos como semillas.
+        Con el tiempo, crecerán y te brindarán frutos en forma de oportunidades y seguridad financiera."</p>
+    </div>
+
+    <div class="cardConsejo">
+      <p>"No se trata solo de números, sino de las historias que esos números pueden contar."" </p>
+      <p>Tu historia financiera está en tus manos.</p>
+    </div>
+    <div class="cardConsejo">
+      <p>"Cada retiro es una elección importante. Antes de hacerlo, pregúntate: ¿Este gasto me acerca o me aleja de mis objetivos?"</p>
+    </div>
+
+  </div>
+</section>

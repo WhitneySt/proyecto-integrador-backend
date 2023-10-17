@@ -51,6 +51,12 @@ public class BolsilloController {
 
     @GetMapping("/bolsillos")
     public String bolsillos(Model model, HttpServletRequest request) {
+
+        InformationUsuarioModel(model,request);
+
+        Usuario usuarioLogeado = getUsuarioLogeado(request);
+        Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
+
         BolsilloDto bolsilloDto = new BolsilloDto();
         List<Bolsillo> listaBolsillos = null;
         try {
