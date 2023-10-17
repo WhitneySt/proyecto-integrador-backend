@@ -42,8 +42,9 @@ public class TransaccionImplementacion implements TransaccionRepository {
 
     @Override
     public boolean saveOrUpdateTransaccion(Transaccion transaccion) {
-        transaccionJPARepository.save(mapperTransaccion.TransaccionDomainToTransaccionJPA(transaccion));
-        return transaccionJPARepository.findById(transaccion.getId()).isPresent();
+        TransaccionJPAEntity transaccionJPAEntity = mapperTransaccion.TransaccionDomainToTransaccionJPA(transaccion);
+        transaccionJPARepository.save(transaccionJPAEntity);
+        return transaccionJPARepository.findById(transaccionJPAEntity.getId()).isPresent();
     }
 
     @Override

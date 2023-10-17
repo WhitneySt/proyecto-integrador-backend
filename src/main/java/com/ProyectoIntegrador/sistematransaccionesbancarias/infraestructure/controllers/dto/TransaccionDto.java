@@ -1,23 +1,27 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto;
 
-import java.sql.Date;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.*;
+
+import java.util.Date;
 
 public class TransaccionDto {
     private Integer id;
     private Date fechaTransaccion;
     private Double monto;
     private String descripcion;
-    private Integer idTipoTransaccion;
-    private Integer idCuentaOrigen;
-    private Integer idCuentaDestino;
+    private TipoTransaccion idTipoTransaccion;
+    private Cuenta idCuentaOrigen;
+    private Cuenta idCuentaDestino;
 
-    private Integer idBolsilloOrigen;
-    private Integer idBolsilloDestino;
-    private Integer idTipoMovimiento;
+    private Bolsillo idBolsilloOrigen;
+    private Bolsillo idBolsilloDestino;
+    private TipoMovimiento idTipoMovimiento;
+
+    private Usuario usuarioId;
 
     public TransaccionDto(){}
 
-    public TransaccionDto(Integer id, Date fechaTransaccion, Double monto, String descripcion, Integer idTipoTransaccion, Integer idCuentaOrigen, Integer idCuentaDestino, Integer idBolsilloOrigen, Integer idBolsilloDestino, Integer idTipoMovimiento) {
+    public TransaccionDto(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId) {
         this.id = id;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
@@ -28,6 +32,7 @@ public class TransaccionDto {
         this.idBolsilloOrigen = idBolsilloOrigen;
         this.idBolsilloDestino = idBolsilloDestino;
         this.idTipoMovimiento = idTipoMovimiento;
+        this.usuarioId = usuarioId;
     }
 
     public Integer getId() {
@@ -62,51 +67,76 @@ public class TransaccionDto {
         this.descripcion = descripcion;
     }
 
-    public Integer getIdTipoTransaccion() {
+    public TipoTransaccion getIdTipoTransaccion() {
         return idTipoTransaccion;
     }
 
-    public void setIdTipoTransaccion(Integer idTipoTransaccion) {
+    public void setIdTipoTransaccion(TipoTransaccion idTipoTransaccion) {
         this.idTipoTransaccion = idTipoTransaccion;
     }
 
-    public Integer getIdCuentaOrigen() {
+    public Cuenta getIdCuentaOrigen() {
         return idCuentaOrigen;
     }
 
-    public void setIdCuentaOrigen(Integer idCuentaOrigen) {
+    public void setIdCuentaOrigen(Cuenta idCuentaOrigen) {
         this.idCuentaOrigen = idCuentaOrigen;
     }
 
-    public Integer getIdCuentaDestino() {
+    public Cuenta getIdCuentaDestino() {
         return idCuentaDestino;
     }
 
-    public void setIdCuentaDestino(Integer idCuentaDestino) {
+    public void setIdCuentaDestino(Cuenta idCuentaDestino) {
         this.idCuentaDestino = idCuentaDestino;
     }
 
-    public Integer getIdBolsilloOrigen() {
+    public Bolsillo getIdBolsilloOrigen() {
         return idBolsilloOrigen;
     }
 
-    public void setIdBolsilloOrigen(Integer idBolsilloOrigen) {
+    public void setIdBolsilloOrigen(Bolsillo idBolsilloOrigen) {
         this.idBolsilloOrigen = idBolsilloOrigen;
     }
 
-    public Integer getIdBolsilloDestino() {
+    public Bolsillo getIdBolsilloDestino() {
         return idBolsilloDestino;
     }
 
-    public void setIdBolsilloDestino(Integer idBolsilloDestino) {
+    public void setIdBolsilloDestino(Bolsillo idBolsilloDestino) {
         this.idBolsilloDestino = idBolsilloDestino;
     }
 
-    public Integer getIdTipoMovimiento() {
+    public TipoMovimiento getIdTipoMovimiento() {
         return idTipoMovimiento;
     }
 
-    public void setIdTipoMovimiento(Integer idTipoMovimiento) {
+    public void setIdTipoMovimiento(TipoMovimiento idTipoMovimiento) {
         this.idTipoMovimiento = idTipoMovimiento;
+    }
+
+    public Usuario getUsuarioId() {
+        return usuarioId;
+    }
+
+    public void setUsuarioId(Usuario usuarioId) {
+        this.usuarioId = usuarioId;
+    }
+
+    @Override
+    public String toString() {
+        return "TransaccionDto{" +
+                "id=" + id +
+                ", fechaTransaccion=" + fechaTransaccion +
+                ", monto=" + monto +
+                ", descripcion='" + descripcion + '\'' +
+                ", idTipoTransaccion=" + idTipoTransaccion +
+                ", idCuentaOrigen=" + idCuentaOrigen +
+                ", idCuentaDestino=" + idCuentaDestino +
+                ", idBolsilloOrigen=" + idBolsilloOrigen +
+                ", idBolsilloDestino=" + idBolsilloDestino +
+                ", idTipoMovimiento=" + idTipoMovimiento +
+                ", usuarioId=" + usuarioId +
+                '}';
     }
 }
