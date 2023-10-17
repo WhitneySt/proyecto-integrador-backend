@@ -33,6 +33,7 @@ import java.util.Date;
 import java.util.List;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 
 @Controller
@@ -77,6 +78,8 @@ public class TransaccionController {
         List<Bolsillo> listaBolsillos = null;
         List<Transaccion> transacciones = null;
         TransaccionDto transaccionDto = new TransaccionDto();
+
+        InformationUsuarioModel(model,request);
 
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
