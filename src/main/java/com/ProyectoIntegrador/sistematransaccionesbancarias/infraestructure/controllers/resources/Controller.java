@@ -9,6 +9,8 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapp
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.Auth.AuthResponse;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.security.Auth.AuthService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @org.springframework.stereotype.Controller
+@Tag(name = "Registro Y login", description = "El controlador para registros de usuaios y login")
 public class Controller {
 
     private static final String NAMEMENSAJE="mensaje";
@@ -40,7 +43,8 @@ public class Controller {
         this.usuarioService = new UsuarioService(this.repository);
 
     }
-    
+
+    @Operation(summary = "Muestra el formulario de registro", description = "Este endpoint muestra el formulario de registro")
     @GetMapping("/registro")
     public String registro(Model model, @ModelAttribute("mensaje") String mensajeRecibido){
         UsuarioDto nuevoUsuario = new UsuarioDto();
@@ -51,7 +55,8 @@ public class Controller {
 
     }
 
-   @PostMapping("/registro/guardarUsuario")
+    @Operation(summary = "Guarda un nuevo usuario", description = "Este endpoint guarda un nuevo usuario")
+    @PostMapping("/registro/guardarUsuario")
     public String guardarUsuario(UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
 
         Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
@@ -74,6 +79,7 @@ public class Controller {
 
     }
 
+    @Operation(summary = "Muestra el formulario de inicio de sesión", description = "Este endpoint muestra el formulario de inicio de sesión")
     @GetMapping("/login")
     public String login(@RequestParam(name = "error", required = false) String error, Model model, @ModelAttribute("mensaje") String mensajeRecibido){// @RequestParam(name = "error", required = false) String error -> permite recibir un parametro por la url y guardarlo en la variable error
         UsuarioDto usuarioDto = new UsuarioDto();
@@ -83,37 +89,16 @@ public class Controller {
     }
 
     //Controlador que  lleva al template de No autorizado
-    @RequestMapping(value="/accessdenied")
+    @Operation(summary = "Muestra la página de acceso denegado", description = "Este endpoint muestra la página de acceso denegado")
+    // @RequestMapping(value="/accessdenied")
+    @GetMapping("/accessdenied")
     public String accesoDenegado(){
         System.out.println("Acceso denegado");
         return "accessDenied";
     }
 
 
- /*   @PostMapping("/login/validarUsuario")
-    public String login (UsuarioDto usuarioDto, RedirectAttributes redirectAttributes){
-        System.out.println("Login");
 
-        Usuario usuario = mapperUsuario.UsuarioDtoToUsuarioDomain(usuarioDto);
-        System.out.println(usuario.toString());
-        // validaciones
-        AuthResponse token=authService.login(usuario);
-
-        if (token.getToken() != null){
-            System.out.println("Token: " + token.getToken());
-            //return ResponseEntity.ok(token);
-            redirectAttributes.addFlashAttribute(NAMEMENSAJE, "loginOk");
-            return "redirect:/home"; // Se redireciona al servicio
-        }
-        else{
-            System.out.println("Error al iniciar sesion");
-            System.out.println("Token: " + token.getToken());
-            // return ResponseEntity.badRequest().body(token);
-            redirectAttributes.addFlashAttribute(NAMEMENSAJE, "loginError");
-            return "redirect:/login";
-        }
-
-    }*/
 
     // Encriptar contraseña utilizando el algoritmo de hashing bcrypt
     public static PasswordEncoder passwordEncoder() {
