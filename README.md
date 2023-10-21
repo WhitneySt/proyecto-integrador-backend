@@ -60,10 +60,7 @@ Este proyecyo se desarrolló siguiendo una arquitectura hexagonal (puertos y ada
 
 
 ![Screenshot from 2023-10-13 09-30-11](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/db3f2823-ac20-4a54-a5f0-ca2b47830ac3)
-<div style="text-align:center;">
-  <h2>Diseño Frontend</h2>
-  <img src="https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/db3f2823-ac20-4a54-a5f0-ca2b47830ac3" alt="Diseño Frontend">
-</div>
+
   ![image](https://github.com/WhitneySt/proyecto-integrador-backend/assets/94869227/22e68357-1f93-4010-bf1f-b6a0d651f74c)
 
 <p align="center">
