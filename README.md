@@ -59,11 +59,10 @@ Este proyecyo se desarrolló siguiendo una arquitectura hexagonal (puertos y ada
 ![EER-ProyectoIntegrador](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/d630d4ed-7760-458e-a1a4-e134100d9230)
 
 
-## Diseño Frontend
-
-[![Screenshot from 2023-10-13 09-30-11](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/db3f2823-ac20-4a54-a5f0-ca2b47830ac3)
-](https://www.figma.com/file/amn06Gq80iXgEyCQVJFdcH/Prototipo-app?type=design&node-id=0%3A1&mode=design&t=zLDk71EIw4O5XSmf-1)
-![image](https://github.com/WhitneySt/proyecto-integrador-backend/assets/94869227/22e68357-1f93-4010-bf1f-b6a0d651f74c)
+<center>
+  ![Screenshot from 2023-10-13 09-30-11](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/db3f2823-ac20-4a54-a5f0-ca2b47830ac3)
+  ![image](https://github.com/WhitneySt/proyecto-integrador-backend/assets/94869227/22e68357-1f93-4010-bf1f-b6a0d651f74c)
+</center>
 
 <p align="center">
   <a href="https://www.figma.com/file/amn06Gq80iXgEyCQVJFdcH/Prototipo-app?type=design&node-id=0%3A1&mode=design&t=zLDk71EIw4O5XSmf-1" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;">Ver Prototipo</a>
