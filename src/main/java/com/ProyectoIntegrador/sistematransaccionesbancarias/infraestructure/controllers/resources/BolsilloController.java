@@ -14,6 +14,12 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +36,7 @@ import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructu
 
 
 @Controller
+@Tag(name = "Bolsillos", description = "Endpoints para gestionar bolsillos de usuarios")
 public class BolsilloController {
 
     @Autowired
@@ -50,6 +57,16 @@ public class BolsilloController {
     }
 
     @GetMapping("/bolsillos")
+    @Operation(summary = "Obtener lista de bolsillos", description = "Obtiene la lista de bolsillos de un usuario logeado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Bolsillos obtenidos correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Bolsillos", value = "<html><body><h1>Lista de Bolsillos</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+                            })
     public String bolsillos(Model model, HttpServletRequest request) {
 
         InformationUsuarioModel(model,request);
@@ -74,6 +91,15 @@ public class BolsilloController {
     }
 
     @GetMapping("/bolsillos/{id}")
+    @Operation(summary = "Obtener bolsillo por ID", description = "Obtiene un bolsillo por su ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Bolsillo obtenido correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Bolsillo", value = "<html><body><h1>Detalles del Bolsillo</h1></body></html>")
+                    })),
+                    @ApiResponse(responseCode = "404", description = "Bolsillo no encontrado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Bolsillo no encontrado</h1></body></html>"))),
+                    @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String bolsillos(Model model, @PathVariable Integer id) {
         BolsilloDto bolsilloDto = new BolsilloDto();
 
@@ -96,12 +122,30 @@ public class BolsilloController {
     }
 
     @GetMapping("/bolsillos/remove/{id}")
+    @Operation(summary = "Eliminar bolsillo por ID", description = "Elimina un bolsillo por su ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Bolsillo eliminado correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Bolsillo", value = "<html><body><h1>Bolsillo eliminado correctamente</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "404", description = "Bolsillo no encontrado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Bolsillo no encontrado</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String deleteBolsillo(Model model, @PathVariable Integer id) {
         bolsilloServices.deleteBolsilloById(id);
         return "redirect:/bolsillos";
     }
 
     @PostMapping("/crearBolsillo")
+    @Operation(summary = "Crear un bolsillo", description = "Crea un nuevo bolsillo para el usuario logeado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Bolsillo creado correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Bolsillo", value = "<html><body><h1>Bolsillo creado correctamente</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String crearBolsillo(BolsilloDto bolsilloDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
@@ -126,6 +170,16 @@ public class BolsilloController {
     }
 
     @PostMapping("/editarBolsillo")
+    @Operation(summary = "Editar un bolsillo", description = "Edita un bolsillo existente para el usuario logeado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Bolsillo editado correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Bolsillo", value = "<html><body><h1>Bolsillo editado correctamente</h1></body></html>")
+                    })),
+                    @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
+                    @ApiResponse(responseCode = "404", description = "Bolsillo no encontrado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Bolsillo no encontrado</h1></body></html>"))),
+                    @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String editarBolsillo(BolsilloDto bolsilloDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
