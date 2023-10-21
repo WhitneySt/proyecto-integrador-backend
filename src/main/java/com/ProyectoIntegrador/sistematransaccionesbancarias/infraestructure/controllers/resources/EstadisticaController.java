@@ -30,8 +30,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.BolsilloController.InformationUsuarioModel;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
-import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 @Controller
 @Tag(name = "Estadísticas", description = "Endpoints para obtener estadísticas de usuarios, cuentas y movimientos dependiendo del rol del usuario que ha iniciado sesión")
