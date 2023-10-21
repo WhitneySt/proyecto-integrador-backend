@@ -1,7 +1,15 @@
-# Proyecto Integrador - Sistema de Transacciones Bancarias 
+<style>
+  /* Aplica justificado al texto dentro de los párrafos */
+  p {
+    text-align: justify;
+  }
 
-## Banco Makia: La Solución Bancaria Todo en Uno
-Bienvenido a Banco Makaia , un sistema de transacciones bancarias diseñado para simular y gestionar transacciones financieras de manera segura y eficiente.
+</style>
+
+<h1 style="text-align:center;">Proyecto Integrador <br>  Sistema de Transacciones Bancarias </h1>
+
+## La Solución Bancaria Todo en Uno
+Bienvenido a **Banco Makia** , un sistema de transacciones bancarias diseñado para simular y gestionar transacciones financieras de manera segura y eficiente.
 
 ## Descripción
 Este proyecto simula un sistema bancario completo, permitiendo a usuarios realizar una variedad de transacciones financieras. El proyecto se enfoca en proporcionar un conjunto de características esenciales, incluyendo la apertura de cuentas, depósitos, transferencias, y la gestión de bolsillos.
@@ -11,7 +19,7 @@ El objetivo principal  es brindar una plataforma de simulación de transacciones
 
 ## Características
 
-**Banco Makia** ofrece una serie de características para usuarios y administradores, que incluyen:
+Banco Makia ofrece una serie de características para usuarios y administradores, que incluyen:
 
 - Apertura de cuentas bancarias.
 - Realización de depósitos en cuentas.
@@ -23,9 +31,9 @@ El objetivo principal  es brindar una plataforma de simulación de transacciones
 - Perfil de usuario con funciones de visualización y edición.
 - Estadísticas financieras y visión general.
 
-### Novedades
+## Novedades
 
-BancoXYZ ha sido mejorado con las siguientes novedades:
+Banco Makaia ha sido mejorado con las siguientes novedades:
 
 - **Nueva Capa de Estadísticas**: Ahora puedes acceder a estadísticas financieras en tiempo real, lo que te permite tomar decisiones informadas sobre tus finanzas.
 
@@ -41,6 +49,7 @@ BancoXYZ ha sido mejorado con las siguientes novedades:
 - **Hibernate** para la capa de persistencia y mapeo objeto-relacional.
 - **Gradle** como herramienta de construcción y gestión de dependencias.
 - **Thymeleaf** para las vistas en el frontend.
+- **HTML y CSS** para la personalización de la interfaz de usuario.
 - **JavaScript** para darle funcionalidad adicional al frontend 
 
 
@@ -61,9 +70,10 @@ Este proyecyo se desarrolló siguiendo una arquitectura hexagonal (puertos y ada
 [![Screenshot from 2023-10-13 09-30-11](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/db3f2823-ac20-4a54-a5f0-ca2b47830ac3)
 ](https://www.figma.com/file/amn06Gq80iXgEyCQVJFdcH/Prototipo-app?type=design&node-id=0%3A1&mode=design&t=zLDk71EIw4O5XSmf-1)
 
-<p align="center">
+<p style="text-align:center;">
   <a href="https://www.figma.com/file/amn06Gq80iXgEyCQVJFdcH/Prototipo-app?type=design&node-id=0%3A1&mode=design&t=zLDk71EIw4O5XSmf-1" style="background-color: #4CAF50; color: white; padding: 10px 20px; border: none; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; border-radius: 5px; cursor: pointer;">Ver Prototipo</a>
 </p>
+
 ## Contribución
 
 ¡Apreciamos las contribuciones! Si deseas colaborar, puedes abrir un problema (issue) o enviar una solicitud de extracción (pull request) en nuestro repositorio de GitHub.
