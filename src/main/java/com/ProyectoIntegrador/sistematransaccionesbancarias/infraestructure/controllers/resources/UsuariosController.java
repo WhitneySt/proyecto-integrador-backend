@@ -18,6 +18,11 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapp
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,6 +42,7 @@ import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructu
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 @Controller
+@Tag(name = "Usuarios", description = "Endpoints relacionados con la administración de usuarios")
 public class UsuariosController {
 
     @Autowired
@@ -65,6 +71,9 @@ public class UsuariosController {
     }
 
     // ? Adminitración de usuarios (CRUD)
+
+    @Operation(summary = "Obtiene la lista de usuarios", description = "Este endpoint obtiene la lista de usuarios y la muestra en la vista.")
+    @ApiResponse(responseCode = "200", description = "Lista de usuarios obtenida exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Lista de usuarios...</body></html>")))
     @GetMapping("/usuarios")
     public String usuarios(Model model,HttpServletRequest request) {
 
@@ -84,6 +93,9 @@ public class UsuariosController {
      */
 
     @GetMapping("/getInformationUser/{action}/{id}")
+    @Operation(summary = "Redirecciona para ver o editar un usuario", description = "Redirecciona para ver o editar un usuario según la acción especificada.")
+    @ApiResponse(responseCode = "200", description = "Redirección exitosa a la acción especificada", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Redirección exitosa...</body></html>")))
+    @ApiResponse(responseCode = "400", description = "Error en la redirección", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Error en la redirección...</body></html>")))
     public String getInformationUser(@PathVariable String action, @PathVariable int id, RedirectAttributes redirectAttributes) {
         // intenta obtener el usuario con el id especificado
         try {
@@ -108,6 +120,8 @@ public class UsuariosController {
     // Al no tener restricciones adicionales, la plantilla se renderiza adecuadamente con todos los elementos visuales.
 
     @GetMapping("/verUsuario")
+    @Operation(summary = "Muestra la información de un usuario", description = "Muestra la información detallada de un usuario.")
+    @ApiResponse(responseCode = "200", description = "Información de usuario mostrada exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Información de usuario...</body></html>")))
     public String verUsuario(Model model,@ModelAttribute("usuario") UsuarioJPAEntity usuario){
 
         model.addAttribute("usuario",usuario);
@@ -117,6 +131,8 @@ public class UsuariosController {
 
 
     @GetMapping("/editarUsuario")
+    @Operation(summary = "Muestra el formulario de edición de un usuario", description = "Muestra el formulario de edición de un usuario.")
+    @ApiResponse(responseCode = "200", description = "Formulario de edición de usuario mostrado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Formulario de edición de usuario...</body></html>")))
     public String editarUsuario(Model model,@ModelAttribute("usuario") UsuarioJPAEntity usuario){
 
         List<Estado> estados = estadoService.getAllEstados();
@@ -131,6 +147,9 @@ public class UsuariosController {
 
     //? Se trabaja con el objeto UsuarioJPAEntity para poder hacer la realcion con uroles y estados porque si lo uso con un objeto dto genera error
     @PostMapping("/updateUser")
+    @Operation(summary = "Actualiza un usuario", description = "Actualiza un usuario con la información proporcionada.")
+    @ApiResponse(responseCode = "200", description = "Usuario actualizado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Usuario actualizado...</body></html>")))
+    @ApiResponse(responseCode = "400", description = "Error al actualizar el usuario", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Error al actualizar el usuario...</body></html>")))
     public String updateUser(@ModelAttribute("usuario")UsuarioJPAEntity usuario, RedirectAttributes redirectAttributes) {
 
         try {
@@ -145,6 +164,8 @@ public class UsuariosController {
     }
 
     @GetMapping("/crearUsuario")
+    @Operation(summary = "Muestra el formulario de creación de usuario", description = "Muestra el formulario de creación de un nuevo usuario.")
+    @ApiResponse(responseCode = "200", description = "Formulario de creación de usuario mostrado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Formulario de creación de usuario...</body></html>")))
     public String crearUsuario(Model model) {
 
         List<Estado> estados = estadoService.getAllEstados();
@@ -158,6 +179,9 @@ public class UsuariosController {
     }
 
     @PostMapping("/saveUser")
+    @Operation(summary = "Crea un nuevo usuario", description = "Crea un nuevo usuario con la información proporcionada.")
+    @ApiResponse(responseCode = "200", description = "Usuario creado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Usuario creado exitosamente...</body></html>")))
+    @ApiResponse(responseCode = "400", description = "Error al crear el usuario", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Error al crear el usuario...</body></html>")))
     public String saveUser(@ModelAttribute("usuario")UsuarioJPAEntity usuario, RedirectAttributes redirectAttributes) {
 
         // Se encripta la contraseña
@@ -178,6 +202,8 @@ public class UsuariosController {
     // ? Administración del pefil de usuario logeado
 
     @GetMapping("/perfil")
+    @Operation(summary = "Muestra el perfil del usuario logeado", description = "Muestra el perfil del usuario que ha iniciado sesión.")
+    @ApiResponse(responseCode = "200", description = "Perfil de usuario mostrado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Perfil de usuario...</body></html>")))
     public String perfil(Model model,HttpServletRequest request) {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
@@ -190,6 +216,8 @@ public class UsuariosController {
     }
 
     @GetMapping("/editarPerfil")
+    @Operation(summary = "Muestra el formulario de edición del perfil del usuario logeado", description = "Muestra el formulario de edición del perfil del usuario que ha iniciado sesión.")
+    @ApiResponse(responseCode = "200", description = "Formulario de edición de perfil de usuario mostrado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Formulario de edición de perfil de usuario...</body></html>")))
     public String editarPerfil(Model model, HttpServletRequest request ) {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
@@ -202,6 +230,9 @@ public class UsuariosController {
     }
 
     @PostMapping("/updateProfile")
+    @Operation(summary = "Actualiza el perfil del usuario logeado", description = "Actualiza el perfil del usuario que ha iniciado sesión con la información proporcionada.")
+    @ApiResponse(responseCode = "200", description = "Perfil de usuario actualizado exitosamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Perfil de usuario actualizado...</body></html>")))
+            @ApiResponse(responseCode = "400", description = "Error al actualizar el perfil del usuario", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body>Error al actualizar el perfil del usuario...</body></html>")))
     public String updateProfile(@ModelAttribute("usuario")Usuario usuario, RedirectAttributes redirectAttributes,@RequestParam("file") MultipartFile imagen) {
 
         // @RequestParam("file") MultipartFile file -> Se obtiene la imagen del formulario y se guarda en un objeto MultipartFile

@@ -1,9 +1,15 @@
-main {
-    width: 80vw;
+body{
+    position: relative;
+}
+
+main{
     position: absolute;
-    left: 52%;
-    top: 68%;
-    transform: translate(-50%, -50%);
+    top: 100px;
+    left: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 85%;
 }
 
 h2 {

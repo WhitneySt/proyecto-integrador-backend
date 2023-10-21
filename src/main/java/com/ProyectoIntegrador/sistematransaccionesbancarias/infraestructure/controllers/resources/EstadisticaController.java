@@ -16,6 +16,13 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exep
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,10 +30,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
 
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.BolsilloController.InformationUsuarioModel;
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
-import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 @Controller
+@Tag(name = "Estadísticas", description = "Endpoints para obtener estadísticas de usuarios, cuentas y movimientos dependiendo del rol del usuario que ha iniciado sesión")
 public class EstadisticaController {
 
     MapperCuenta mapperCuenta;
@@ -57,9 +65,18 @@ public class EstadisticaController {
 
     }
 
-
+    @Operation(summary = "Obtener estadísticas", description = "Obtiene las estadísticas de los usuarios y cuentas según el rol del usuario que ha iniciado sesión")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Estadísticas obtenidas correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Usuario", value = "<html><body><h1>Estadistica Usuario</h1></body></html>"),
+                            @ExampleObject(name = "Administrador", value = "<html><body><h1>Estadistica Administrador</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
+    })
     @GetMapping("/estadistica")
-    public String estadistica(HttpServletRequest request, Model model){
+    public String estadistica(@Parameter(description = "Se  obtiene la información del usuario logeado para determinar su rol y de esta manera mostrar su estadistica", example = "5") HttpServletRequest request, Model model){
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         InformationUsuarioModel(model,request); // Se obtiene el nombre  yla imgdel usuario que inició sesión y lo guarda eel model

@@ -20,6 +20,12 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapp
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTipoTransaccion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,9 +39,11 @@ import java.util.Date;
 import java.util.List;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
+import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.HomeController.InformationUsuarioModel;
 
 
 @Controller
+@Tag(name = "Transacciones", description = "Endpoints para gestionar transacciones bancarias")
 public class TransaccionController {
 
     @Autowired
@@ -73,10 +81,22 @@ public class TransaccionController {
     }
 
     @GetMapping("/transaccion")
+    @Operation(summary = "Página de transacciones", description = "Accede a la página de transacciones del usuario logeado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Acceso exitoso",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Transacciones", value = "<html><body><h1>Página de Transacciones</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String transaccion(Model model, HttpServletRequest request) {
         List<Bolsillo> listaBolsillos = null;
         List<Transaccion> transacciones = null;
         TransaccionDto transaccionDto = new TransaccionDto();
+
+        InformationUsuarioModel(model,request);
 
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
@@ -98,6 +118,15 @@ public class TransaccionController {
     }
 
     @PostMapping("/crearTransaccion/transferencia")
+    @Operation(summary = "Crear una transferencia", description = "Crea una nueva transferencia entre cuentas.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Transferencia creada correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Transferencia", value = "<html><body><h1>Transferencia creada correctamente</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+})
     public String crearTransferencia(TransaccionDto transaccionDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
             //Usuario usuarioLogeado = getUsuarioLogeado(request);
@@ -122,6 +151,16 @@ public class TransaccionController {
     }
 
     @PostMapping("/crearTransaccion/deposito")
+    @Operation(summary = "Crear un depósito", description = "Realiza un depósito en la cuenta del usuario logeado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Depósito realizado correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Depósito", value = "<html><body><h1>Depósito realizado correctamente</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
+            @ApiResponse(responseCode = "404", description = "Tipo de transacción no encontrado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Tipo de transacción no encontrado</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String crearDeposito(TransaccionDto transaccionDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
@@ -156,6 +195,14 @@ public class TransaccionController {
     }
 
     @PostMapping("/crearTransaccion/retiro")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Retiro realizado correctamente",
+                    content = @Content(mediaType = "text/html", examples = {
+                            @ExampleObject(name = "Retiro", value = "<html><body><h1>Retiro realizado correctamente</h1></body></html>")
+                    })),
+            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
+            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
+    })
     public String crearRetiro(BolsilloDto bolsilloDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         // try {
         //     Usuario usuarioLogeado = getUsuarioLogeado(request);

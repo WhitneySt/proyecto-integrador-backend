@@ -13,6 +13,13 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.ExampleObject;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -28,6 +35,7 @@ import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructu
 
 
 @Controller
+@Tag(name = "Home", description = "Endpoints para la página de inicio y creación de cuentas")
 public class HomeController {
 
     @Autowired
@@ -50,8 +58,15 @@ public class HomeController {
         this.bolsilloServices = new BolsilloServices(this.bolsilloRepository);
     }
 
+
+    @Operation(summary = "Página de inicio", description = "Muestra la página de inicio con la información de la cuenta y los bolsillos del usuario logeado")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Página de inicio mostrada correctamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Información cuenta</h1></body></html>"))),
+            @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
+            @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
+    })
     @GetMapping({"/"})
-    public String home(Model model,HttpServletRequest request,@ModelAttribute("mensaje") String mensajeRecibido) {
+    public String home( Model model,HttpServletRequest request, @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente") @ModelAttribute("mensaje") String mensajeRecibido) {
 
         Boolean isCuentaCreada = false;
         Boolean isBolsilloCreado = false;
@@ -91,8 +106,16 @@ public class HomeController {
     }
 
 
+    @Operation(summary = "Crear una nueva cuenta", description = "Crea una nueva cuenta bancaria para el usuario logeado.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "302", description = "Redireccionamiento exitoso a la página de inicio",content = @Content(mediaType = "text/html", examples  = @ExampleObject(name = "Creación exitosa", value = "<html><body>Redireccionando a la página de inicio...</body></html>"))),
+
+            @ApiResponse(responseCode = "400", description = "Error al crear la cuenta", content = @Content(mediaType = "text/html", examples = {
+                    @ExampleObject(name = "Error en la creación", value = "<html><body>Redireccionando a la página de inicio con un mensaje de error...</body></html>")
+            }))
+    })
     @PostMapping("/crearCuenta")
-    public String crearCuenta(CuentaDto cuentaDto,RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    public String crearCuenta( @Parameter(description = "Datos de la nueva cuenta a crear") CuentaDto cuentaDto,RedirectAttributes redirectAttributes, HttpServletRequest request) {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         cuentaDto.setUsuarioId(usuarioLogeado);
