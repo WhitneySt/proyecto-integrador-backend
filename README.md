@@ -1,6 +1,6 @@
 
 
-<h1 style="text-align:center;">Proyecto Integrador <br>  Sistema de Transacciones Bancarias </h1>
+<h1  align="center">Proyecto Integrador <br>  Sistema de Transacciones Bancarias </h1>
 
 ## La Solución Bancaria Todo en Uno
 Bienvenido a **Banco Makia** , un sistema de transacciones bancarias diseñado para simular y gestionar transacciones financieras de manera segura y eficiente.
