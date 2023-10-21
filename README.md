@@ -13,7 +13,9 @@ Este es el repositorio del backend para el Proyecto Integrador de un sistema de 
 ## Diseño Frontend
 
 [![Screenshot from 2023-10-13 09-30-11](https://github.com/WhitneySt/proyecto-integrador-backend/assets/98284374/db3f2823-ac20-4a54-a5f0-ca2b47830ac3)
-](https://www.figma.com/file/amn06Gq80iXgEyCQVJFdcH/Prototipo-app?type=design&node-id=0%3A1&mode=design&t=zLDk71EIw4O5XSmf-1)
+
+![image](https://github.com/WhitneySt/proyecto-integrador-backend/assets/94869227/7a669472-4cf8-41df-b7ff-4a7a586ee487)
+
 
 [Prototipo de fidelidad alta](https://www.figma.com/file/amn06Gq80iXgEyCQVJFdcH/Prototipo-app?type=design&node-id=0%3A1&mode=design&t=zLDk71EIw4O5XSmf-1)
 
