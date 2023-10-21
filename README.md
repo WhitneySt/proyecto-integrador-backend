@@ -1,6 +1,5 @@
 <style>
-  /* Aplica justificado al texto dentro de los párrafos */
-  p {
+   {
     text-align: justify;
   }
 
