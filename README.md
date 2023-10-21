@@ -1,9 +1,4 @@
-<style>
-   {
-    text-align: justify;
-  }
 
-</style>
 
 <h1 style="text-align:center;">Proyecto Integrador <br>  Sistema de Transacciones Bancarias </h1>
 
