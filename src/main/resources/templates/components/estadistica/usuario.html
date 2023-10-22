@@ -25,9 +25,15 @@
       <!-- titulo: Movimientos,p:Depositos: 5000000,Tranferencias: 50000, Retiros: 200000, Balane neto: 500000 -->
       <h3>Movimientos</h3>
       <hr>
-      <p>Total depósitos: $<span>0</span></p>
+
+      <!--if el valor es mayor a 0 se hace el formateo del numero de lo contrario se muestra 0 -->
+      <p th:if="${totalRetiros != 0}">Total retiros: $<span th:text="${#numbers.formatInteger(totalRetiros,3, 'POINT')}"></span></p>
+      <p th:if="${totalRetiros == 0}">Total retiros: $<span>0</span></p>
+
+      <p>Total depositos: $<span th:text="${#numbers.formatInteger(totalDepositos,3, 'POINT')}"></span></p>
+
+      <p>Total depositos: $<span th:text="${#numbers.formatInteger(totalDepositos,3, 'POINT')}">0</span></p>
       <p>Total transferencias: $<span>0</span></p>
-      <p>total retiros: $<span>0</span></p>
       <p>Balance neto: $<span>0</span></p>
     </div>
 
