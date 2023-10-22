@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,11 @@ public interface TransaccionJPARepository extends CrudRepository<TransaccionJPAE
 
     @Query(value="SELECT COUNT(*) FROM transaccion", nativeQuery = true)
     public Integer getCantidadTransacciones();
+
+    // Obtiene la cantidad de dinero de las transacciones realizadas en la plataforma
+    @Query(value = "SELECT SUM(t.monto) FROM transaccion t", nativeQuery = true)
+    BigDecimal obtenerSumaDeMontosTransacciones();
+
+
+
 }

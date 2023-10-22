@@ -5,6 +5,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.TransaccionJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +62,11 @@ public class TransaccionImplementacion implements TransaccionRepository {
     @Override
     public Integer getCantidadTransacciones() {
         return transaccionJPARepository.getCantidadTransacciones();
+    }
+
+    @Override
+    public BigDecimal getTotalDineroTransacciones() {
+        return transaccionJPARepository.obtenerSumaDeMontosTransacciones();
     }
 
 

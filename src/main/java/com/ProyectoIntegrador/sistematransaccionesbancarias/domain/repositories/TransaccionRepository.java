@@ -2,6 +2,7 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Transaccion;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public interface TransaccionRepository {
@@ -13,6 +14,8 @@ public interface TransaccionRepository {
 
     public Double getTotalSaldoTransacciones(Long usuarioId);
 
-    // Obtiene la cantidad de transacciones realizadas en la plataforma
     public Integer getCantidadTransacciones();
+
+    public BigDecimal getTotalDineroTransacciones();
+
 }

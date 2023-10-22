@@ -32,6 +32,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.BolsilloController.InformationUsuarioModel;
@@ -145,6 +146,8 @@ public class EstadisticaController {
             Integer cantidadCuentasConMetas = cuentaServices.getCantidadCuentasConMetas();
             Integer cantidadCuentasCumplenMetaAhorro = cuentaServices.getCantidadCuentasCumplenMetaAhorro();
             Integer cantidadTransacciones = transaccionServices.getCantidadTransacciones();
+            BigDecimal totalDineroTransacciones = transaccionServices.getTotalDineroTransacciones();
+            System.out.println("totalDineroTransacciones = " + totalDineroTransacciones);
 
 
 
@@ -175,6 +178,7 @@ public class EstadisticaController {
             model.addAttribute("cantidadCuentasCumplenMetaAhorro",cantidadCuentasCumplenMetaAhorro );
 
             model.addAttribute("cantidadTransacciones",cantidadTransacciones );
+            model.addAttribute("totalDineroTransacciones",totalDineroTransacciones );
 
 
         }

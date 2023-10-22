@@ -5,6 +5,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Tran
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.BolsilloRepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.TransaccionRepository;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class TransaccionServices {
@@ -37,9 +38,12 @@ public class TransaccionServices {
         return transaccionRepository.deleteTransaccionById(id);
     }
 
-    // Obtiene la cantidad de transacciones realizadas en la plataforma
     public Integer getCantidadTransacciones() {
         return transaccionRepository.getCantidadTransacciones();
+    }
+
+    public BigDecimal getTotalDineroTransacciones() {
+        return transaccionRepository.getTotalDineroTransacciones();
     }
 
 }
