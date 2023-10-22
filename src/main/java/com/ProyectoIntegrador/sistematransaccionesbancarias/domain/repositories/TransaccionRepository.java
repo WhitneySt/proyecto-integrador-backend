@@ -12,4 +12,7 @@ public interface TransaccionRepository {
     public boolean deleteTransaccionById(Integer id);
 
     public Double getTotalSaldoTransacciones(Long usuarioId);
+
+    // Obtiene la cantidad de transacciones realizadas en la plataforma
+    public Integer getCantidadTransacciones();
 }

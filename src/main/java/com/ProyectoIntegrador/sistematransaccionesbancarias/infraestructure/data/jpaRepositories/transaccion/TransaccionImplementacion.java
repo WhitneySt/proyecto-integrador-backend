@@ -57,4 +57,11 @@ public class TransaccionImplementacion implements TransaccionRepository {
     public Double getTotalSaldoTransacciones(Long usuarioId) {
         return transaccionJPARepository.getTotalSaldoTransacciones(usuarioId);
     }
+
+    @Override
+    public Integer getCantidadTransacciones() {
+        return transaccionJPARepository.getCantidadTransacciones();
+    }
+
+
 }

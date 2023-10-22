@@ -37,4 +37,9 @@ public class TransaccionServices {
         return transaccionRepository.deleteTransaccionById(id);
     }
 
+    // Obtiene la cantidad de transacciones realizadas en la plataforma
+    public Integer getCantidadTransacciones() {
+        return transaccionRepository.getCantidadTransacciones();
+    }
+
 }

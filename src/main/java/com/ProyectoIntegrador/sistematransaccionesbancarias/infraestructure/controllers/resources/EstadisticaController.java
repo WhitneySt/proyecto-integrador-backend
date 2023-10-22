@@ -2,6 +2,7 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.con
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.BolsilloServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.TransaccionServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.UsuarioService;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Bolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
@@ -10,11 +11,14 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaJPARepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionImplementacion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.usuario.UsuarioJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperUsuario;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -49,7 +53,11 @@ public class EstadisticaController {
     BolsilloServices bolsilloServices;
     BolsilloImplementacion bolsilloRepository;
 
-    public EstadisticaController(CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, UsuarioJPARepository usuarioJPARepository, MapperUsuario mapperUsuario, BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo) {
+    MapperTransaccion mapperTransaccion;
+    TransaccionServices transaccionServices;
+    TransaccionImplementacion transaccionRepository;
+
+    public EstadisticaController(CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, UsuarioJPARepository usuarioJPARepository, MapperUsuario mapperUsuario, BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo, TransaccionJPARepository transaccionJPARepository, MapperTransaccion mapperTransaccion) {
 
         this.mapperCuenta = mapperCuenta;
         this.repository = new CuentaImplementacion(cuentaJPARepository,mapperCuenta);
@@ -62,6 +70,10 @@ public class EstadisticaController {
         this.mapperBolsillo = mapperBolsillo;
         this.bolsilloRepository = new BolsilloImplementacion(bolsilloJPARepository,mapperBolsillo);
         this.bolsilloServices = new BolsilloServices(this.bolsilloRepository);
+
+        this.mapperTransaccion = mapperTransaccion;
+        this.transaccionRepository = new TransaccionImplementacion(transaccionJPARepository,mapperTransaccion);
+        this.transaccionServices = new TransaccionServices(this.transaccionRepository);
 
     }
 
@@ -132,6 +144,8 @@ public class EstadisticaController {
             Long promedioDineroCuentas = cuentaServices.getPromedioDineroCuentas();
             Integer cantidadCuentasConMetas = cuentaServices.getCantidadCuentasConMetas();
             Integer cantidadCuentasCumplenMetaAhorro = cuentaServices.getCantidadCuentasCumplenMetaAhorro();
+            Integer cantidadTransacciones = transaccionServices.getCantidadTransacciones();
+
 
 
             // Obtiene los datos de la estadistica de los usuarios
@@ -159,6 +173,8 @@ public class EstadisticaController {
             model.addAttribute("promedioDineroCuentas",promedioDineroCuentas );
             model.addAttribute("cantidadCuentasConMetas",cantidadCuentasConMetas );
             model.addAttribute("cantidadCuentasCumplenMetaAhorro",cantidadCuentasCumplenMetaAhorro );
+
+            model.addAttribute("cantidadTransacciones",cantidadTransacciones );
 
 
         }
