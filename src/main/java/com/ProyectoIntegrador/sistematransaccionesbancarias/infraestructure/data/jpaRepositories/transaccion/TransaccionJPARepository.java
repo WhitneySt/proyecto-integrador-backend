@@ -27,6 +27,10 @@ public interface TransaccionJPARepository extends CrudRepository<TransaccionJPAE
     @Query(value = "SELECT COUNT(*) FROM transaccion WHERE id_tipo_transaccion = 1", nativeQuery = true)
     public Integer getCantidadDepositos();
 
+    // get cantidad_retiros
+    @Query(value = "SELECT COUNT(*) FROM transaccion WHERE id_tipo_transaccion = 2", nativeQuery = true)
+    public Integer getCantidadRetiros();
+
 
 
 }

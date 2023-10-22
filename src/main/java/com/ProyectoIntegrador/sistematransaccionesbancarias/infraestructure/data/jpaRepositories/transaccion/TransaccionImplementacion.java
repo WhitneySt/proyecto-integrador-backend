@@ -75,5 +75,8 @@ public class TransaccionImplementacion implements TransaccionRepository {
         return transaccionJPARepository.getCantidadDepositos();
     }
 
-
+    @Override
+    public Integer getCantidadRetiros() {
+        return transaccionJPARepository.getCantidadRetiros();
+    }
 }

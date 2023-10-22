@@ -149,6 +149,7 @@ public class EstadisticaController {
             Integer cantidadTransacciones = transaccionServices.getCantidadTransacciones();
             BigDecimal totalDineroTransacciones = transaccionServices.getTotalDineroTransacciones();
             Integer cantidadDepositos = transaccionServices.getCantidadDepositos();
+            Integer cantidadRetiros = transaccionServices.getCantidadRetiros();
 
 
 
@@ -181,6 +182,7 @@ public class EstadisticaController {
             model.addAttribute("cantidadTransacciones",cantidadTransacciones );
             model.addAttribute("totalDineroTransacciones",totalDineroTransacciones );
             model.addAttribute("cantidadDepositos",cantidadDepositos );
+            model.addAttribute("cantidadRetiros",cantidadRetiros );
 
 
         }
