@@ -29,4 +29,6 @@ public interface TransaccionRepository {
     public BigDecimal getTotalRetirosByIdUsuario(Long usuarioId);
 
     public BigDecimal getTotalTransferenciasByIdUsuario(Long usuarioId);
+
+    public BigDecimal getBalanceNetoByIdUsuario(Long usuarioId);
 }

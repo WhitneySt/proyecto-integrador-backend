@@ -71,5 +71,9 @@ public class TransaccionServices {
         return transaccionRepository.getTotalTransferenciasByIdUsuario(usuarioId);
     }
 
+    public BigDecimal getBalanceNetoById(Long usuarioId) {
+        return transaccionRepository.getBalanceNetoByIdUsuario(usuarioId);
+    }
+
 
 }

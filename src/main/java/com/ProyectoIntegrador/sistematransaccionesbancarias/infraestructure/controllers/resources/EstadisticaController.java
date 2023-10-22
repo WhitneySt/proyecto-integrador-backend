@@ -104,6 +104,7 @@ public class EstadisticaController {
             BigDecimal totalDepositosByIdUsuario = new BigDecimal(0);
             BigDecimal totalRetirosByIdUsuario = new BigDecimal(0);
             BigDecimal totalTransferenciasByIdUsuario = new BigDecimal(0);
+            BigDecimal balanceNetoByIdUsuario = new BigDecimal(0);
 
             double porcentajeCumplido=0.0;
 
@@ -115,6 +116,7 @@ public class EstadisticaController {
                 totalDepositosByIdUsuario = transaccionServices.getTotalDepositosByIdUsuario(usuarioLogeado.getId().longValue());
                 totalRetirosByIdUsuario = transaccionServices.getTotalRetirosByIdUsuario(usuarioLogeado.getId().longValue());
                 totalTransferenciasByIdUsuario = transaccionServices.getTotalTransferenciasByIdUsuario(usuarioLogeado.getId().longValue());
+                balanceNetoByIdUsuario = transaccionServices.getBalanceNetoById(usuarioLogeado.getId().longValue());
 
 
                 saldoTotal= cuenta.getSaldo();
@@ -128,8 +130,6 @@ public class EstadisticaController {
                     metaTotal = 0.0;
                 }
 
-                // total transferencias
-                System.out.println("totalDeposit: " + totalTransferenciasByIdUsuario);
 
             }
 
@@ -146,6 +146,8 @@ public class EstadisticaController {
             model.addAttribute("totalDepositos", totalDepositosByIdUsuario);
             model.addAttribute("totalRetiros", totalRetirosByIdUsuario);
             model.addAttribute("totalTransferencias", totalTransferenciasByIdUsuario);
+            model.addAttribute("balanceNeto", balanceNetoByIdUsuario.intValue());
+
 
 
         }

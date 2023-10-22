@@ -47,6 +47,21 @@ public interface TransaccionJPARepository extends CrudRepository<TransaccionJPAE
     @Query(value = "SELECT COALESCE(SUM(monto), 0) FROM transaccion WHERE usuario_id = ?1 AND id_tipo_transaccion = 3", nativeQuery = true)
     public BigDecimal getTotalTransferenciasByIdUsuario(Long usuarioId);
 
+    // Obtiene el balance neto de un usuario
+    // El balance neto se clacula  restando el total de retiros del total de depósitos y transferencias.
+    // Ejemplo SELECT
+    //    usuario_id,
+    //    SUM(CASE WHEN id_tipo_transaccion = 1 THEN monto ELSE 0 END) AS total_depositos,
+    //    SUM(CASE WHEN id_tipo_transaccion = 2 THEN monto ELSE 0 END) AS total_retiros,
+    //    SUM(CASE WHEN id_tipo_transaccion = 3 THEN monto ELSE 0 END) AS total_transferencias,
+    //    (SUM(CASE WHEN id_tipo_transaccion = 1 THEN monto ELSE 0 END) -
+    //    (SUM(CASE WHEN id_tipo_transaccion = 2 THEN monto ELSE 0 END) +
+    //    SUM(CASE WHEN id_tipo_transaccion = 3 THEN monto ELSE 0 END))) AS balance_neto
+    //FROM sistemabanca.transaccion
+    //WHERE usuario_id =65632480
+    //GROUP BY usuario_id;
+    @Query(value = "SELECT COALESCE(SUM(CASE WHEN id_tipo_transaccion = 1 THEN monto ELSE 0 END) - (SUM(CASE WHEN id_tipo_transaccion = 2 THEN monto ELSE 0 END) + SUM(CASE WHEN id_tipo_transaccion = 3 THEN monto ELSE 0 END)), 0) AS balance_neto FROM transaccion WHERE usuario_id = ?1", nativeQuery = true)
+    public BigDecimal getBalanceNetoByIdUsuario(Long usuarioId);
 
 
 }
