@@ -21,4 +21,8 @@ public interface TransaccionRepository {
     public Integer getCantidadDepositos();
 
     public Integer getCantidadRetiros();
+
+    public Integer getCantidadTransferencias();
+
+    public BigDecimal getTotalDepositosByIdUsuario(Long usuarioId);
 }

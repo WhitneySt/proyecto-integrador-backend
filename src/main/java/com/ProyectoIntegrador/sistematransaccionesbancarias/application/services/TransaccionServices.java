@@ -54,5 +54,13 @@ public class TransaccionServices {
         return transaccionRepository.getCantidadRetiros();
     }
 
+    public Integer getCantidadTransferencias() {
+        return transaccionRepository.getCantidadTransferencias();
+    }
+
+    public BigDecimal getTotalDepositosByIdUsuario(Long usuarioId) {
+        return transaccionRepository.getTotalDepositosByIdUsuario(usuarioId);
+    }
+
 
 }

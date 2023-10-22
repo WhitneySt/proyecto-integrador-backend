@@ -79,4 +79,14 @@ public class TransaccionImplementacion implements TransaccionRepository {
     public Integer getCantidadRetiros() {
         return transaccionJPARepository.getCantidadRetiros();
     }
+
+    @Override
+    public Integer getCantidadTransferencias() {
+        return transaccionJPARepository.getCantidadTransferencias();
+    }
+
+    @Override
+    public BigDecimal getTotalDepositosByIdUsuario(Long usuarioId) {
+        return transaccionJPARepository.getTotalDepositosByIdUsuario(usuarioId);
+    }
 }
