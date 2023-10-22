@@ -30,9 +30,9 @@
       <p th:if="${totalRetiros != 0}">Total retiros: $<span th:text="${#numbers.formatInteger(totalRetiros,3, 'POINT')}"></span></p>
       <p th:if="${totalRetiros == 0}">Total retiros: $<span>0</span></p>
 
-      <p>Total depositos: $<span th:text="${#numbers.formatInteger(totalDepositos,3, 'POINT')}"></span></p>
+      <p th:if="${totalDepositos != 0}">Total depositos: $<span th:text="${#numbers.formatInteger(totalDepositos,3, 'POINT')}"></span></p>
+      <p th:if="${totalDepositos == 0}">Total depositos: $<span>0</span></p>
 
-      <p>Total depositos: $<span th:text="${#numbers.formatInteger(totalDepositos,3, 'POINT')}">0</span></p>
       <p>Total transferencias: $<span>0</span></p>
       <p>Balance neto: $<span>0</span></p>
     </div>
