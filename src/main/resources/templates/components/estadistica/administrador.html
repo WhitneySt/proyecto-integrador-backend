@@ -18,8 +18,8 @@
             <h3>Actividad de usuarios </h3>
             <hr>
             <p>Bolsillos creados: <span th:text="${cantidadBolsillos}"></span></p>
-            <p>Saldo promedio: $<span th:text="${#numbers.formatInteger(promedioDineroCuentas,3, 'POINT')}"></span></p>
             <p>Total dinero: $<span th:text="${#numbers.formatInteger(totalDineroCuentas,3, 'POINT')}"></span></p>
+            <p>Saldo promedio: $<span th:text="${#numbers.formatInteger(promedioDineroCuentas,3, 'POINT')}"></span></p>
             <p>Total en transacciones: $<span th:text="${#numbers.formatInteger(totalDineroTransacciones,3, 'POINT')}"></span></p>
 
 
@@ -40,10 +40,10 @@
             <!-- total transacciones,depositos,tranferencias,retiros -->
             <h3>Movimientos</h3>
             <hr>
-            <p id="totalTransacciones">cantidad de transacciones: <span th:text="${cantidadTransacciones}"></span></p>
+            <p>Cantidad de transacciones: <span th:text="${cantidadTransacciones}"></span></p>
+            <p>Cantidad de retiros:  <span th:text="${cantidadRetiros}"></span></p>
             <p>Cantidad de depósitos: <span th:text="${cantidadDepositos}"></span></p>
-            <p>cantidad de transferencias: <span>1000</span></p>
-            <p> cantidad de retiros: <span>10000</span></p>
+            <p>Cantidad de transferencias: <span>1000</span></p>
         </div>
 
 
