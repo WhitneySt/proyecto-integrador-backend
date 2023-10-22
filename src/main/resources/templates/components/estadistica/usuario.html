@@ -35,7 +35,13 @@
 
       <p th:if="${totalTransferencias != 0}">Total transferencias: $<span th:text="${#numbers.formatInteger(totalTransferencias,3, 'POINT')}"></span></p>
       <p th:if="${totalTransferencias == 0}">Total transferencias: $<span>0</span></p>
-      <p>Balance neto: $<span>0</span></p>
+
+      <p th:if="${balanceNeto != 0}">Balance Neto: $<span th:text="${#numbers.formatInteger(balanceNeto,3, 'POINT')}"></span></p>
+      <p th:if="${balanceNeto == 0}">Balance Neto: $<span>0</span></p>
+
+
+
+
     </div>
 
 
