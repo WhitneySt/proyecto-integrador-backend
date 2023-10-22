@@ -89,4 +89,9 @@ public class TransaccionImplementacion implements TransaccionRepository {
     public BigDecimal getTotalDepositosByIdUsuario(Long usuarioId) {
         return transaccionJPARepository.getTotalDepositosByIdUsuario(usuarioId);
     }
+
+    @Override
+    public BigDecimal getTotalRetirosByIdUsuario(Long usuarioId) {
+        return transaccionJPARepository.getTotalRetirosByIdUsuario(usuarioId);
+    }
 }

@@ -100,6 +100,10 @@ public class EstadisticaController {
 
             Double saldoTotal=0.0;
             Double metaTotal=0.0;
+
+            BigDecimal totalDepositosByIdUsuario = new BigDecimal(0);
+            BigDecimal totalRetirosByIdUsuario = new BigDecimal(0);
+
             double porcentajeCumplido=0.0;
 
             // Obtiene los datos de la estadistica del usuario logeado
@@ -107,7 +111,9 @@ public class EstadisticaController {
 
                 Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()); // Se obtiene la cuenta del usuario logeado
 
-                BigDecimal totalDepositosByIdUsuario = transaccionServices.getTotalDepositosByIdUsuario(usuarioLogeado.getId().longValue());
+                totalDepositosByIdUsuario = transaccionServices.getTotalDepositosByIdUsuario(usuarioLogeado.getId().longValue());
+                totalRetirosByIdUsuario = transaccionServices.getTotalRetirosByIdUsuario(usuarioLogeado.getId().longValue());
+
 
                 saldoTotal= cuenta.getSaldo();
                 metaTotal = cuenta.getMetaAhorro();
@@ -120,7 +126,8 @@ public class EstadisticaController {
                     metaTotal = 0.0;
                 }
 
-                model.addAttribute("totalDeposito", totalDepositosByIdUsuario);
+                model.addAttribute("totalDepositos", totalDepositosByIdUsuario);
+                model.addAttribute("totalRetiros", totalRetirosByIdUsuario);
 
             }
 
@@ -133,6 +140,9 @@ public class EstadisticaController {
             model.addAttribute("saldoTotal", saldoTotal.intValue());
             model.addAttribute("metaTotal", metaTotal.intValue());
             model.addAttribute("porcentajeMeta", (int) porcentajeCumplido);
+
+            model.addAttribute("totalDepositos", totalDepositosByIdUsuario);
+            model.addAttribute("totalRetiros", totalRetirosByIdUsuario);
 
 
         }
