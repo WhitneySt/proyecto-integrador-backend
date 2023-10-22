@@ -67,5 +67,9 @@ public class TransaccionServices {
         return transaccionRepository.getTotalRetirosByIdUsuario(usuarioId);
     }
 
+    public BigDecimal getTotalTransferenciasByIdUsuario(Long usuarioId) {
+        return transaccionRepository.getTotalTransferenciasByIdUsuario(usuarioId);
+    }
+
 
 }

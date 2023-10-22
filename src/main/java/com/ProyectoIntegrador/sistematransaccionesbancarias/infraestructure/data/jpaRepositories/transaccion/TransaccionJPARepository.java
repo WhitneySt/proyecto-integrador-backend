@@ -43,6 +43,10 @@ public interface TransaccionJPARepository extends CrudRepository<TransaccionJPAE
     @Query(value = "SELECT COALESCE(SUM(monto), 0) FROM transaccion WHERE usuario_id = ?1 AND id_tipo_transaccion = 2", nativeQuery = true)
     public BigDecimal getTotalRetirosByIdUsuario(Long usuarioId);
 
+    // Obtiene el total de transferencias de un usuario
+    @Query(value = "SELECT COALESCE(SUM(monto), 0) FROM transaccion WHERE usuario_id = ?1 AND id_tipo_transaccion = 3", nativeQuery = true)
+    public BigDecimal getTotalTransferenciasByIdUsuario(Long usuarioId);
+
 
 
 }
