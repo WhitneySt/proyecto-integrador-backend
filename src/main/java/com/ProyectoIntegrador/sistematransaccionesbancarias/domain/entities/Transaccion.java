@@ -16,9 +16,11 @@ public class Transaccion {
     private TipoMovimiento idTipoMovimiento;
     private Usuario usuarioId;
 
+    private String cuentaTerceros;
+
     public Transaccion(){}
 
-    public Transaccion(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId) {
+    public Transaccion(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId, String cuentaTerceros) {
         this.id = id;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
@@ -30,6 +32,7 @@ public class Transaccion {
         this.idBolsilloDestino = idBolsilloDestino;
         this.idTipoMovimiento = idTipoMovimiento;
         this.usuarioId = usuarioId;
+        this.cuentaTerceros = cuentaTerceros;
     }
 
     public Integer getId() {
@@ -120,6 +123,14 @@ public class Transaccion {
         this.usuarioId = usuarioId;
     }
 
+    public String getCuentaTerceros() {
+        return cuentaTerceros;
+    }
+
+    public void setCuentaTerceros(String cuentaTerceros) {
+        this.cuentaTerceros = cuentaTerceros;
+    }
+
     @Override
     public String toString() {
         return "Transaccion{" +
@@ -134,6 +145,7 @@ public class Transaccion {
                 ", idBolsilloDestino=" + idBolsilloDestino +
                 ", idTipoMovimiento=" + idTipoMovimiento +
                 ", usuarioId=" + usuarioId +
+                ", cuentaTerceros=" + cuentaTerceros +
                 '}';
     }
 }

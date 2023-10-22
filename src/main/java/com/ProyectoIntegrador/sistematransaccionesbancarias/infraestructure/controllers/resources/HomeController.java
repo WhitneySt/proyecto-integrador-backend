@@ -2,6 +2,7 @@ package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.con
 
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.BolsilloServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.TransaccionServices;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Usuario;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.BolsilloDto;
@@ -10,9 +11,12 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaJPARepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionImplementacion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,6 +26,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Date;
 import java.util.List;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
@@ -33,21 +38,28 @@ public class HomeController {
     @Autowired
     MapperCuenta mapperCuenta;
     MapperBolsillo mapperBolsillo;
+    MapperTransaccion mapperTransaccion;
+
     CuentaServices cuentaServices;
-    CuentaImplementacion repository;
     BolsilloServices bolsilloServices;
+    TransaccionServices transaccionServices;
+    CuentaImplementacion repository;
     BolsilloImplementacion bolsilloRepository;
+    TransaccionImplementacion transaccionRepository;
 
     @Autowired
-    public HomeController(CuentaJPARepository cuentaJPARepository, BolsilloJPARepository bolsilloJPARepository,MapperCuenta mapperCuenta,MapperBolsillo mapperBolsillo ) {
+    public HomeController(CuentaJPARepository cuentaJPARepository, BolsilloJPARepository bolsilloJPARepository, TransaccionJPARepository transaccionJPARepository, MapperCuenta mapperCuenta, MapperBolsillo mapperBolsillo, MapperTransaccion mapperTransaccion) {
         this.mapperCuenta = mapperCuenta;
         this.mapperBolsillo = mapperBolsillo;
+        this.mapperTransaccion = mapperTransaccion;
 
         this.repository = new CuentaImplementacion(cuentaJPARepository,mapperCuenta);
         this.bolsilloRepository = new BolsilloImplementacion(bolsilloJPARepository,mapperBolsillo);
+        this.transaccionRepository = new TransaccionImplementacion(transaccionJPARepository, mapperTransaccion);
 
         this.cuentaServices = new CuentaServices(this.repository);
         this.bolsilloServices = new BolsilloServices(this.bolsilloRepository);
+        this.transaccionServices = new TransaccionServices(this.transaccionRepository);
     }
 
     @GetMapping({"/"})
@@ -63,10 +75,11 @@ public class HomeController {
         
         try{
             Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
-            Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId()); // Se obtiene la cuenta del usuario logeado
+            Integer idUsuarioLogueado = usuarioLogeado.getId();
+            Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(idUsuarioLogueado); // Se obtiene la cuenta del usuario logeado
 
-            Double totalSaldoBolsillos= bolsilloServices.getTotalSaldoBolsillos(cuenta.getId()); // Se obtiene el saldo disponible del usuario logeado
-            Double saldoDisponible= cuenta.getSaldo()-totalSaldoBolsillos; // Se calcula el saldo disponible del usuario logeado
+            // Se calcula el saldo disponible del usuario logeado
+            Double saldoDisponible = cuenta.getSaldoActual(); // descontar los depositos a bolsillos
 
             int ultimosDigitosNumeroCuenta = (int) (cuenta.getId() % 1000);
 
@@ -96,10 +109,14 @@ public class HomeController {
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         cuentaDto.setUsuarioId(usuarioLogeado);
-        Cuenta cuenta = mapperCuenta.CuentaDtoToCuentaDomain(cuentaDto);
-        boolean guardar = cuentaServices.saveOrUpdateCuenta(cuenta); // Se guarda la cuenta en la base de datos
+        cuentaDto.setSaldoActual(cuentaDto.getSaldo());
+        cuentaDto.setFechaCreacion(new Date());
+        cuentaDto.setTipoCuenta("Ahorros");
 
-        if(guardar){
+        Cuenta cuenta = mapperCuenta.CuentaDtoToCuentaDomain(cuentaDto);
+        boolean guardado = cuentaServices.saveOrUpdateCuenta(cuenta); // Se guarda la cuenta en la base de datos
+
+        if(guardado){
             System.out.println("Se guardo la cuenta");
             redirectAttributes.addFlashAttribute("mensaje","createOk");
         }

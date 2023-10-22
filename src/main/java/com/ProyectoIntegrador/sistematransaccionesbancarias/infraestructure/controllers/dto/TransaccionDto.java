@@ -19,9 +19,13 @@ public class TransaccionDto {
 
     private Usuario usuarioId;
 
+    private String cuentaTerceros;
+    private Integer bolsilloOrigenId;
+    private Integer bolsilloDestinoId;
+
     public TransaccionDto(){}
 
-    public TransaccionDto(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId) {
+    public TransaccionDto(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId, String cuentaTerceros, Integer bolsilloOrigenId, Integer bolsilloDestinoId) {
         this.id = id;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
@@ -33,6 +37,9 @@ public class TransaccionDto {
         this.idBolsilloDestino = idBolsilloDestino;
         this.idTipoMovimiento = idTipoMovimiento;
         this.usuarioId = usuarioId;
+        this.cuentaTerceros = cuentaTerceros;
+        this.bolsilloOrigenId = bolsilloOrigenId;
+        this.bolsilloDestinoId = bolsilloDestinoId;
     }
 
     public Integer getId() {
@@ -123,6 +130,30 @@ public class TransaccionDto {
         this.usuarioId = usuarioId;
     }
 
+    public String getCuentaTerceros() {
+        return cuentaTerceros;
+    }
+
+    public void setCuentaTerceros(String cuentaTerceros) {
+        this.cuentaTerceros = cuentaTerceros;
+    }
+
+    public Integer getBolsilloOrigenId() {
+        return bolsilloOrigenId;
+    }
+
+    public void setBolsilloOrigenId(Integer bolsilloOrigenId) {
+        this.bolsilloOrigenId = bolsilloOrigenId;
+    }
+
+    public Integer getBolsilloDestinoId() {
+        return bolsilloDestinoId;
+    }
+
+    public void setBolsilloDestinoId(Integer bolsilloDestinoId) {
+        this.bolsilloDestinoId = bolsilloDestinoId;
+    }
+
     @Override
     public String toString() {
         return "TransaccionDto{" +
@@ -137,6 +168,9 @@ public class TransaccionDto {
                 ", idBolsilloDestino=" + idBolsilloDestino +
                 ", idTipoMovimiento=" + idTipoMovimiento +
                 ", usuarioId=" + usuarioId +
+                ", cuentaTerceros=" + cuentaTerceros +
+                ", bolsilloOrigenId=" + bolsilloOrigenId +
+                ", bolsilloDestinoId=" + bolsilloDestinoId +
                 '}';
     }
 }

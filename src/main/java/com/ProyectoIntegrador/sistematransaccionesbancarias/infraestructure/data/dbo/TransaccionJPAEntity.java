@@ -21,6 +21,9 @@ public class TransaccionJPAEntity {
     @Column(length = 250, nullable = true)
     private String descripcion;
 
+    @Column(length = 150, nullable = true)
+    private String cuentaTerceros;
+
     @ManyToOne
     @JoinColumn(name = "idTipoTransaccion", referencedColumnName = "id", nullable = false)
     private TipoTransaccionJPAEntity idTipoTransaccion;
@@ -51,11 +54,12 @@ public class TransaccionJPAEntity {
 
     public TransaccionJPAEntity(){}
 
-    public TransaccionJPAEntity(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccionJPAEntity idTipoTransaccion, CuentaJPAEntity idCuentaOrigen, CuentaJPAEntity idCuentaDestino, BolsilloJPAEntity idBolsilloOrigen, BolsilloJPAEntity idBolsilloDestino, TipoMovimientoJPAEntity idTipoMovimiento, UsuarioJPAEntity usuarioId) {
+    public TransaccionJPAEntity(Integer id, Date fechaTransaccion, Double monto, String descripcion, String cuentaTerceros, TipoTransaccionJPAEntity idTipoTransaccion, CuentaJPAEntity idCuentaOrigen, CuentaJPAEntity idCuentaDestino, BolsilloJPAEntity idBolsilloOrigen, BolsilloJPAEntity idBolsilloDestino, TipoMovimientoJPAEntity idTipoMovimiento, UsuarioJPAEntity usuarioId) {
         Id = id;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
         this.descripcion = descripcion;
+        this.cuentaTerceros = cuentaTerceros;
         this.idTipoTransaccion = idTipoTransaccion;
         this.idCuentaOrigen = idCuentaOrigen;
         this.idCuentaDestino = idCuentaDestino;
@@ -95,6 +99,14 @@ public class TransaccionJPAEntity {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
+    }
+
+    public String getCuentaTerceros() {
+        return cuentaTerceros;
+    }
+
+    public void setCuentaTerceros(String cuentaTerceros) {
+        this.cuentaTerceros = cuentaTerceros;
     }
 
     public TipoTransaccionJPAEntity getIdTipoTransaccion() {

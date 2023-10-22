@@ -10,6 +10,4 @@ public interface TransaccionRepository {
     public Transaccion getTransaccionById(Integer id);
     public boolean  saveOrUpdateTransaccion(Transaccion transaccion);
     public boolean deleteTransaccionById(Integer id);
-
-    public Double getTotalSaldoTransacciones(Long usuarioId);
 }

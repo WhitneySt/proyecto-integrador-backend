@@ -7,15 +7,17 @@ public class BolsilloDto {
     private String nombre;
     private Double saldo;
     private String color;
+    private boolean status;
     private Cuenta idCuenta;
 
     public BolsilloDto(){}
 
-    public BolsilloDto(Integer id, String nombre, Double saldo, String color, Cuenta idCuenta) {
+    public BolsilloDto(Integer id, String nombre, Double saldo, String color, boolean status, Cuenta idCuenta) {
         this.id = id;
         this.nombre = nombre;
         this.saldo = saldo;
         this.color = color;
+        this.status = status;
         this.idCuenta = idCuenta;
     }
 
@@ -51,6 +53,14 @@ public class BolsilloDto {
         this.color = color;
     }
 
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public Cuenta getIdCuenta() {
         return idCuenta;
     }
@@ -66,6 +76,7 @@ public class BolsilloDto {
                 ", nombre='" + nombre + '\'' +
                 ", saldo=" + saldo +
                 ", color='" + color + '\'' +
+                ", status=" + status +
                 ", idCuenta=" + idCuenta +
                 '}';
     }

@@ -1,12 +1,15 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class Cuenta {
     private String nombre;
     private Long id;
     private Date fechaCreacion;
+    private Date fechaActualizacion;
     private Double saldo;
+    private Double saldoActual;
     private Double metaAhorro;
     private Integer cvc;
 
@@ -16,16 +19,17 @@ public class Cuenta {
     public Cuenta(){
     }
 
-    public Cuenta( String nombre, Long id, Date fechaCreacion, Double saldo, Double metaAhorro, Integer cvc,String tipoCuenta, Usuario usuarioId) {
+    public Cuenta(String nombre, Long id, Date fechaCreacion, Date fechaActualizacion, Double saldo, Double saldoActual, Double metaAhorro, Integer cvc, String tipoCuenta, Usuario usuarioId) {
         this.nombre = nombre;
         this.id = id;
         this.fechaCreacion = fechaCreacion;
+        this.fechaActualizacion = fechaActualizacion;
         this.saldo = saldo;
+        this.saldoActual = saldoActual;
         this.metaAhorro = metaAhorro;
         this.cvc = cvc;
         this.tipoCuenta = tipoCuenta;
         this.usuarioId = usuarioId;
-
     }
 
     public String getNombre() {
@@ -52,12 +56,28 @@ public class Cuenta {
         this.fechaCreacion = fechaCreacion;
     }
 
+    public Date getFechaActualizacion() {
+        return fechaActualizacion;
+    }
+
+    public void setFechaActualizacion(Date fechaActualizacion) {
+        this.fechaActualizacion = fechaActualizacion;
+    }
+
     public Double getSaldo() {
         return saldo;
     }
 
     public void setSaldo(Double saldo) {
         this.saldo = saldo;
+    }
+
+    public Double getSaldoActual() {
+        return saldoActual;
+    }
+
+    public void setSaldoActual(Double saldoActual) {
+        this.saldoActual = saldoActual;
     }
 
     public Double getMetaAhorro() {
@@ -68,14 +88,6 @@ public class Cuenta {
         this.metaAhorro = metaAhorro;
     }
 
-    public String getTipoCuenta() {
-        return tipoCuenta;
-    }
-
-    public void setTipoCuenta(String tipoCuenta) {
-        this.tipoCuenta = tipoCuenta;
-    }
-
     public Integer getCvc() {
         return cvc;
     }
@@ -84,6 +96,13 @@ public class Cuenta {
         this.cvc = cvc;
     }
 
+    public String getTipoCuenta() {
+        return tipoCuenta;
+    }
+
+    public void setTipoCuenta(String tipoCuenta) {
+        this.tipoCuenta = tipoCuenta;
+    }
 
     public Usuario getUsuarioId() {
         return usuarioId;
@@ -99,7 +118,9 @@ public class Cuenta {
                 "nombre='" + nombre + '\'' +
                 ", id=" + id +
                 ", fechaCreacion=" + fechaCreacion +
+                ", fechaActualizacion=" + fechaActualizacion +
                 ", saldo=" + saldo +
+                ", saldoActual=" + saldoActual +
                 ", metaAhorro=" + metaAhorro +
                 ", cvc=" + cvc +
                 ", tipoCuenta='" + tipoCuenta + '\'' +

@@ -91,16 +91,7 @@
         <div id="modal-transferencia" class="modal">
             <div class="modal-content">
                 <h2>Transferencia</h2>
-                <form id="tranferencia-form" th:action="@{/crearTransaccion/transferencia}" method="post"
-                    th:object="${transferenciaDto}">
-                    <!--div class="form-group">
-                    <label for="productoOrigen">Producto origen:<span class="red">*</span></label>
-                    <select id="productoOrigen">
-                        <option value="">Seleccione una opción</option>
-                        <option value="miCuentas">Mi cuenta</option>
-                        <option value="misBolsillos">Mis bolsillos</option>
-                    </select>
-                </div-->
+                <form id="tranferencia-form" th:action="@{/crearTransaccion/transferencia}" method="post" th:object="${transferenciaDto}">
                     <fieldset id="productoOrigen">
                         <legend>Escoja un producto de origen:</legend>
                         <div class="button-checkbox">
@@ -114,21 +105,13 @@
                     </fieldset>
                     <div class="form-group" id="listaBolsillosOrigen">
                         <label for="bolsilloOrigen">Bolsillo:<span class="red">*</span></label>
-                        <select id="bolsilloOrigen">
+                        <select id="bolsilloOrigen" th:field="*{bolsilloOrigenId}">
                             <option value="">Seleccione una opción</option>
                             <div th:each="bolsillo : ${bolsillos}">
                                 <option th:value="${bolsillo.id}" th:text="${bolsillo.nombre}"></option>
                             </div>
                         </select>
                     </div>
-                    <!--div class="form-group">
-                    <label for="cuentaOrigen">Producto destino:<span class="red">*</span></label>
-                    <select id="cuentaOrigen">
-                        <option value="">Seleccione una opción</option>
-                        <option value="misBolsillos">Mis bolsillos</option>
-                        <option value="cuentasTercero">Cuenta de terceros</option>
-                    </select>
-                </div-->
                     <fieldset id="productoDestino">
                         <legend>Escoja un producto destino:</legend>
                         <div class="button-checkbox">
@@ -136,14 +119,13 @@
                             <label for="otrasCuentas">Cuentas de tercero</label>
                         </div>
                         <div class="button-checkbox">
-                            <input type="checkbox" name="misBolsillosDestinos" value="misBolsillosDestinos"
-                                id="misBolsillosDestinos">
+                            <input type="checkbox" name="misBolsillosDestinos" value="misBolsillosDestinos" id="misBolsillosDestinos">
                             <label for="misBolsillosDestinos">Mis bolsillos</label>
                         </div>
                     </fieldset>
                     <div class="form-group" id="listaBolsillosDestino">
                         <label for="bolsillosDestino">Bolsillo:<span class="red">*</span></label>
-                        <select id="bolsillosDestino">
+                        <select id="bolsillosDestino" th:field="*{bolsilloDestinoId}">
                             <option value="">Seleccione una opción</option>
                             <div th:each="bolsillo : ${bolsillos}">
                                 <option th:value="${bolsillo.id}" th:text="${bolsillo.nombre}"></option>
@@ -152,24 +134,19 @@
                     </div>
                     <div class="form-group" id="inputCuentaDestino">
                         <label for="cuentaDestino">Numero de cuenta<span class="red">*</span></label>
-                        <input type="text" id="cuentaDestino" name="cuenta" placeholder="Cuenta">
+                        <input type="text" id="cuentaDestino" name="cuentaTerceros" placeholder="Cuenta" th:field="*{cuentaTerceros}">
                     </div>
-                    <!--div class="form-group">
-                    <label for="cuentaDestino">Numero de cuenta<span class="red">*</span></label>
-                    <input type="text" id="cuentaDestino" name="cuenta" placeholder="cuenta">
-                </div-->
                     <div class="form-group">
                         <label for="montoTransferencia">Ingrese el monto<span class="red">*</span></label>
-                        <input type="text" id="montoTransferencia" name="monto" placeholder="Monto">
+                        <input type="text" id="montoTransferencia" name="monto" placeholder="Monto" th:field="*{monto}">
                     </div>
                     <div class="form-group">
                         <label for="descripcionTransferencia">Ingresa una descripción(opcional)</label>
-                        <input type="text" id="descripcionTransferencia" name="descripcion" placeholder="Descripcion">
+                        <input type="text" id="descripcionTransferencia" name="descripcion" placeholder="Descripcion" th:field="*{descripcion}">
                     </div>
                     <div class="form-group-buttons">
                         <button type="submit">Aceptar</button>
-                        <button id="cancelarTransferencia" type="button"
-                            class="cancelar-bolsillo-modal">Cancelar</button>
+                        <button id="cancelarTransferencia" type="button" class="cancelar-bolsillo-modal">Cancelar</button>
                     </div>
                 </form>
             </div>
