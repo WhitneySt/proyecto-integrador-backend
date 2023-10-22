@@ -145,9 +145,10 @@ public class EstadisticaController {
             Long promedioDineroCuentas = cuentaServices.getPromedioDineroCuentas();
             Integer cantidadCuentasConMetas = cuentaServices.getCantidadCuentasConMetas();
             Integer cantidadCuentasCumplenMetaAhorro = cuentaServices.getCantidadCuentasCumplenMetaAhorro();
+
             Integer cantidadTransacciones = transaccionServices.getCantidadTransacciones();
             BigDecimal totalDineroTransacciones = transaccionServices.getTotalDineroTransacciones();
-            System.out.println("totalDineroTransacciones = " + totalDineroTransacciones);
+            Integer cantidadDepositos = transaccionServices.getCantidadDepositos();
 
 
 
@@ -179,6 +180,7 @@ public class EstadisticaController {
 
             model.addAttribute("cantidadTransacciones",cantidadTransacciones );
             model.addAttribute("totalDineroTransacciones",totalDineroTransacciones );
+            model.addAttribute("cantidadDepositos",cantidadDepositos );
 
 
         }

@@ -23,6 +23,10 @@ public interface TransaccionJPARepository extends CrudRepository<TransaccionJPAE
     @Query(value = "SELECT SUM(t.monto) FROM transaccion t", nativeQuery = true)
     BigDecimal obtenerSumaDeMontosTransacciones();
 
+    // get cantidad_depositos
+    @Query(value = "SELECT COUNT(*) FROM transaccion WHERE id_tipo_transaccion = 1", nativeQuery = true)
+    public Integer getCantidadDepositos();
+
 
 
 }

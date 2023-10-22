@@ -46,4 +46,9 @@ public class TransaccionServices {
         return transaccionRepository.getTotalDineroTransacciones();
     }
 
+    // get cantidad_depositos
+    public Integer getCantidadDepositos() {
+        return transaccionRepository.getCantidadDepositos();
+    }
+
 }

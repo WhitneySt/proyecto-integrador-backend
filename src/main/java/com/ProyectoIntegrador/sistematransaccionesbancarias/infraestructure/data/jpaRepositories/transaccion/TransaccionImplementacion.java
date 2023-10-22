@@ -69,5 +69,11 @@ public class TransaccionImplementacion implements TransaccionRepository {
         return transaccionJPARepository.obtenerSumaDeMontosTransacciones();
     }
 
+    // get cantidad_depositos
+    @Override
+    public Integer getCantidadDepositos() {
+        return transaccionJPARepository.getCantidadDepositos();
+    }
+
 
 }

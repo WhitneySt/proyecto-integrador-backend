@@ -18,4 +18,6 @@ public interface TransaccionRepository {
 
     public BigDecimal getTotalDineroTransacciones();
 
+    // get cantidad_depositos
+    public Integer getCantidadDepositos();
 }
