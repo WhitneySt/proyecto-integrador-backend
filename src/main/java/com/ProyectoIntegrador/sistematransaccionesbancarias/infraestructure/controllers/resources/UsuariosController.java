@@ -85,8 +85,6 @@ public class UsuariosController {
         System.out.println("Lista de images");
         getImagesCloudinary();
 
-
-
         return "users/users";
     }
 
@@ -248,6 +246,7 @@ public class UsuariosController {
 
             // Se guarda la imagen en Cloudinary
 
+            //? PARECE QUE LA FUNCIONALIDAD DE ELIMINAR LA IMAGEN ANTERIOR NO FUNCIONA CORRECTAMENTE, POR LO QUE SE DEJA COMENTADA POR AHORA HASTA QUE SE SOLUCIONE
             deleteImageCloudinary(usuario.getUrlImage()); // se elimina la imagen anterior de cloudinary para no tener imagenes repetidas
             updateProfile=updateCloudinary(imagen,usuario); //guarda la imagen en cloudinary y si se guarda correctamente retorna true y  si no reotrna flase
 
