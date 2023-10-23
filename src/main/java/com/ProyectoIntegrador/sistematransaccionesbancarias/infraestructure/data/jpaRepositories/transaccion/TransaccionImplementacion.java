@@ -104,4 +104,5 @@ public class TransaccionImplementacion implements TransaccionRepository {
     public BigDecimal getBalanceNetoByIdUsuario(Long usuarioId) {
         return transaccionJPARepository.getBalanceNetoByIdUsuario(usuarioId);
     }
+
 }

@@ -29,4 +29,8 @@ public class TipoTransaccionServices {
         return tipoTransaccionRepository.deleteTipoTransaccionById(id);
     }
 
+    public TipoTransaccion getTipoTransaccionByName(String nombre) {
+        return tipoTransaccionRepository.getTipoTransaccionByName(nombre);
+    }
+
 }

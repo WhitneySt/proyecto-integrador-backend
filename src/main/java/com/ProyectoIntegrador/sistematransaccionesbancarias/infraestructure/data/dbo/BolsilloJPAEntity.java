@@ -15,17 +15,21 @@ public class BolsilloJPAEntity {
 
     @Column(length = 40, nullable = false)
     private String color;
+
+    @Column(nullable = false)
+    private boolean status;
     @ManyToOne
     @JoinColumn(name = "idCuenta", referencedColumnName = "id", nullable = false)
     private CuentaJPAEntity idCuenta;
 
-    BolsilloJPAEntity(){}
+    public BolsilloJPAEntity(){}
 
-    public BolsilloJPAEntity(Integer id, String nombre, Double saldo, String color, CuentaJPAEntity idCuenta) {
+    public BolsilloJPAEntity(Integer id, String nombre, Double saldo, String color, boolean status, CuentaJPAEntity idCuenta) {
         this.id = id;
         this.nombre = nombre;
         this.saldo = saldo;
         this.color = color;
+        this.status = status;
         this.idCuenta = idCuenta;
     }
 
@@ -59,6 +63,14 @@ public class BolsilloJPAEntity {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
     }
 
     public CuentaJPAEntity getIdCuenta() {

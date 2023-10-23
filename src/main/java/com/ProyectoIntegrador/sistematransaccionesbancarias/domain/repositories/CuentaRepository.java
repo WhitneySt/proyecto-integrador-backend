@@ -1,7 +1,9 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Bolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CuentaRepository {
@@ -20,6 +22,10 @@ public interface CuentaRepository {
 
     // obtener la cantidad de cuentas que cumplen con la meta de ahorro
     public Integer getCantidadCuentasCumplenMetaAhorro();
+
+    public List<Cuenta> getAllCuentas();
+
+    public Cuenta getCuentaById(Long id);
 
 
 

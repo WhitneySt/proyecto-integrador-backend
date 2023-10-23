@@ -21,9 +21,8 @@ public class BolsilloServices {
     }
 
 
-    public boolean saveOrUpdateBolsillo(Bolsillo bolsillo) {
-        bolsilloRepository.saveOrUpdateBolsillo(bolsillo);
-        return true;
+    public Bolsillo saveOrUpdateBolsillo(Bolsillo bolsillo) {
+        return bolsilloRepository.saveOrUpdateBolsillo(bolsillo);
     }
 
     public List<Bolsillo> getAllBolsillos() {
@@ -37,5 +36,7 @@ public class BolsilloServices {
     public boolean deleteBolsilloById(Integer id){
         return bolsilloRepository.deleteBolsilloById(id);
     }
+
+    public Bolsillo getBolsilloById(Integer id) { return bolsilloRepository.getBolsilloById(id); }
 
 }

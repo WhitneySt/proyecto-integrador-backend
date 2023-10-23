@@ -5,6 +5,8 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.CuentaJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 public class CuentaImplementacion implements CuentaRepository {
@@ -22,7 +24,7 @@ public class CuentaImplementacion implements CuentaRepository {
     public boolean saveOrUpdateCuenta(Cuenta cuenta) {
         CuentaJPAEntity cuentaJPAEntity = mapperCuenta.CuentaDomainToCuentaJPA(cuenta);
         cuentaJPARepository.save(cuentaJPAEntity);
-        return cuentaJPARepository.findById(cuenta.getId()).isPresent();
+        return cuentaJPARepository.findById(cuentaJPAEntity.getId()).isPresent();
     }
 
     @Override
@@ -66,5 +68,19 @@ public class CuentaImplementacion implements CuentaRepository {
     public Integer getCantidadCuentasCumplenMetaAhorro() {
         Integer cantidadCuentasCumplenMetaAhorro = cuentaJPARepository.getCantidadCuentasCumplenMetaAhorro();
         return cantidadCuentasCumplenMetaAhorro;
+    }
+
+    @Override
+    public List<Cuenta> getAllCuentas() {
+        List<Cuenta> cuentaList = new ArrayList<>();
+        cuentaJPARepository.findAll().forEach(cuenta -> cuentaList.add(mapperCuenta.CuentaJPAToCuentaDomain(cuenta)));
+
+        return cuentaList;
+    }
+
+    @Override
+    public Cuenta getCuentaById(Long id) {
+        CuentaJPAEntity cuentaJPAEntity = cuentaJPARepository.getById(id);
+        return mapperCuenta.CuentaJPAToCuentaDomain(cuentaJPAEntity);
     }
 }

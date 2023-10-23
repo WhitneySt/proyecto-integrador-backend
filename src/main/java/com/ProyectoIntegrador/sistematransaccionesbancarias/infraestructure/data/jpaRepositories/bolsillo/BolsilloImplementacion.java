@@ -39,11 +39,11 @@ public class BolsilloImplementacion implements BolsilloRepository {
     }
 
     @Override
-    public boolean saveOrUpdateBolsillo(Bolsillo bolsillo) {
+    public Bolsillo saveOrUpdateBolsillo(Bolsillo bolsillo) {
         BolsilloJPAEntity bolsilloJPAEntity = mapperBolsillo.BolsilloDomainToBolsilloJPA(bolsillo);
         bolsilloJPARepository.save(bolsilloJPAEntity);
 
-        return bolsilloJPARepository.findById(bolsilloJPAEntity.getId()).isPresent();
+        return mapperBolsillo.BolsilloJPAToBolsilloDomain(bolsilloJPAEntity);
     }
 
     @Override

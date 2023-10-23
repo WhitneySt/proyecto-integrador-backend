@@ -19,9 +19,19 @@ public class TransaccionDto {
 
     private Usuario usuarioId;
 
+    private String cuentaTerceros;
+    private boolean miCuentaDestino;
+    private Integer bolsilloOrigenId;
+    private Integer bolsilloDestinoId;
+
+    private String productoOrigen;
+    private String numeroProductoOrigen;
+    private String productoDestino;
+    private String numeroProductoDestino;
+
     public TransaccionDto(){}
 
-    public TransaccionDto(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId) {
+    public TransaccionDto(Integer id, Date fechaTransaccion, Double monto, String descripcion, TipoTransaccion idTipoTransaccion, Cuenta idCuentaOrigen, Cuenta idCuentaDestino, Bolsillo idBolsilloOrigen, Bolsillo idBolsilloDestino, TipoMovimiento idTipoMovimiento, Usuario usuarioId, String cuentaTerceros, boolean miCuentaDestino, Integer bolsilloOrigenId, Integer bolsilloDestinoId, String productoOrigen, String numeroProductoOrigen, String productoDestino, String numeroProductoDestino) {
         this.id = id;
         this.fechaTransaccion = fechaTransaccion;
         this.monto = monto;
@@ -33,6 +43,14 @@ public class TransaccionDto {
         this.idBolsilloDestino = idBolsilloDestino;
         this.idTipoMovimiento = idTipoMovimiento;
         this.usuarioId = usuarioId;
+        this.cuentaTerceros = cuentaTerceros;
+        this.miCuentaDestino = miCuentaDestino;
+        this.bolsilloOrigenId = bolsilloOrigenId;
+        this.bolsilloDestinoId = bolsilloDestinoId;
+        this.productoOrigen = productoOrigen;
+        this.numeroProductoOrigen = numeroProductoOrigen;
+        this.productoDestino = productoDestino;
+        this.numeroProductoDestino = numeroProductoDestino;
     }
 
     public Integer getId() {
@@ -123,6 +141,70 @@ public class TransaccionDto {
         this.usuarioId = usuarioId;
     }
 
+    public String getCuentaTerceros() {
+        return cuentaTerceros;
+    }
+
+    public void setCuentaTerceros(String cuentaTerceros) {
+        this.cuentaTerceros = cuentaTerceros;
+    }
+
+    public boolean isMiCuentaDestino() {
+        return miCuentaDestino;
+    }
+
+    public void setMiCuentaDestino(boolean miCuentaDestino) {
+        this.miCuentaDestino = miCuentaDestino;
+    }
+
+    public Integer getBolsilloOrigenId() {
+        return bolsilloOrigenId;
+    }
+
+    public void setBolsilloOrigenId(Integer bolsilloOrigenId) {
+        this.bolsilloOrigenId = bolsilloOrigenId;
+    }
+
+    public Integer getBolsilloDestinoId() {
+        return bolsilloDestinoId;
+    }
+
+    public void setBolsilloDestinoId(Integer bolsilloDestinoId) {
+        this.bolsilloDestinoId = bolsilloDestinoId;
+    }
+
+    public String getProductoOrigen() {
+        return productoOrigen;
+    }
+
+    public void setProductoOrigen(String productoOrigen) {
+        this.productoOrigen = productoOrigen;
+    }
+
+    public String getNumeroProductoOrigen() {
+        return numeroProductoOrigen;
+    }
+
+    public void setNumeroProductoOrigen(String numeroProductoOrigen) {
+        this.numeroProductoOrigen = numeroProductoOrigen;
+    }
+
+    public String getProductoDestino() {
+        return productoDestino;
+    }
+
+    public void setProductoDestino(String productoDestino) {
+        this.productoDestino = productoDestino;
+    }
+
+    public String getNumeroProductoDestino() {
+        return numeroProductoDestino;
+    }
+
+    public void setNumeroProductoDestino(String numeroProductoDestino) {
+        this.numeroProductoDestino = numeroProductoDestino;
+    }
+
     @Override
     public String toString() {
         return "TransaccionDto{" +
@@ -137,6 +219,14 @@ public class TransaccionDto {
                 ", idBolsilloDestino=" + idBolsilloDestino +
                 ", idTipoMovimiento=" + idTipoMovimiento +
                 ", usuarioId=" + usuarioId +
+                ", cuentaTerceros='" + cuentaTerceros + '\'' +
+                ", miCuentaDestino=" + miCuentaDestino +
+                ", bolsilloOrigenId=" + bolsilloOrigenId +
+                ", bolsilloDestinoId=" + bolsilloDestinoId +
+                ", productoOrigen='" + productoOrigen + '\'' +
+                ", numeroProductoOrigen='" + numeroProductoOrigen + '\'' +
+                ", productoDestino='" + productoDestino + '\'' +
+                ", numeroProductoDestino='" + numeroProductoDestino + '\'' +
                 '}';
     }
 }
