@@ -82,6 +82,11 @@ public class UsuariosController {
         List<Usuario> listaUsuarios = usuarioServices.getAllUsuarios();
         model.addAttribute("usuarios",listaUsuarios);
 
+        System.out.println("Lista de images");
+        getImagesCloudinary();
+
+
+
         return "users/users";
     }
 
@@ -242,7 +247,8 @@ public class UsuariosController {
         if(!imagen.isEmpty()){
 
             // Se guarda la imagen en Cloudinary
-           //  updateProfile=saveImg(imagen); //guarda la imagen en la carpeta y si se guarda correctamente retorna true
+
+            deleteImageCloudinary(usuario.getUrlImage()); // se elimina la imagen anterior de cloudinary para no tener imagenes repetidas
             updateProfile=updateCloudinary(imagen,usuario); //guarda la imagen en cloudinary y si se guarda correctamente retorna true y  si no reotrna flase
 
         }
@@ -314,6 +320,66 @@ public class UsuariosController {
         }
 
     }
+
+
+    // Este metodo obtiene la lista de todas las imágenes subidas a tu cuenta de Cloudinary
+public void getImagesCloudinary(){
+
+        // datos de la cuenta de cloudinary
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dkzspm2fj",
+                "api_key", "229982374928582",
+                "api_secret", "ZM54qomggmRWESmK2QQgui7_WPo"));
+
+        try {
+            Map<?, ?> result = cloudinary.api().resources(ObjectUtils.emptyMap()); // Obtiene la lista de imágenes
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println("No se pudo obtener la lista de imágenes");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    // Este método se encarga de eliminar una imagen de Cloudinary
+    public void deleteImageCloudinary(String public_id){
+
+        // datos de la cuenta de cloudinary
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dkzspm2fj",
+                "api_key", "229982374928582",
+                "api_secret", "ZM54qomggmRWESmK2QQgui7_WPo"));
+
+        try {
+            Map<?, ?> result = cloudinary.uploader().destroy(public_id, ObjectUtils.emptyMap()); // Elimina la imagen
+            System.out.println(result); // Imprime el resultado de la eliminación
+            System.out.println("Imagen eliminada"+public_id);
+        } catch (Exception e) {
+            System.out.println("No se pudo eliminar la imagen");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    // Este método se encarga de eliminar todas las fotos
+    public void deleteAllImagesCloudinary(){
+
+        // datos de la cuenta de cloudinary
+        Cloudinary cloudinary = new Cloudinary(ObjectUtils.asMap(
+                "cloud_name", "dkzspm2fj",
+                "api_key", "229982374928582",
+                "api_secret", "ZM54qomggmRWESmK2QQgui7_WPo"));
+
+        try {
+            Map<?, ?> result = cloudinary.api().deleteAllResources(ObjectUtils.emptyMap()); // Elimina todas las imágenes
+            System.out.println(result);
+        } catch (Exception e) {
+            System.out.println("No se pudo eliminar la imagen");
+            System.out.println(e.getMessage());
+        }
+
+    }
+
 
 
 
