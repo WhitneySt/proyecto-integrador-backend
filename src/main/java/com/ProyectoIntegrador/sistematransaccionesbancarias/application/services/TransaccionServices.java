@@ -23,11 +23,11 @@ public class TransaccionServices {
     public boolean saveOrUpdateTransaccion(CuentaServices cuentaServices, TipoTransaccionServices tipoTransaccionServices, BolsilloServices bolsilloServices, TipoMovimientoServices tipoMovimientoServices, MapperTransaccion mapperTransaccion, MapperTipoMovimiento mapperTipoMovimiento, TransaccionDto transaccionDto, Usuario usuario, String tipoTransaccion) {
         try {
             Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuario.getId());
-            Double saldoDisponible = cuenta.getSaldoActual();
+            Double saldoDisponible = cuenta.getSaldo(); // Hace referencia al saldo ottal de la cuenta, es decir el total de dinero que tiene el usuario en su cuenta
             Double monto = transaccionDto.getMonto();
 
             if(saldoDisponible < monto) {
-                System.out.printf("rechazar la transaccion!");
+                System.out.printf("rechazar la transaccion por falta de fondos!");
                 return false;
             }
 
@@ -154,11 +154,11 @@ public class TransaccionServices {
                 boolean esRetiro = _tipoTransaccion.getNombre().equalsIgnoreCase("Retiro");
 
                 if(esDeposito) {
-                    cuenta.setSaldoActual(saldoDisponible + monto);
+                    cuenta.setSaldo(saldoDisponible + monto);
                 }
 
                 if (esRetiro){
-                    cuenta.setSaldoActual(saldoDisponible - monto);
+                    cuenta.setSaldo(saldoDisponible - monto);
                 }
 
                 transaccionDto.setIdCuentaDestino(cuenta);

@@ -30,7 +30,7 @@ public interface CuentaJPARepository extends CrudRepository<CuentaJPAEntity,Long
     Integer getCantidadCuentasActivas();
 
     // Obtener la cantidad de dinero en todas las cuentas con query method
-    @Query(value = "SELECT sum(saldoActual) From cuentas", nativeQuery = true)
+    @Query(value = "SELECT sum(saldo) From cuentas", nativeQuery = true)
     Long getTotalDineroCuentas();
 
     // Obtener el promedio de dinero en las cuentas en su saldo actual
