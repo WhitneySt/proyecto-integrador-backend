@@ -1,6 +1,7 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities;
 
-import java.sql.Date;
+
+import java.util.Date;
 
 public class Transaccion {
     private Integer id;

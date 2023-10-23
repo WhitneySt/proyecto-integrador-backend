@@ -1,9 +1,6 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources;
 
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.BolsilloServices;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.TipoTransaccionServices;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.TransaccionServices;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.*;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.*;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.BolsilloDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.CuentaDto;
@@ -12,15 +9,14 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaJPARepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoMovimiento.TipoMovimientoImplementacion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoMovimiento.TipoMovimientoJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoTransaccion.TipoTransaccionImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoTransaccion.TipoTransaccionJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTipoTransaccion;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.*;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -45,32 +41,38 @@ public class BolsilloController {
     MapperBolsillo mapperBolsillo;
     MapperTransaccion mapperTransaccion;
     MapperTipoTransaccion mapperTipoTransaccion;
+    MapperTipoMovimiento mapperTipoMovimiento;
 
     CuentaServices cuentaServices;
     TransaccionServices transaccionServices;
     TipoTransaccionServices tipoTransaccionServices;
     BolsilloServices bolsilloServices;
+    TipoMovimientoServices tipoMovimientoServices;
 
     CuentaImplementacion cuentaRepository;
     BolsilloImplementacion bolsilloRepository;
     TransaccionImplementacion transaccionRepository;
     TipoTransaccionImplementacion tipoTransaccionRepository;
+    TipoMovimientoImplementacion tipoMovimientoRepository;
 
     @Autowired
-    public BolsilloController(BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo, CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, TransaccionJPARepository transaccionJPARepository, MapperTransaccion mapperTransaccion, TipoTransaccionJPARepository tipoTransaccionJPARepository, MapperTipoTransaccion mapperTipoTransaccion) {
+    public BolsilloController(BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo, CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, TransaccionJPARepository transaccionJPARepository, MapperTransaccion mapperTransaccion, TipoTransaccionJPARepository tipoTransaccionJPARepository, MapperTipoTransaccion mapperTipoTransaccion, TipoMovimientoJPARepository tipoMovimientoJPARepository, MapperTipoMovimiento mapperTipoMovimiento) {
         this.mapperBolsillo = mapperBolsillo;
         this.mapperTransaccion = mapperTransaccion;
         this.mapperTipoTransaccion = mapperTipoTransaccion;
+        this.mapperTipoMovimiento = mapperTipoMovimiento;
 
         this.cuentaRepository = new CuentaImplementacion(cuentaJPARepository, mapperCuenta);
         this.bolsilloRepository = new BolsilloImplementacion(bolsilloJPARepository, mapperBolsillo);
         this.transaccionRepository = new TransaccionImplementacion(transaccionJPARepository, mapperTransaccion);
         this.tipoTransaccionRepository = new TipoTransaccionImplementacion(tipoTransaccionJPARepository, mapperTipoTransaccion);
+        this.tipoMovimientoRepository = new TipoMovimientoImplementacion(tipoMovimientoJPARepository, mapperTipoMovimiento);
 
         this.bolsilloServices = new BolsilloServices(this.bolsilloRepository);
         this.cuentaServices = new CuentaServices(this.cuentaRepository);
         this.transaccionServices = new TransaccionServices(this.transaccionRepository);
         this.tipoTransaccionServices = new TipoTransaccionServices(this.tipoTransaccionRepository);
+        this.tipoMovimientoServices = new TipoMovimientoServices(this.tipoMovimientoRepository);
     }
 
     @GetMapping("/bolsillos")
@@ -176,6 +178,8 @@ public class BolsilloController {
             TransaccionDto transaccionDto = new TransaccionDto();
             TipoTransaccion _tipoTransaccion = tipoTransaccionServices.getTipoTransaccionByName("Transferencia");
             transaccionDto.setIdTipoTransaccion(_tipoTransaccion);
+            TipoMovimiento tipoMovimiento = tipoMovimientoServices.getTipoMovimientoByCodes("CU","BO");
+            transaccionDto.setIdTipoMovimiento(tipoMovimiento);
             transaccionDto.setFechaTransaccion(new Date());
             transaccionDto.setUsuarioId(usuarioLogeado);
             transaccionDto.setIdBolsilloDestino(bolsillo);

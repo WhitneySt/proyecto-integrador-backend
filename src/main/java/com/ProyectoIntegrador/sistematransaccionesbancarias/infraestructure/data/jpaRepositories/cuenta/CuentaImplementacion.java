@@ -77,4 +77,10 @@ public class CuentaImplementacion implements CuentaRepository {
 
         return cuentaList;
     }
+
+    @Override
+    public Cuenta getCuentaById(Long id) {
+        CuentaJPAEntity cuentaJPAEntity = cuentaJPARepository.getById(id);
+        return mapperCuenta.CuentaJPAToCuentaDomain(cuentaJPAEntity);
+    }
 }

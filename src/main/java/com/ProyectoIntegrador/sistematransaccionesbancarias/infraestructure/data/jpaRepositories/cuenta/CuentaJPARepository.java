@@ -16,6 +16,9 @@ public interface CuentaJPARepository extends CrudRepository<CuentaJPAEntity,Long
     @Query(value = "SELECT * FROM cuentas WHERE usuario_id = ?1", nativeQuery = true)
     Optional<CuentaJPAEntity> findByUsuarioId(Integer usuarioId);
 
+    @Query(value = "SELECT * FROM cuentas WHERE id = ?1", nativeQuery = true)
+    CuentaJPAEntity getById(Long id);
+
     // Obtener la cantidad de cuentas
     @Query(value = "SELECT COUNT(*) FROM cuentas", nativeQuery = true)
     Integer getCantidadCuentas();

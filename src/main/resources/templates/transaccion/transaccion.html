@@ -33,32 +33,37 @@
         </div>
         <table class="tabla-transacciones">
             <thead>
+            <tr>
                 <th>Referencia</th>
                 <th>Monto</th>
                 <th>Fecha</th>
                 <th>Tipo</th>
-                <th>...</th>
+                <th></th>
+            </tr>
+
             </thead>
             <tbody>
 
                 <tr th:each="transaccion : ${transacciones}">
                     <td th:text="${transaccion.id}"></td>
-                    <td th:text="${transaccion.monto}"></td>
+                    <td class="monto-transaccion" th:text="${transaccion.monto}"></td>
                     <td th:text="${transaccion.fechaTransaccion}"></td>
-                    <td th:text="${transaccion.idTipoTransaccion.nombre}"></td>
-                    <td id="btnDetalles">
-                        <svg  xmlns="http://www.w3.org/2000/svg"
-                            class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24"
-                            stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
-                            stroke-linejoin="round">
-                            <path  id="btnDetalles" stroke="none" d="M0 0h24v24H0z"
-                                fill="none"></path>
-                            <path  id="btnDetalles" d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0">
-                            </path>
-                            <path  id="btnDetalles"
-                                d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6">
-                            </path>
-                        </svg>
+                    <td class="tipo-transferencia" th:text="${transaccion.idTipoTransaccion.nombre}"></td>
+                    <td class="detalles" id="btnDetalles">
+                        <a th:href="@{'/transaccion/' + ${transaccion.id}}">
+                            <svg  xmlns="http://www.w3.org/2000/svg"
+                                  class="icon icon-tabler icon-tabler-eye" width="24" height="24" viewBox="0 0 24 24"
+                                  stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                                  stroke-linejoin="round">
+                                <path  id="btnDetalles" stroke="none" d="M0 0h24v24H0z"
+                                       fill="none"></path>
+                                <path  id="btnDetalles" d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0">
+                                </path>
+                                <path  id="btnDetalles"
+                                       d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6">
+                                </path>
+                            </svg>
+                        </a>
                     </td>
                 </tr>
 
@@ -121,6 +126,10 @@
                         <div class="button-checkbox">
                             <input type="checkbox" name="misBolsillosDestinos" value="misBolsillosDestinos" id="misBolsillosDestinos">
                             <label for="misBolsillosDestinos">Mis bolsillos</label>
+                        </div>
+                        <div class="button-checkbox" id="miCuentaDestinoDiv">
+                            <input type="checkbox" name="miCuentaDestino" value="miCuentaDestino" id="miCuentaDestino" th:field="*{miCuentaDestino}">
+                            <label for="miCuentaDestino">Mi cuenta</label>
                         </div>
                     </fieldset>
                     <div class="form-group" id="listaBolsillosDestino">

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./public/fontawesome-free-5.x.x-web/css/all.min.css">
+    <!-- CSS -->
+    <link rel="stylesheet" type="text/css" th:href="@{../css/header.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/nav.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/formStyle.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{../css/users/profile.css}">
+
+    <title>Detalle movimiento</title>
+</head>
+
+<body>
+
+<nav th:replace="~{components/nav :: Nav}"></nav>
+
+<main th:object="${transaccion}" >
+    <h1>Detalle movimiento</h1>
+    <ul >
+        <li>
+            <label>Número de referencia</label>
+            <div class="information">
+                <span th:text="*{id}"></span>
+            </div>
+
+        </li>
+        <li>
+            <label>Tipo de movimiento</label>
+            <div class="information">
+                <span th:text="*{idTipoTransaccion.nombre}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Producto de origen</label>
+            <div class="information">
+                <span th:text="*{productoOrigen}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Numero del producto de origen</label>
+            <div class="information">
+                <span th:text="*{numeroProductoOrigen}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Producto destino</label>
+            <div class="information">
+                <span th:text="*{productoDestino}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Numero del producto destino</label>
+            <div class="information">
+                <span th:text="*{numeroProductoDestino}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Monto del movimiento</label>
+            <div class="information">
+                <span th:text="*{monto}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Fecha del movimiento</label>
+            <div class="information">
+                <span th:text="*{fechaTransaccion}"></span>
+            </div>
+        </li>
+        <li>
+            <label>Descripcion del movimiento</label>
+            <div class="information">
+                <span th:text="*{descripcion}"></span>
+
+            </div>
+        </li>
+    </ul>
+    <a th:href="@{/transaccion}">Atras</a>
+</main>
+
+
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script  th:inline="javaScript" >
+    window.onload = function () {
+
+        let mensajeRecibido = [[${mensaje}]]; <!--Obtenemos el mensaje que viene desde el controlador-->
+        console.log(mensajeRecibido);
+        let mensajeMostrar = "";
+
+        if (mensajeRecibido != "") {
+
+            if (mensajeRecibido == "updateOk") {
+                mensajeMostrar = "El perfil se ha actualizado correctamente";
+                Swal.fire({
+                icon: 'success',
+                title: mensajeMostrar,
+                showConfirmButton: false,
+                timer: 3000
+                })
+                validateImg();
+            } else if (mensajeRecibido == "updateError") {
+                mensajeMostrar = "No se ha podido actualizar el perfil";
+                Swal.fire({
+                icon: 'error',
+                title: mensajeMostrar,
+                showConfirmButton: false,
+                timer: 3000
+                })
+            }
+            else if (mensajeRecibido== "updateErrorImg") {
+                mensajeMostrar = "Error al guardar la imagen del perfil";
+                Swal.fire({
+                icon: 'error',
+                title: mensajeMostrar,
+                showConfirmButton: false,
+                timer: 3000
+                })
+            }
+        }
+    }
+
+    // validar imagen de perfil, es
+    function validateImg() {
+        // verificar si la imagen se cargó correctamente, es decir que se encuentra en el servidor y se puede mostrar
+        var img = document.getElementById('img-profile');
+        if (!img.complete || img.naturalWidth === 0) {
+            mostrarErrorImagen();
+        }
+
+    }
+
+    // mostrar alerta de error de imagen de perfil
+    function mostrarErrorImagen() {
+        Swal.fire({
+            icon: 'error',
+            title: 'No se puede ver  la imagen de perfil actualizada',
+            text: 'Hay  un error en el servidor de  imágenes, por favor intente más tarde',
+            confirmButtonText: 'Aceptar',
+        })
+      .then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = "/logout";
+                }
+
+            });
+    }
+
+
+
+
+</script>
+
+</body>
+
+</html>

@@ -53,5 +53,8 @@ public class CuentaServices {
         return cuentaRepository.getAllCuentas();
     }
 
+    public Cuenta getCuentaById(Long id){
+        return cuentaRepository.getCuentaById(id);
+    }
 
 }

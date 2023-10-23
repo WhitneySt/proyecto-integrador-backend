@@ -46,12 +46,34 @@ public class TransaccionServices {
                 Integer bolsilloDestinoId = transaccionDto.getBolsilloDestinoId();
                 TipoMovimiento tipoMovimiento = null;
 
-                // Transferir de mi cuenta a otra cuenta
-                if(!cuentaTerceros.isEmpty() && bolsilloDestinoId == null && bolsilloOrigenId == null) {
+                if(!cuentaTerceros.isEmpty() && bolsilloDestinoId == null && bolsilloOrigenId == null) { // Transferir de mi cuenta a otra cuenta
                     transaccionDto.setIdCuentaOrigen(cuenta);
                     transaccionDto.setCuentaTerceros(cuentaTerceros);
                     tipoMovimiento = tipoMovimientoServices.getTipoMovimientoByCodes("CU","CU");
                     transaccionDto.setIdTipoMovimiento(tipoMovimiento);
+
+                    // Verificar si el numero de cuenta de terceros pertenece a una cuenta del mismo banco para agregarle el saldo transferido desde mi cuenta
+                    Cuenta cuentaEncontrada = cuentaServices.getCuentaById(Long.parseLong(cuentaTerceros));
+                    if(cuentaEncontrada != null) {
+                        Double nuevoSaldo = cuentaEncontrada.getSaldo() + monto;
+                        cuentaEncontrada.setSaldoActual(nuevoSaldo);
+                        cuentaEncontrada.setFechaActualizacion(new Date());
+                        transaccionDto.setIdCuentaDestino(cuentaEncontrada);
+                        cuentaServices.saveOrUpdateCuenta(cuentaEncontrada);
+
+                        Transaccion transaccionOtraCuenta = new Transaccion();
+                        transaccionOtraCuenta.setIdTipoTransaccion(_tipoTransaccion);
+                        transaccionOtraCuenta.setIdTipoMovimiento(tipoMovimiento);
+                        transaccionOtraCuenta.setFechaTransaccion(new Date());
+                        transaccionOtraCuenta.setUsuarioId(cuentaEncontrada.getUsuarioId());
+                        transaccionOtraCuenta.setIdCuentaOrigen(cuenta);
+                        transaccionOtraCuenta.setIdCuentaDestino(cuentaEncontrada);
+                        transaccionOtraCuenta.setMonto(monto);
+                        transaccionOtraCuenta.setDescripcion("DEPOSITO DESDE: " + usuario.getNombre());
+
+                        transaccionRepository.saveOrUpdateTransaccion(transaccionOtraCuenta);
+
+                    }
 
                     // restar de mi cuenta
                     cuenta.setSaldoActual(saldoDisponible - monto);
@@ -91,7 +113,7 @@ public class TransaccionServices {
 
                     bolsilloServices.saveOrUpdateBolsillo(bolsilloOrigen);
                     bolsilloServices.saveOrUpdateBolsillo(bolsilloDestino);
-                } else if(bolsilloOrigenId != null && cuentaTerceros.isEmpty() && bolsilloDestinoId == null) { // Transferir de un bolsillo a mi cuenta
+                } else if(bolsilloOrigenId != null && cuentaTerceros.isEmpty() && bolsilloDestinoId == null && transaccionDto.isMiCuentaDestino()) { // Transferir de un bolsillo a mi cuenta
                     bolsilloOrigen = bolsilloServices.getBolsilloById(bolsilloOrigenId);
                     transaccionDto.setIdBolsilloOrigen(bolsilloOrigen);
                     transaccionDto.setIdCuentaDestino(cuenta);
@@ -162,6 +184,10 @@ public class TransaccionServices {
 
     public boolean deleteTransaccionById(Integer id){
         return transaccionRepository.deleteTransaccionById(id);
+    }
+
+    public Transaccion getTransaccionById(Integer id) {
+        return transaccionRepository.getTransaccionById(id);
     }
 
 }

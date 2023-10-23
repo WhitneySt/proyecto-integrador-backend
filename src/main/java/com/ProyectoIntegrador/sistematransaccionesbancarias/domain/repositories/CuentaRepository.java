@@ -1,5 +1,6 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories;
 
+import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Bolsillo;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.Cuenta;
 
 import java.util.List;
@@ -23,6 +24,8 @@ public interface CuentaRepository {
     public Integer getCantidadCuentasCumplenMetaAhorro();
 
     public List<Cuenta> getAllCuentas();
+
+    public Cuenta getCuentaById(Long id);
 
 
 
