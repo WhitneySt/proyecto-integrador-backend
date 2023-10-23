@@ -9,4 +9,5 @@ public interface TipoTransaccionRepository {
     public TipoTransaccion getTipoTransaccionById(Integer id);
     public boolean  saveOrUpdateTipoTransaccion(TipoTransaccion tipoTransaccion);
     public boolean deleteTipoTransaccionById(Integer id);
+    public TipoTransaccion getTipoTransaccionByName(String nombre);
 }

@@ -53,8 +53,4 @@ public class TransaccionImplementacion implements TransaccionRepository {
         return transaccionJPARepository.findById(id).isEmpty();
     }
 
-    @Override
-    public Double getTotalSaldoTransacciones(Long usuarioId) {
-        return transaccionJPARepository.getTotalSaldoTransacciones(usuarioId);
-    }
 }

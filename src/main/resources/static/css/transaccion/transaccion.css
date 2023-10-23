@@ -1,7 +1,7 @@
 .main-transacciones {
     position: absolute;
     top: 100px;
-    left: 100px;
+    left: 150px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -72,20 +72,32 @@
 
 }
 
-.tabla-transacciones thead,
-.tabla-transacciones tbody {
+
+.tabla-transacciones tbody, .tabla-transacciones thead {
     display: flex;
     flex-direction: column;
     gap: 10px;
     width: 100%;
 }
 
-.tabla-transacciones th,
+
 .tabla-transacciones tr {
     display: flex;
     justify-content: space-between;
     align-items: center;
     text-align: center;
+    flex-wrap: wrap;
+    gap:10px;
+    width: 100%;
+}
+.tabla-transacciones td, .tabla-transacciones th{
+    width: 15%;
+
+}
+
+.detalles a{
+    color: #D8B503;
+    cursor: pointer;
 }
 
 fieldset {

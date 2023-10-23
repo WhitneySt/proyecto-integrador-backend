@@ -9,7 +9,7 @@ public interface BolsilloRepository {
     public List<Bolsillo> getAllBolsillos();
     public List<Bolsillo> getAllBolsillosByCuenta(Long cuentaId);
     public Bolsillo getBolsilloById(Integer id);
-    public boolean  saveOrUpdateBolsillo(Bolsillo bolsillo);
+    public Bolsillo  saveOrUpdateBolsillo(Bolsillo bolsillo);
     public boolean deleteBolsilloById(Integer id);
 
     public Double getTotalSaldoBolsillos(Long id);

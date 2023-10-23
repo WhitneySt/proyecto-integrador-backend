@@ -42,4 +42,10 @@ public class TipoMovimientoImplementacion implements TipoMovimientoRepository {
         tipoMovimientoJPARepository.deleteById(id);
         return tipoMovimientoJPARepository.findById(id).isEmpty();
     }
+
+    @Override
+    public TipoMovimiento findTipoMovimientoByCodes(String codigoOrigen, String codigoDestino) {
+        TipoMovimientoJPAEntity tipoMovimientoJPAEntity = tipoMovimientoJPARepository.findTipoMovimientoByCodes(codigoOrigen, codigoDestino);
+        return mapperTipoMovimiento.TipoMovimientoJPAToTipoTransaccionDomain(tipoMovimientoJPAEntity);
+    }
 }

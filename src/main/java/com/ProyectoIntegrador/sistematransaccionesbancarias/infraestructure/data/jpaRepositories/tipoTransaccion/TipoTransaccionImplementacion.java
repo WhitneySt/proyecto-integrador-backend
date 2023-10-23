@@ -43,4 +43,9 @@ public class TipoTransaccionImplementacion implements TipoTransaccionRepository 
         tipoTransaccionJPARepository.deleteById(id);
         return tipoTransaccionJPARepository.findById(id).isEmpty();
     }
+
+    @Override
+    public TipoTransaccion getTipoTransaccionByName(String nombre) {
+        return mapperTipoTransaccion.TipoTransaccionJPAToTipoTransaccionDomain(tipoTransaccionJPARepository.findTipoTransaccionByName(nombre));
+    }
 }

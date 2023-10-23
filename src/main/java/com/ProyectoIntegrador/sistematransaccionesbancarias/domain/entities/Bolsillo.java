@@ -5,15 +5,17 @@ public class Bolsillo {
     private String nombre;
     private Double saldo;
     private String color;
+    private boolean status;
     private Cuenta idCuenta;
 
     public Bolsillo(){}
 
-    public Bolsillo(Integer id, String nombre, Double saldo, String color, Cuenta idCuenta) {
+    public Bolsillo(Integer id, String nombre, Double saldo, String color, boolean status, Cuenta idCuenta) {
         this.id = id;
         this.nombre = nombre;
         this.saldo = saldo;
         this.color = color;
+        this.status = status;
         this.idCuenta = idCuenta;
     }
 
@@ -49,6 +51,14 @@ public class Bolsillo {
         this.color = color;
     }
 
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
     public Cuenta getIdCuenta() {
         return idCuenta;
     }
@@ -64,6 +74,7 @@ public class Bolsillo {
                 ", nombre='" + nombre + '\'' +
                 ", saldo=" + saldo +
                 ", color='" + color + '\'' +
+                ", status=" + status +
                 ", idCuenta=" + idCuenta +
                 '}';
     }

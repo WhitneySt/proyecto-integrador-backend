@@ -1,25 +1,20 @@
 package com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources;
 
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.BolsilloServices;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.CuentaServices;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.TipoTransaccionServices;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.TransaccionServices;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.application.services.*;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.entities.*;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.BolsilloDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.dto.TransaccionDto;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.bolsillo.BolsilloJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.cuenta.CuentaJPARepository;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoMovimiento.TipoMovimientoImplementacion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoMovimiento.TipoMovimientoJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoTransaccion.TipoTransaccionImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.tipoTransaccion.TipoTransaccionJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionImplementacion;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.jpaRepositories.transaccion.TransaccionJPARepository;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.exepciones.CuentaNotFoundException;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperBolsillo;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperCuenta;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTipoTransaccion;
-import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
+import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.*;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
@@ -51,33 +46,39 @@ public class TransaccionController {
     MapperCuenta mapperCuenta;
     MapperBolsillo mapperBolsillo;
     MapperTipoTransaccion mapperTipoTransaccion;
+    MapperTipoMovimiento mapperTipoMovimiento;
 
     TransaccionServices transaccionServices;
     CuentaServices cuentaServices;
     BolsilloServices bolsilloServices;
     TipoTransaccionServices tipoTransaccionServices;
+    TipoMovimientoServices tipoMovimientoServices;
 
     TransaccionImplementacion transaccionRepository;
     CuentaImplementacion cuentaRepository;
     BolsilloImplementacion bolsilloRepository;
     TipoTransaccionImplementacion tipoTransaccionRepository;
+    TipoMovimientoImplementacion tipoMovimientoRepository;
 
     @Autowired
-    public TransaccionController(TransaccionJPARepository transaccionJPARepository, MapperTransaccion mapperTransaccion, CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo, TipoTransaccionJPARepository tipoTransaccionJPARepository, MapperTipoTransaccion mapperTipoTransaccion) {
+    public TransaccionController(TransaccionJPARepository transaccionJPARepository, MapperTransaccion mapperTransaccion, CuentaJPARepository cuentaJPARepository, MapperCuenta mapperCuenta, BolsilloJPARepository bolsilloJPARepository, MapperBolsillo mapperBolsillo, TipoTransaccionJPARepository tipoTransaccionJPARepository, MapperTipoTransaccion mapperTipoTransaccion, TipoMovimientoJPARepository tipoMovimientoJPARepository, MapperTipoMovimiento mapperTipoMovimiento) {
         this.mapperTransaccion = mapperTransaccion;
         this.mapperCuenta = mapperCuenta;
         this.mapperBolsillo = mapperBolsillo;
         this.mapperTipoTransaccion = mapperTipoTransaccion;
+        this.mapperTipoMovimiento = mapperTipoMovimiento;
 
         this.transaccionRepository = new TransaccionImplementacion(transaccionJPARepository, mapperTransaccion);
         this.cuentaRepository = new CuentaImplementacion(cuentaJPARepository, mapperCuenta);
         this.bolsilloRepository = new BolsilloImplementacion(bolsilloJPARepository, mapperBolsillo);
         this.tipoTransaccionRepository = new TipoTransaccionImplementacion(tipoTransaccionJPARepository, mapperTipoTransaccion);
+        this.tipoMovimientoRepository = new TipoMovimientoImplementacion(tipoMovimientoJPARepository, mapperTipoMovimiento);
 
         this.transaccionServices = new TransaccionServices(this.transaccionRepository);
         this.cuentaServices = new CuentaServices(this.cuentaRepository);
         this.bolsilloServices = new BolsilloServices(this.bolsilloRepository);
         this.tipoTransaccionServices = new TipoTransaccionServices(this.tipoTransaccionRepository);
+        this.tipoMovimientoServices = new TipoMovimientoServices(this.tipoMovimientoRepository);
     }
 
     @GetMapping("/transaccion")
@@ -94,6 +95,7 @@ public class TransaccionController {
     public String transaccion(Model model, HttpServletRequest request) {
         List<Bolsillo> listaBolsillos = null;
         List<Transaccion> transacciones = null;
+        List<TipoTransaccion> tipoTransaccion = null;
         TransaccionDto transaccionDto = new TransaccionDto();
 
         InformationUsuarioModel(model,request);
@@ -104,11 +106,14 @@ public class TransaccionController {
             Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioId);
             listaBolsillos = bolsilloServices.getAllBolsillosByCuenta(cuenta.getId());
             transacciones = transaccionServices.getAllTransaccionesByUsuario(usuarioId);
+            tipoTransaccion = tipoTransaccionServices.getAllTipoTransaccion();
+
         } catch (Exception ex) {
             System.out.println(ex);
         } finally {
             model.addAttribute("bolsillos", listaBolsillos);
             model.addAttribute("transacciones", transacciones);
+            model.addAttribute("tipoTransacciones", tipoTransaccion);
             model.addAttribute("depositoDto", transaccionDto);
             model.addAttribute("transferenciaDto", transaccionDto);
             model.addAttribute("retiroDto", transaccionDto);
@@ -116,113 +121,89 @@ public class TransaccionController {
 
         return "transaccion/transaccion";
     }
-
-    @PostMapping("/crearTransaccion/transferencia")
-    @Operation(summary = "Crear una transferencia", description = "Crea una nueva transferencia entre cuentas.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Transferencia creada correctamente",
-                    content = @Content(mediaType = "text/html", examples = {
-                            @ExampleObject(name = "Transferencia", value = "<html><body><h1>Transferencia creada correctamente</h1></body></html>")
-                    })),
-            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-})
-    public String crearTransferencia(TransaccionDto transaccionDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        try {
-            //Usuario usuarioLogeado = getUsuarioLogeado(request);
-            //Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
-
-            //transaccionDto.setIdCuentaOrigen(cuenta.getId());
-            //     Transaccion transaccion = mapperBolsillo.BolsilloDtoToBolsilloDomain(bolsilloDto);
-            //     boolean guardar = bolsilloServices.saveOrUpdateBolsillo(bolsillo);
-
-            //     if(guardar){
-            //         System.out.println("Se guardo el bolsillo");
-            redirectAttributes.addFlashAttribute("mensaje","createOk");
-            //     } else {
-            //         System.out.println("No se guardo el bolsillo");
-            //         redirectAttributes.addFlashAttribute("mensaje","createError");
-            //     }
-        } catch(CuentaNotFoundException e){
-            //     redirectAttributes.addFlashAttribute("mensaje","cuenta-null");
-            //     return "redirect:/";
-        }
-        return "redirect:/transaccion";
-    }
-
-    @PostMapping("/crearTransaccion/deposito")
-    @Operation(summary = "Crear un depósito", description = "Realiza un depósito en la cuenta del usuario logeado.")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Depósito realizado correctamente",
-                    content = @Content(mediaType = "text/html", examples = {
-                            @ExampleObject(name = "Depósito", value = "<html><body><h1>Depósito realizado correctamente</h1></body></html>")
-                    })),
-            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
-            @ApiResponse(responseCode = "404", description = "Tipo de transacción no encontrado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Tipo de transacción no encontrado</h1></body></html>"))),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    })
-    public String crearDeposito(TransaccionDto transaccionDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+    
+    @PostMapping("/crearTransaccion/{tipoTransaccion}")
+    public String crearTransaccion(@PathVariable String tipoTransaccion, TransaccionDto transaccionDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
-            Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
-            List<TipoTransaccion> listaTipoTransaccion = tipoTransaccionServices.getAllTipoTransaccion();
+            boolean guardado = transaccionServices.saveOrUpdateTransaccion(cuentaServices, tipoTransaccionServices, bolsilloServices, tipoMovimientoServices,  mapperTransaccion, mapperTipoMovimiento, transaccionDto, usuarioLogeado, tipoTransaccion);
 
-            transaccionDto.setIdCuentaDestino(cuenta);
-            for (int i = 0; i < listaTipoTransaccion.size(); i++) {
-                TipoTransaccion tipoTransaccion = listaTipoTransaccion.get(i);
-                if(tipoTransaccion.getNombre().equalsIgnoreCase("deposito")){
-                    transaccionDto.setIdTipoTransaccion(tipoTransaccion);
-                    break;
-                }
-            }
-
-            transaccionDto.setFechaTransaccion(new Date());
-            transaccionDto.setUsuarioId(usuarioLogeado);
-            Transaccion transaccion = mapperTransaccion.TransaccionDtoToTransaccionDomain(transaccionDto);
-            boolean guardar = transaccionServices.saveOrUpdateTransaccion(transaccion);
-
-            if(guardar){
-                //         System.out.println("Depósito realizado");
+            if(guardado){
                 redirectAttributes.addFlashAttribute("mensaje","createOk");
             } else {
-                System.out.println("Depósito no realizado");
-                redirectAttributes.addFlashAttribute("mensaje","createError");}
+                redirectAttributes.addFlashAttribute("mensaje","createError");
+            }
         } catch(CuentaNotFoundException e){
             redirectAttributes.addFlashAttribute("mensaje","cuenta-null");
-            return "redirect:/";
         }
         return "redirect:/transaccion";
     }
 
-    @PostMapping("/crearTransaccion/retiro")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Retiro realizado correctamente",
-                    content = @Content(mediaType = "text/html", examples = {
-                            @ExampleObject(name = "Retiro", value = "<html><body><h1>Retiro realizado correctamente</h1></body></html>")
-                    })),
-            @ApiResponse(responseCode = "400", description = "Solicitud incorrecta", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Solicitud incorrecta</h1></body></html>"))),
-            @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    })
-    public String crearRetiro(BolsilloDto bolsilloDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
-        // try {
-        //     Usuario usuarioLogeado = getUsuarioLogeado(request);
-        //     Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioLogeado.getId());
+    @GetMapping("/transaccion/{id}")
+    public String verDetalleTransaccion(@PathVariable Integer id, Model model, HttpServletRequest request){
+        Usuario usuarioLogeado = getUsuarioLogeado(request);
+        Integer usuarioId = usuarioLogeado.getId();
+        Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuarioId);
 
-        //     bolsilloDto.setIdCuenta(cuenta);
-        //     Bolsillo bolsillo = mapperBolsillo.BolsilloDtoToBolsilloDomain(bolsilloDto);
-        //     boolean guardar = bolsilloServices.saveOrUpdateBolsillo(bolsillo);
+        Transaccion detalleTransaccion = transaccionServices.getTransaccionById(id);
+        TransaccionDto transaccionDto = mapperTransaccion.TransaccionDomainToTransaccionDto(detalleTransaccion);
+        String idCuenta = cuenta.getId().toString();
 
-        //     if(guardar){
-        //         System.out.println("Se guardo el bolsillo");
-        redirectAttributes.addFlashAttribute("mensaje","createOk");
-        //     } else {
-        //         System.out.println("No se guardo el bolsillo");
-        //         redirectAttributes.addFlashAttribute("mensaje","createError");
-        //     }
-        // } catch(CuentaNotFoundException e){
-        //     redirectAttributes.addFlashAttribute("mensaje","cuenta-null");
-        //     return "redirect:/";
-        // }
-        return "redirect:/transaccion";
+        String tipoTransaccion = detalleTransaccion.getIdTipoTransaccion().getNombre();
+        String codigoOrigen = "N/A";
+        String codigoDestino = "N/A";
+        if(detalleTransaccion.getIdTipoMovimiento() != null) {
+            codigoOrigen = detalleTransaccion.getIdTipoMovimiento().getCodigoOrigen().equalsIgnoreCase("CU") ? "Cuenta" : "Bolsillo";
+            codigoDestino = detalleTransaccion.getIdTipoMovimiento().getCodigoDestino().equalsIgnoreCase("CU") ? "Cuenta" : "Bolsillo";
+        }
+
+        if(tipoTransaccion.equalsIgnoreCase("Transferencia")) {
+            if(detalleTransaccion.getCuentaTerceros() != null && detalleTransaccion.getIdBolsilloDestino() == null && detalleTransaccion.getIdBolsilloOrigen() == null) { // Transferido de mi cuenta a otra cuenta
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(idCuenta);
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(detalleTransaccion.getCuentaTerceros());
+            } else if(detalleTransaccion.getCuentaTerceros() == null && detalleTransaccion.getIdBolsilloDestino() != null && detalleTransaccion.getIdBolsilloOrigen() == null) { // Transferido de mi cuenta a un bolsillo
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(idCuenta);
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(detalleTransaccion.getIdBolsilloDestino().getNombre());
+            } else if(detalleTransaccion.getIdBolsilloOrigen() != null && detalleTransaccion.getIdBolsilloDestino() != null) { // Transferido de un bolsillo a otro
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(detalleTransaccion.getIdBolsilloOrigen().getNombre());
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(detalleTransaccion.getIdBolsilloDestino().getNombre());
+            } else if(detalleTransaccion.getIdBolsilloOrigen() != null && detalleTransaccion.getCuentaTerceros() == null && detalleTransaccion.getIdBolsilloDestino() == null) { // Transferido de un bolsillo a mi cuenta
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(detalleTransaccion.getIdBolsilloOrigen().getNombre());
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(idCuenta);
+            } else if(detalleTransaccion.getIdBolsilloOrigen() != null && detalleTransaccion.getCuentaTerceros() != null && !detalleTransaccion.getCuentaTerceros().isEmpty() && detalleTransaccion.getIdBolsilloDestino() == null) { // Transferido de un bolsillo a una cuenta de terceros
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(detalleTransaccion.getIdBolsilloOrigen().getNombre());
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(detalleTransaccion.getCuentaTerceros());
+            } else if(detalleTransaccion.getIdBolsilloOrigen() != null && detalleTransaccion.getIdCuentaDestino() != null) { // Transferido de un bolsillo a una cuenta
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(detalleTransaccion.getIdBolsilloOrigen().getNombre());
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(detalleTransaccion.getIdCuentaDestino().getId().toString());
+            } else if(detalleTransaccion.getIdCuentaOrigen() != null && detalleTransaccion.getIdCuentaDestino() != null) { // Transferido de un bolsillo a una cuenta
+                transaccionDto.setProductoOrigen(codigoOrigen);
+                transaccionDto.setNumeroProductoOrigen(detalleTransaccion.getIdCuentaOrigen().getId().toString());
+                transaccionDto.setProductoDestino(codigoDestino);
+                transaccionDto.setNumeroProductoDestino(detalleTransaccion.getIdCuentaDestino().getId().toString());
+            }
+        } else {
+            // Deposito & Retiro
+            transaccionDto.setProductoOrigen(codigoOrigen);
+            transaccionDto.setNumeroProductoOrigen(detalleTransaccion.getUsuarioId().getNombre());
+            transaccionDto.setProductoDestino(codigoDestino);
+            transaccionDto.setNumeroProductoDestino(idCuenta);
+        }
+
+        model.addAttribute("transaccion", transaccionDto);
+
+        return "transaccion/seeDetailsMovimientos";
     }
 }
