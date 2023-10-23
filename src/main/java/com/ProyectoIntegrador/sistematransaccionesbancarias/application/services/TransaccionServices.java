@@ -23,7 +23,7 @@ public class TransaccionServices {
     public boolean saveOrUpdateTransaccion(CuentaServices cuentaServices, TipoTransaccionServices tipoTransaccionServices, BolsilloServices bolsilloServices, TipoMovimientoServices tipoMovimientoServices, MapperTransaccion mapperTransaccion, MapperTipoMovimiento mapperTipoMovimiento, TransaccionDto transaccionDto, Usuario usuario, String tipoTransaccion) {
         try {
             Cuenta cuenta = cuentaServices.getCuentaByIdUsuario(usuario.getId());
-            Double saldoDisponible = cuenta.getSaldo(); // Hace referencia al saldo ottal de la cuenta, es decir el total de dinero que tiene el usuario en su cuenta
+            Double saldoDisponible = cuenta.getSaldoActual();
             Double monto = transaccionDto.getMonto();
 
             if(saldoDisponible < monto) {

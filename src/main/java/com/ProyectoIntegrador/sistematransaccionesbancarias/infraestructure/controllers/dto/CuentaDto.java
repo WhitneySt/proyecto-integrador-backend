@@ -23,7 +23,11 @@ public class CuentaDto {
     private String tipoCuenta;
     private Usuario usuarioId;
 
-    public CuentaDto(){}
+    public CuentaDto(){
+        this.fechaCreacion = new Date(System.currentTimeMillis());
+       // this.id = generarid();
+       // this.cvc = generarCvc();
+    }
 
     public CuentaDto(String nombre, Long id, Date fechaCreacion, Date fechaActualizacion, Double saldo, Double saldoActual, Double metaAhorro, Integer cvc, String tipoCuenta, Usuario usuarioId) {
         this.nombre = nombre;
@@ -116,6 +120,18 @@ public class CuentaDto {
 
     public void setUsuarioId(Usuario usuarioId) {
         this.usuarioId = usuarioId;
+    }
+
+
+    public Long generarid() {
+        Long id = ThreadLocalRandom.current().nextLong(100000000000L, 1000000000000L);
+        return id;
+    }
+
+    public int generarCvc() {
+        Random random = new Random();
+        int cvc = random.nextInt(900) + 100; // Genera un número aleatorio entre 100 y 999
+        return cvc;
     }
 
     @Override
