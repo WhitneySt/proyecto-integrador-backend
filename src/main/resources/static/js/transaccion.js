@@ -66,6 +66,17 @@ const numberToMoney = (number) => {
     }).format(number);
 };
 
+const checkedButton = (booleano)=>{
+    const label = document.querySelector('#miCuentaDestinoDiv label');
+    if(booleano){
+        label.style.backgroundColor = '#70A0FF';
+        label.style.color = 'white';
+    }else{
+        label.style.backgroundColor = 'transparent';
+        label.style.color = '#70A0FF';
+    }
+}
+
 btnDeposito.addEventListener('click', ()=>{
     openBolsilloModalDeposito()
 });
@@ -99,6 +110,7 @@ misBolsillosDestinos.checked=false;
 listaBolsilloOrigen.style.display='none';
 listaBolsillosDestino.style.display='none';
 inputMiCuentaDestino.style.display='none';
+checkedButton(false);
 
 for (let index = 0; index < MontoTransacciones.length; index++) {
     const element = MontoTransacciones[index];
@@ -155,6 +167,7 @@ otrasCuentas.addEventListener('input', (e)=>{
     if (e.target.checked) {
         misBolsillosDestinos.checked=false;
         miCuentaDestino.checked=false;
+        checkedButton(false);
         document.getElementById('bolsillosDestino').value = '';
         listaBolsillosDestino.style.display='none';
         inputCuentaDestino.style.display='block';
@@ -162,6 +175,7 @@ otrasCuentas.addEventListener('input', (e)=>{
     }else{
         misBolsillosDestinos.checked=true;
         miCuentaDestino.checked=false;
+        checkedButton(false);
         listaBolsillosDestino.style.display='block';
         inputCuentaDestino.style.display='none';
     }
@@ -171,6 +185,7 @@ misBolsillosDestinos.addEventListener('input', (e)=>{
     if (e.target.checked) {
         otrasCuentas.checked=false;
         miCuentaDestino.checked=false;
+        checkedButton(false);
 
         /*if(bolsillosOrigen.value){
             bolsillosDestino.value='';
@@ -188,20 +203,24 @@ misBolsillosDestinos.addEventListener('input', (e)=>{
     }else{
         otrasCuentas.checked=true;
         miCuentaDestino.checked=false;
+        checkedButton(false);
         document.getElementById('bolsillosDestino').value = '';
         listaBolsillosDestino.style.display='none';
         inputCuentaDestino.style.display='block';
     }
 });
 
+
 miCuentaDestino.addEventListener('input',(e)=>{
     if(e.target.checked){
+        checkedButton(true);
         misBolsillosDestinos.checked=false;
         otrasCuentas.checked = false;
         document.getElementById('bolsillosDestino').value = '';
         listaBolsillosDestino.style.display='none';
         inputCuentaDestino.style.display='none';
     }else{
+        checkedButton(false);
         misBolsillosDestinos.checked=true;
         otrasCuentas.checked = false;
         listaBolsillosDestino.style.display='block';

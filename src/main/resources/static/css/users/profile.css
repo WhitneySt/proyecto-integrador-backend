@@ -61,3 +61,25 @@ main h1 {
   	font-size:13px;
   	font-weight:normal;
   }
+
+  .backBtn{
+   padding: 10px 20px;
+   color: #fff;
+   border-radius: 5px;
+   border: none;
+   font-size: 16px;
+   font-weight: 600;
+   cursor: pointer;
+   transition: all 0.3s ease-in-out;
+   background-color: #5F65F6;
+   text-decoration: none;
+   position: absolute;
+   left: 50%;
+   transform: translateX(-50%);
+
+   margin-bottom: 10px;
+  }
+
+  .backBtn:hover{
+  opacity: 0.8;
+  }
