@@ -71,7 +71,7 @@ public class SecurityConfig {
                                 authRaquests
 
                                         // las imagenes y los archivos css son publicos, hace referencia al nombre de la carpeta
-                                        .requestMatchers("/login","/registro","/css/**","/images/**").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
+                                        .requestMatchers("/login","/registro","/registro/guardarUsuario","/css/**","/images/**","/js/**").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
                                         .requestMatchers("/usuarios","/usuarios/**","/verUsuario","/crearUsuario","/editarUsuario").hasAuthority("Administrador") // los endpoints que empiecen con /usuarios y /usuarios/** solo pueden acceder los usuarios con rol 'Administrador', el rol se trae desde la base de datos con el nombre y  no el id, esto se hace en el método configAuthentication
                                         .anyRequest().authenticated()
 
