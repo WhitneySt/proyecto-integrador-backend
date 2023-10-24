@@ -1,6 +1,11 @@
 <section id="container_informe" th:fragment="administradorInforme"  >
     <h2>Informe</h2>
 
+    <!-- FALTAN HACER LAS VALIDACIONES POR SI EL VALOR ES IGUAL A 0 SE MUESTRE EL 0  -->
+    <!-- EJEMPLO -->
+    <!-- <p th:if="${cantidadUsuarios != 0}">Usuarios: <span th:text="${cantidadUsuarios}"></span></p> -->
+    <!-- <p th:if="${cantidadUsuarios == 0}">Usuarios: <span>0</span></p> -->
+
     <div class="cardsInforme">
 
         <div class="cardInforme">
@@ -18,9 +23,9 @@
             <h3>Actividad de usuarios </h3>
             <hr>
             <p>Bolsillos creados: <span th:text="${cantidadBolsillos}"></span></p>
-            <p>Saldo promedio: $<span th:text="${#numbers.formatInteger(promedioDineroCuentas,3, 'POINT')}"></span></p>
             <p>Total dinero: $<span th:text="${#numbers.formatInteger(totalDineroCuentas,3, 'POINT')}"></span></p>
-            <p>Promedio de transacciones: <span>10</span></p>
+            <p>Saldo promedio: $<span th:text="${#numbers.formatInteger(promedioDineroCuentas,3, 'POINT')}"></span></p>
+            <p>Total en transacciones: $<span th:text="${#numbers.formatInteger(totalDineroTransacciones,3, 'POINT')}"></span></p>
 
 
         </div>
@@ -40,10 +45,10 @@
             <!-- total transacciones,depositos,tranferencias,retiros -->
             <h3>Movimientos</h3>
             <hr>
-            <p id="totalTransacciones">Total transacciones: <span>10000</span></p>
-            <p>Cantidad de depósitos: <span>10</span></p>
-            <p>cantidad de transferencias: <span>1000</span></p>
-            <p> cantidad de retiros: <span>10000</span></p>
+            <p>Cantidad de transacciones: <span th:text="${cantidadTransacciones}"></span></p>
+            <p>Cantidad de retiros:  <span th:text="${cantidadRetiros}"></span></p>
+            <p>Cantidad de depósitos: <span th:text="${cantidadDepositos}"></span></p>
+            <p>Cantidad de transferencias: <span th:text="${cantidadTransferencias}"></span></p>
         </div>
 
 

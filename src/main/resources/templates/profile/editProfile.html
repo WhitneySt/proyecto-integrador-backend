@@ -84,6 +84,13 @@ document.querySelector('form').addEventListener("submit", function(event) {
   }
   else {
     event.target.submit(); // Si todo está correcto, envía el formulario
+    mostrarAlerta('info', 'Cargando', 'Espere un momento...'); // Alerta de espera mientras se envía el formulario y se sube la imagen
+
+    // Esperar 3 segundos y luego cerrar la alerta y enviar el formulario
+    setTimeout(function() {
+      Swal.close();
+      event.target.submit();
+    }, 3000);
     }
 
 });

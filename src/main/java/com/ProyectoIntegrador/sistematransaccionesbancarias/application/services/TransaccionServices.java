@@ -7,6 +7,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.cont
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTipoMovimiento;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TransaccionServices {
             Double monto = transaccionDto.getMonto();
 
             if(saldoDisponible < monto) {
-                System.out.printf("rechazar la transaccion!");
+                System.out.printf("rechazar la transaccion por falta de fondos!");
                 return false;
             }
 
@@ -153,11 +154,11 @@ public class TransaccionServices {
                 boolean esRetiro = _tipoTransaccion.getNombre().equalsIgnoreCase("Retiro");
 
                 if(esDeposito) {
-                    cuenta.setSaldoActual(saldoDisponible + monto);
+                    cuenta.setSaldo(saldoDisponible + monto);
                 }
 
                 if (esRetiro){
-                    cuenta.setSaldoActual(saldoDisponible - monto);
+                    cuenta.setSaldo(saldoDisponible - monto);
                 }
 
                 transaccionDto.setIdCuentaDestino(cuenta);
@@ -185,6 +186,44 @@ public class TransaccionServices {
     public boolean deleteTransaccionById(Integer id){
         return transaccionRepository.deleteTransaccionById(id);
     }
+
+    public Integer getCantidadTransacciones() {
+        return transaccionRepository.getCantidadTransacciones();
+    }
+
+    public BigDecimal getTotalDineroTransacciones() {
+        return transaccionRepository.getTotalDineroTransacciones();
+    }
+
+    public Integer getCantidadDepositos() {
+        return transaccionRepository.getCantidadDepositos();
+    }
+
+    public Integer getCantidadRetiros() {
+        return transaccionRepository.getCantidadRetiros();
+    }
+
+    public Integer getCantidadTransferencias() {
+        return transaccionRepository.getCantidadTransferencias();
+    }
+
+    public BigDecimal getTotalDepositosByIdUsuario(Long usuarioId) {
+        return transaccionRepository.getTotalDepositosByIdUsuario(usuarioId);
+    }
+
+    // Obtiene el total de retiros de un usuario
+    public BigDecimal getTotalRetirosByIdUsuario(Long usuarioId) {
+        return transaccionRepository.getTotalRetirosByIdUsuario(usuarioId);
+    }
+
+    public BigDecimal getTotalTransferenciasByIdUsuario(Long usuarioId) {
+        return transaccionRepository.getTotalTransferenciasByIdUsuario(usuarioId);
+    }
+
+    public BigDecimal getBalanceNetoById(Long usuarioId) {
+        return transaccionRepository.getBalanceNetoByIdUsuario(usuarioId);
+    }
+
 
     public Transaccion getTransaccionById(Integer id) {
         return transaccionRepository.getTransaccionById(id);

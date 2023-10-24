@@ -124,6 +124,9 @@ public class TransaccionController {
     
     @PostMapping("/crearTransaccion/{tipoTransaccion}")
     public String crearTransaccion(@PathVariable String tipoTransaccion, TransaccionDto transaccionDto, RedirectAttributes redirectAttributes, HttpServletRequest request) {
+        System.out.println("Haciendo deposit");
+        System.out.println("tipoTransaccion: " + tipoTransaccion);
+        System.out.println(transaccionDto.toString());
         try {
             Usuario usuarioLogeado = getUsuarioLogeado(request);
             boolean guardado = transaccionServices.saveOrUpdateTransaccion(cuentaServices, tipoTransaccionServices, bolsilloServices, tipoMovimientoServices,  mapperTransaccion, mapperTipoMovimiento, transaccionDto, usuarioLogeado, tipoTransaccion);

@@ -94,6 +94,8 @@ public class BolsilloController {
             @ApiResponse(responseCode = "500", description = "Error interno del servidor")
                             })
     public String bolsillos(Model model, HttpServletRequest request) {
+
+        InformationUsuarioModel(model,request);
         BolsilloDto bolsilloDto = new BolsilloDto();
         List<Bolsillo> listaBolsillos = null;
 

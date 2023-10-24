@@ -70,14 +70,10 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authRaquests ->
                                 authRaquests
 
-                                        .requestMatchers("/login","/registro").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
-                                        .requestMatchers("/home","/").authenticated()  // los endpoints que empiecen con /home y / requieren autenticacion
-                                        .requestMatchers("/usuarios","/usuarios/**").hasAuthority("Administrador") // los endpoints que empiecen con /usuarios y /usuarios/** solo pueden acceder los usuarios con rol 'Administrador', el rol se trae desde la base de datos con el nombre y  no el id, esto se hace en el método configAuthentication
-                                        .requestMatchers("/editarPerfil").authenticated()
-                                        .requestMatchers("/editarPerfil","/perfil").authenticated()
-                                        .requestMatchers("/estadistica").authenticated()
-                                        .anyRequest().permitAll() // cualquier otra ruta es publica y no requiere autenticacion
-                                        //.anyRequest().authenticated()
+                                        // las imagenes y los archivos css son publicos, hace referencia al nombre de la carpeta
+                                        .requestMatchers("/login","/registro","/registro/guardarUsuario","/css/**","/images/**","/js/**").permitAll() // los endpoints que empiecen con  /registro y login son publicos y no requieren autenticacion
+                                        .requestMatchers("/usuarios","/usuarios/**","/verUsuario","/crearUsuario","/editarUsuario").hasAuthority("Administrador") // los endpoints que empiecen con /usuarios y /usuarios/** solo pueden acceder los usuarios con rol 'Administrador', el rol se trae desde la base de datos con el nombre y  no el id, esto se hace en el método configAuthentication
+                                        .anyRequest().authenticated()
 
                 )
 

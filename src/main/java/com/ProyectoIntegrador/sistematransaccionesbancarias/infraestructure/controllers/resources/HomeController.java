@@ -35,6 +35,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Random;
 
 import static com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.controllers.resources.Controller.getUsuarioLogeado;
 
@@ -135,6 +136,9 @@ public class HomeController {
         cuentaDto.setSaldoActual(cuentaDto.getSaldo());
         cuentaDto.setFechaCreacion(new Date());
         cuentaDto.setTipoCuenta("Ahorros");
+        cuentaDto.setCvc(generarCvc());
+        System.out.println(cuentaDto.toString()    );
+
 
         Cuenta cuenta = mapperCuenta.CuentaDtoToCuentaDomain(cuentaDto);
         boolean guardado = cuentaServices.saveOrUpdateCuenta(cuenta); // Se guarda la cuenta en la base de datos
@@ -162,6 +166,12 @@ public class HomeController {
         model.addAttribute("urlImageUsuario", urlImageUsuario); // Se agrega la url de la imagen del usuario al modelo para poder usarlo en la vista
 
         return model;
+    }
+
+    public int generarCvc() {
+        Random random = new Random();
+        int cvc = random.nextInt(900) + 100; // Genera un número aleatorio entre 100 y 999
+        return cvc;
     }
 
 

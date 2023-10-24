@@ -5,6 +5,7 @@ import com.ProyectoIntegrador.sistematransaccionesbancarias.domain.repositories.
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.data.dbo.TransaccionJPAEntity;
 import com.ProyectoIntegrador.sistematransaccionesbancarias.infraestructure.mapper.MapperTransaccion;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -51,6 +52,57 @@ public class TransaccionImplementacion implements TransaccionRepository {
     public boolean deleteTransaccionById(Integer id) {
         transaccionJPARepository.deleteById(id);
         return transaccionJPARepository.findById(id).isEmpty();
+    }
+
+    @Override
+    public Double getTotalSaldoTransacciones(Long usuarioId) {
+        return transaccionJPARepository.getTotalSaldoTransacciones(usuarioId);
+    }
+
+    @Override
+    public Integer getCantidadTransacciones() {
+        return transaccionJPARepository.getCantidadTransacciones();
+    }
+
+    @Override
+    public BigDecimal getTotalDineroTransacciones() {
+        return transaccionJPARepository.obtenerSumaDeMontosTransacciones();
+    }
+
+    // get cantidad_depositos
+    @Override
+    public Integer getCantidadDepositos() {
+        return transaccionJPARepository.getCantidadDepositos();
+    }
+
+    @Override
+    public Integer getCantidadRetiros() {
+        return transaccionJPARepository.getCantidadRetiros();
+    }
+
+    @Override
+    public Integer getCantidadTransferencias() {
+        return transaccionJPARepository.getCantidadTransferencias();
+    }
+
+    @Override
+    public BigDecimal getTotalDepositosByIdUsuario(Long usuarioId) {
+        return transaccionJPARepository.getTotalDepositosByIdUsuario(usuarioId);
+    }
+
+    @Override
+    public BigDecimal getTotalRetirosByIdUsuario(Long usuarioId) {
+        return transaccionJPARepository.getTotalRetirosByIdUsuario(usuarioId);
+    }
+
+    @Override
+    public BigDecimal getTotalTransferenciasByIdUsuario(Long usuarioId) {
+        return transaccionJPARepository.getTotalTransferenciasByIdUsuario(usuarioId);
+    }
+
+    @Override
+    public BigDecimal getBalanceNetoByIdUsuario(Long usuarioId) {
+        return transaccionJPARepository.getBalanceNetoByIdUsuario(usuarioId);
     }
 
 }
