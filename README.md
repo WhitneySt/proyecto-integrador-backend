@@ -3,7 +3,7 @@
 <h1  align="center">Proyecto Integrador <br>  Sistema de Transacciones Bancarias </h1>
 
 ## La Solución Bancaria Todo en Uno
-Bienvenido a **Banco Makia** , un sistema de transacciones bancarias diseñado para simular y gestionar transacciones financieras de manera segura y eficiente.
+Bienvenido a **Banco Makaia** , un sistema de transacciones bancarias diseñado para simular y gestionar transacciones financieras de manera segura y eficiente.
 
 ## Descripción
 Este proyecto simula un sistema bancario completo, permitiendo a usuarios realizar una variedad de transacciones financieras. El proyecto se enfoca en proporcionar un conjunto de características esenciales, incluyendo la apertura de cuentas, depósitos, transferencias, y la gestión de bolsillos.
@@ -13,7 +13,7 @@ El objetivo principal  es brindar una plataforma de simulación de transacciones
 
 ## Características
 
-Banco Makia ofrece una serie de características para usuarios y administradores, que incluyen:
+Banco Makaia ofrece una serie de características para usuarios y administradores, que incluyen:
 
 - Apertura de cuentas bancarias.
 - Realización de depósitos en cuentas.
