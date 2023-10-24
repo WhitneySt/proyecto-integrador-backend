@@ -19,6 +19,10 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Give execute permission to gradlew
+        run: chmod +x ./gradlew  # Agrega permisos de ejecución
+        working-directory: .  # Reemplaza 'your-project-directory' por la ubicación real de gradlew en tu proyecto
+
       - name: clean project
         run: ./gradlew clean build
       - name: run all test
