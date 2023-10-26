@@ -88,7 +88,7 @@ public class EstadisticaController {
             @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
             @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
     })
-    @GetMapping("/estadistica")
+    @GetMapping("/estadisticas")
     public String estadistica(Model model, HttpServletRequest request){
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
@@ -207,8 +207,8 @@ public class EstadisticaController {
 
         }
         model.addAttribute("usuarioRol",usuarioLogeado.getRol().getNombre()); // Se guarda el usuario en el model
-        
-        return "redirect:/estadisticas";
+
+        return "estadisticas/estadisticas";
     }
 
 }
