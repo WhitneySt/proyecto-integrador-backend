@@ -78,11 +78,11 @@ public class HomeController {
             @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
             @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
     })*/
-    // @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente")
+    // @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente")  Model model,HttpServletRequest request,  @ModelAttribute("mensaje") String mensajeRecibido
     @GetMapping("/home")
-    public String home( Model model,HttpServletRequest request,  @ModelAttribute("mensaje") String mensajeRecibido) {
+    public String home( ) {
 
-        Boolean isCuentaCreada = false;
+      /*  Boolean isCuentaCreada = false;
         Boolean isBolsilloCreado = false;
 
         InformationUsuarioModel(model,request); // Se obtiene el nombre  yla imgdel usuario que inició sesión y lo guarda eel model
@@ -116,8 +116,8 @@ public class HomeController {
         }
         model.addAttribute("isCuentaCreada", isCuentaCreada); // Se agrega la variable isCuentaCreada al modelo para poder usarlo en la vista
         model.addAttribute("isBolsilloCreado", isBolsilloCreado);
-
-        return "/home";
+*/
+        return "/prueba";
     }
 
 
