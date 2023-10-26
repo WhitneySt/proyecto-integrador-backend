@@ -117,7 +117,7 @@ public class HomeController {
         model.addAttribute("isCuentaCreada", isCuentaCreada); // Se agrega la variable isCuentaCreada al modelo para poder usarlo en la vista
         model.addAttribute("isBolsilloCreado", isBolsilloCreado);
 */
-        return "/prueba";
+        return "autenticacion/registroUsuario"; // Se retorna el nombre de la vista
     }
 
 
