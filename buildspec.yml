@@ -6,6 +6,7 @@ phases:
       java: corretto17
   build:
     commands:
+      - chmod +x ./gradlew
       - ./gradlew bootJar
   post_build:
     commands:
