@@ -152,7 +152,7 @@ public class HomeController {
             redirectAttributes.addFlashAttribute("mensaje","createError");
         }
 
-        return "redirect:/";
+        return "redirect:/home";
     }
 
     // Obtener el  nombre de usuario que inició sesión y lo pasa al model

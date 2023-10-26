@@ -89,7 +89,7 @@ public class EstadisticaController {
             @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
     })
     @GetMapping("/estadistica")
-    public String estadistica(@Parameter(description = "Se  obtiene la información del usuario logeado para determinar su rol y de esta manera mostrar su estadistica", example = "5") HttpServletRequest request, Model model){
+    public String estadistica(Model model, HttpServletRequest request){
 
         Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
         InformationUsuarioModel(model,request); // Se obtiene el nombre  yla imgdel usuario que inició sesión y lo guarda eel model
@@ -150,8 +150,7 @@ public class EstadisticaController {
 
 
 
-        }
-        else if(rolUsuario.equals("Administrador")){
+        } else if(rolUsuario.equals("Administrador")){
 
             List <Usuario> usuarios = usuarioServices.getAllUsuarios();
             List <Bolsillo> bolsillos = bolsilloServices.getAllBolsillos();
@@ -209,7 +208,7 @@ public class EstadisticaController {
         }
         model.addAttribute("usuarioRol",usuarioLogeado.getRol().getNombre()); // Se guarda el usuario en el model
         
-        return "/estadistica";
+        return "redirect:/estadisticas";
     }
 
 }
