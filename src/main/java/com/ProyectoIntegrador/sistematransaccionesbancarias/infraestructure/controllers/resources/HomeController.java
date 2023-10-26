@@ -72,12 +72,12 @@ public class HomeController {
     }
 
 
-    @Operation(summary = "Página de inicio", description = "Muestra la página de inicio con la información de la cuenta y los bolsillos del usuario logeado")
+ /*   @Operation(summary = "Página de inicio", description = "Muestra la página de inicio con la información de la cuenta y los bolsillos del usuario logeado")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Página de inicio mostrada correctamente", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Información cuenta</h1></body></html>"))),
             @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
             @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
-    })
+    })*/
     // @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente")
     @GetMapping("/home")
     public String home( Model model,HttpServletRequest request,  @ModelAttribute("mensaje") String mensajeRecibido) {
