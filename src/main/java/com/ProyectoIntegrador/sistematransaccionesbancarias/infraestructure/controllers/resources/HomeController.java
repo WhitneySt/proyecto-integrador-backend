@@ -81,14 +81,14 @@ public class HomeController {
     @GetMapping("/home")
     public String home( Model model,HttpServletRequest request, @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente") @ModelAttribute("mensaje") String mensajeRecibido) {
 
-      /*  Boolean isCuentaCreada = false;
+        Boolean isCuentaCreada = false;
         Boolean isBolsilloCreado = false;
 
         InformationUsuarioModel(model,request); // Se obtiene el nombre  yla imgdel usuario que inició sesión y lo guarda eel model
 
         CuentaDto cuentaDto = new CuentaDto();
         BolsilloDto bolsilloDto = new BolsilloDto();
-
+        
         try{
             Usuario usuarioLogeado = getUsuarioLogeado(request); // Se obtiene el usuario que inició sesión
             Integer idUsuarioLogueado = usuarioLogeado.getId();
@@ -117,9 +117,6 @@ public class HomeController {
         model.addAttribute("isBolsilloCreado", isBolsilloCreado);
 
         return "/home";
-        */
-
-        return "/prueba";
     }
 
 
