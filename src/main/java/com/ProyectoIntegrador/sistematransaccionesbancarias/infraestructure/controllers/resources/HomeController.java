@@ -78,8 +78,9 @@ public class HomeController {
             @ApiResponse(responseCode = "401", description = "No se ha iniciado sesión", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Iniciar sesión</h1></body></html>"))),
             @ApiResponse(responseCode = "403", description = "Acceso denegado", content = @Content(mediaType = "text/html", examples = @ExampleObject(value = "<html><body><h1>Acceso denegado</h1></body></html>"))),
     })
+    // @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente")
     @GetMapping("/home")
-    public String home( Model model,HttpServletRequest request, @Parameter(description = "Mensaje a mostrar en la página de inicio", example = "Cuenta creada correctamente") @ModelAttribute("mensaje") String mensajeRecibido) {
+    public String home( Model model,HttpServletRequest request,  @ModelAttribute("mensaje") String mensajeRecibido) {
 
         Boolean isCuentaCreada = false;
         Boolean isBolsilloCreado = false;
